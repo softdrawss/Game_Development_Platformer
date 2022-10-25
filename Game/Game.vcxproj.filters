@@ -20,6 +20,7 @@
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
+    <ClCompile Include="Source\FadeToBlack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -63,6 +64,7 @@
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Physics.h" />
+    <ClInclude Include="Source\FadeToBlack.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
