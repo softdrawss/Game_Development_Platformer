@@ -47,15 +47,15 @@ bool Player::Update()
 
 	// L07 DONE 5: Add physics to the player - updated player position using physics
 
-	int speed = 10; 
+	int speed = 5; 
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y); 
 
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		//
+		//vel = b2Vec2(-speed, -GRAVITY_Y);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		//
+		//vel = b2Vec2(-speed, -GRAVITY_Y);
 	}
 		
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
@@ -64,6 +64,45 @@ bool Player::Update()
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		vel = b2Vec2(speed, -GRAVITY_Y);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
+
+	}
+	
+	// F1/F2 Start from the first/second level
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_REPEAT) {
+
+	}
+	
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_REPEAT) {
+
+	}
+	
+	// F3: Start from the beginning of the current level
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_REPEAT) {
+
+	}
+
+	// F5: Save the current game state
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_REPEAT) {
+		parameters.attribute("x").as_int() = position.x;
+		parameters.attribute("y").as_int() = position.y;
+	}
+
+	// F16: Load the previous state (even across levels
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_REPEAT) {
+
+	}
+
+	// F9: View colliders / logic
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_REPEAT) {
+
+	}
+
+	// F10: God Mode (fly around, cannot be killed, etc)
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_REPEAT) {
+
 	}
 
 	//Set the velocity of the pbody of the player
