@@ -70,7 +70,7 @@ bool Player::Update()
 
 	}
 	
-	// F1/F2 Start from the first/second level
+	// F1/F2: Start from the first/second level
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_REPEAT) {
 
 	}
@@ -90,7 +90,7 @@ bool Player::Update()
 		savedPosition.y = position.y;
 	}
 
-	// F16: Load the previous state (even across levels)
+	// F6: Load the previous state (even across levels)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_REPEAT) {
 
 	}

@@ -21,6 +21,9 @@
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
+    <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Logo.cpp" />
+    <ClCompile Include="Ending.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -65,6 +68,9 @@
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\FadeToBlack.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="Logo.h" />
+    <ClInclude Include="Ending.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
