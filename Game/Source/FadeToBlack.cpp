@@ -8,7 +8,9 @@
 
 FadeToBlack::FadeToBlack() : Module()
 {
-	screenRect = { 0, 0, app->win->width * app->win->scale, SCREEN_HEIGHT * SCREEN_SIZE };
+	uint w, h;
+	/*app->win->GetWindowSize(w, h);
+	screenRect = { 0, 0, (int) w * (int) app->win->scale, (int) h * (int )app->win->scale };*/
 }
 
 FadeToBlack::~FadeToBlack()
