@@ -31,7 +31,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
-	app = new FadeToBlack();
+	fade = new FadeToBlack();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

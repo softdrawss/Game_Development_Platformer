@@ -91,6 +91,7 @@ public:
 	Map* map;
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
+	FadeToBlack* fade;
 
 private:
 

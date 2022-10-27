@@ -3,12 +3,12 @@
 #include "App.h"
 #include "Render.h"
 #include "Log.h"
-
+#include "Window.h"
 #include "SDL/include/SDL_render.h"
 
 FadeToBlack::FadeToBlack() : Module()
 {
-	screenRect = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
+	screenRect = { 0, 0, app->win->width * app->win->scale, SCREEN_HEIGHT * SCREEN_SIZE };
 }
 
 FadeToBlack::~FadeToBlack()

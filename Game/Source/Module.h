@@ -14,7 +14,9 @@ public:
 
 	Module() : active(false)
 	{}
-
+	
+	bool isEnabled = true;
+	
 	void Init()
 	{
 		active = true;
@@ -70,6 +72,23 @@ public:
 	virtual void OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	{
 
+	}
+	void Module::Enable()
+	{
+		if (!isEnabled)
+		{
+			isEnabled = true;
+			Start();
+		}
+	}
+
+	void Module::Disable()
+	{
+		if (isEnabled)
+		{
+			isEnabled = false;
+			CleanUp();
+		}
 	}
 
 public:
