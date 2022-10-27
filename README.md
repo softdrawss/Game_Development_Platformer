@@ -2,6 +2,7 @@
 
 ## Description
 
+(FADETOBLACK DOES NOT WORK YET; IMPORTANT!!)
 {project description}
 
 ## Key Features
@@ -17,8 +18,8 @@
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
+ - {Héctor Báscones} - {Role(s)}
+ - {Júlia Serra Trujillo} - {Role(s)}
  - {Dev03} - {Role(s)}
  - {Dev04} - {Role(s)}
 
