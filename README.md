@@ -3,6 +3,8 @@
 ## Description
 
  - (FADETOBLACK DOES NOT WORK YET; IMPORTANT!!)
+ - (Title.h either)
+
 {project description}
 
 ## Key Features
