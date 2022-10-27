@@ -95,11 +95,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Ending.cpp" />
-    <ClCompile Include="Logo.cpp" />
+    <ClCompile Include="Source\Ending.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
     <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\Logo.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -110,14 +110,14 @@
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
+    <ClCompile Include="Source\Title.cpp" />
     <ClCompile Include="Source\Window.cpp" />
-    <ClCompile Include="Title.cpp" />
-    <ClInclude Include="Ending.h" />
-    <ClInclude Include="Logo.h" />
+    <ClInclude Include="Source\Ending.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FadeToBlack.h" />
     <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\Logo.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Player.h" />
@@ -129,6 +129,7 @@
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\Render.h" />
     <ClInclude Include="Source\Textures.h" />
+    <ClInclude Include="Source\Title.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
     <ClInclude Include="Source\List.h" />
@@ -140,7 +141,6 @@
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
-    <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

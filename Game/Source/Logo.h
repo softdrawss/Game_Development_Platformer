@@ -1,5 +1,5 @@
-#ifndef __TITLE_H__
-#define __TITLE_H__
+#ifndef __LOGO_H__
+#define __LOGO_H__
 
 #include "Module.h"
 #include "Player.h"
@@ -7,14 +7,14 @@
 
 struct SDL_Texture;
 
-class Title : public Module
+class Logo : public Module
 {
 public:
 
-	Title();
+	Logo();
 
 	// Destructor
-	virtual ~Title();
+	virtual ~Logo();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -36,12 +36,8 @@ public:
 
 public:
 
-	//L02: DONE 3: Declare a Player attribute 
-	Player* player;
-
 private:
 	SDL_Texture* img;
-
 };
 
-#endif // __TITLE_H__
+#endif // __LOGO_H__
