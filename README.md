@@ -2,7 +2,7 @@
 
 ## Description
 
-(FADETOBLACK DOES NOT WORK YET; IMPORTANT!!)
+ - (FADETOBLACK DOES NOT WORK YET; IMPORTANT!!)
 {project description}
 
 ## Key Features
@@ -15,13 +15,20 @@
 ## Controls
 
  - {ControlsScheme}
+ - WASD: Movement
+ - SPACE: Jump
+ - ESC: Quit
+ - F1/F2: Start from the first/second level
+ - F3: Start from the beginning of the current level
+ - F5: Save the current game state
+ - F6: Load the previous state (even across levels)
+ - F9: View colliders / logic
+ - F10: God Mode (fly around, cannot be killed, etc)
 
 ## Developers
 
  - {Héctor Báscones} - {Role(s)}
  - {Júlia Serra Trujillo} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
 
 ## License
 
