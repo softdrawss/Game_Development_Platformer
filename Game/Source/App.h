@@ -20,7 +20,7 @@ class EntityManager;
 class Map;
 //L07 DONE 2: Add Physics module
 class Physics;
-
+class FadeToBlack;
 class App
 {
 public:

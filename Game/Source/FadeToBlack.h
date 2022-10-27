@@ -1,34 +1,34 @@
-#ifndef __MODULEFADETOBLACK_H__
-#define __MODULEFADETOBLACK_H__
+#ifndef __FADETOBLACK_H__
+#define __FADETOBLACK_H__
 
 #include "Module.h"
 #include "SDL\include\SDL_rect.h"
 
-class ModuleFadeToBlack : public Module
+class FadeToBlack : public Module
 {
 public:
 	//Constructor
-	ModuleFadeToBlack(bool startEnabled);
+	FadeToBlack();
 
 	//Destructor
-	~ModuleFadeToBlack();
+	~FadeToBlack();
 
 	// Called when the module is activated
 	// Enables the blending mode for transparency
-	bool Start() override;
+	bool Start();
 
 	// Called at the middle of the application loop
 	// Updates the fade logic
-	Update_Status Update() override;
+	bool Update();
 
 	// Called at the end of the application loop
 	// Performs the render call of a black rectangle with transparency
-	Update_Status PostUpdate() override;
+	bool PostUpdate() override;
 
 	// Called from another module
 	// Starts the fade process which has two steps, fade_out and fade_in
 	// After the first step, the modules should be switched
-	bool FadeToBlack(Module* toDisable, Module* toEnable, float frames = 60);
+	bool Fade(Module* toDisable, Module* toEnable, float frames = 60);
 
 private:
 

@@ -86,11 +86,11 @@ bool Player::Update()
 
 	// F5: Save the current game state
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_REPEAT) {
-		parameters.attribute("x").as_int() = position.x;
-		parameters.attribute("y").as_int() = position.y;
+		savedPosition.x = position.x;
+		savedPosition.y = position.y;
 	}
 
-	// F16: Load the previous state (even across levels
+	// F16: Load the previous state (even across levels)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_REPEAT) {
 
 	}
