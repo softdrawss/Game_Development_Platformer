@@ -71,6 +71,7 @@
     <ClInclude Include="Source\Ending.h" />
     <ClInclude Include="Source\Logo.h" />
     <ClInclude Include="Source\Title.h" />
+    <ClInclude Include="Source\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

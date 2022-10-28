@@ -9,6 +9,9 @@
 #include "Map.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
+#include "Logo.h"
+#include "Title.h"
+#include "Ending.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -32,6 +35,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	map = new Map();
 	fade = new FadeToBlack();
+	logo = new Logo();
+	titleScreen = new Title();
+	endScreen = new Ending();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

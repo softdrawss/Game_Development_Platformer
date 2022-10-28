@@ -50,12 +50,15 @@ bool Player::Update()
 	int speed = 5; 
 	b2Vec2 vel = b2Vec2(0, -GRAVITY_Y); 
 
-	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
+	// L02: DONE 4: modify the position of the player using arrow keys and render the texture
+	// Maybe can be used to go up through some stairs (?)
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		//vel = b2Vec2(-speed, -GRAVITY_Y);
+		vel = b2Vec2(0, -speed);
 	}
+	// Honestly this won't be used
+	// Could be used to crouch (maybe to go through passages where the player cannot stand up?)
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		//vel = b2Vec2(-speed, -GRAVITY_Y);
+		vel = b2Vec2(0, speed);
 	}
 		
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {

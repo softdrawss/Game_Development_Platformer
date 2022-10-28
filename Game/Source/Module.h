@@ -73,7 +73,7 @@ public:
 	{
 
 	}
-	void Module::Enable()
+	virtual void Enable()
 	{
 		if (!isEnabled)
 		{
@@ -82,7 +82,7 @@ public:
 		}
 	}
 
-	void Module::Disable()
+	virtual void Disable()
 	{
 		if (isEnabled)
 		{
