@@ -102,6 +102,10 @@ bool Title::PostUpdate()
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+	
+	// ENTER: BEGIN
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		//
 
 	return ret;
 }

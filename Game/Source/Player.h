@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -33,7 +34,8 @@ private:
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
-
+	Animation* left, right, up, down, death;	// jump
+	Animation deathanim, iddledeathanim;
 };
 
 #endif // __PLAYER_H__
