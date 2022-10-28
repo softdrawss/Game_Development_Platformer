@@ -8,9 +8,7 @@
 
 FadeToBlack::FadeToBlack() : Module()
 {
-	uint w, h;
-	/*app->win->GetWindowSize(w, h);
-	screenRect = { 0, 0, (int) w * (int) app->win->scale, (int) h * (int )app->win->scale };*/
+	
 }
 
 FadeToBlack::~FadeToBlack()
@@ -20,6 +18,10 @@ FadeToBlack::~FadeToBlack()
 
 bool FadeToBlack::Start()
 {
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	screenRect = { 0, 0, (int)w * (int)app->win->scale, (int)h * (int)app->win->scale };
+
 	LOG("Preparing Fade Screen");
 
 	// Enable blending mode for transparency
