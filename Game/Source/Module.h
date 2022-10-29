@@ -73,6 +73,7 @@ public:
 	{
 
 	}
+
 	virtual void Enable()
 	{
 		if (!isEnabled)
