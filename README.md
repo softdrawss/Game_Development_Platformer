@@ -2,8 +2,7 @@
 
 ## Description
 
- - (FADETOBLACK DOES NOT WORK YET; IMPORTANT!!)
- - (Title.h either)
+ - (logo, titleScreen and endScreen are commented on App.cpp in order to make the program work before we change it and make it function with enable() and disable())
 
 {project description}
 
