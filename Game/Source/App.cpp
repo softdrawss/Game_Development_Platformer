@@ -47,10 +47,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
-	AddModule(logo);
-	AddModule(titleScreen);
+	//AddModule(logo);
+	//AddModule(titleScreen);
 	AddModule(scene);
-	AddModule(endScreen);
+	//AddModule(endScreen);
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(fade);
