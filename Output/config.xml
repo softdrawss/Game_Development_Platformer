@@ -1,6 +1,6 @@
 <config>
   <app>
-    <title>Game Development Testbed</title>
+    <title>Platformer Kawaii by Juls&Hekbas  -  Game Development</title>
     <organization>UPC</organization>
   </app>
 
@@ -33,7 +33,7 @@
 
   <map>
     <mapfolder path="Assets/Maps/"/>
-    <mapfile path="Assets/Maps/MapTemplate.tmx"/>
+    <mapfile path="Assets/Maps/Level_1.tmx"/>
   </map>
   
 </config>

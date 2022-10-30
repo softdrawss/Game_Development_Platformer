@@ -1,4 +1,3 @@
-
 #include "App.h"
 #include "Render.h"
 #include "Textures.h"
@@ -37,18 +36,20 @@ void Map::Draw()
     if(mapLoaded == false)
         return;
 
-    /*
+    
     // L04: DONE 6: Iterate all tilesets and draw all their 
     // images in 0,0 (you should have only one tileset for now)
 
     ListItem<TileSet*>* tileset;
     tileset = mapData.tilesets.start;
 
+    int i = 0;
     while (tileset != NULL) {
-        app->render->DrawTexture(tileset->data->texture,0,0);
+        i++;
+        app->render->DrawTexture(tileset->data->texture,50*i,0);
         tileset = tileset->next;
     }
-    */
+    
 
     // L05: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
 
@@ -193,9 +194,10 @@ bool Map::Load()
     
     // L07 DONE 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
-    app->physics->CreateRectangle(224 + 128, 543 + 32, 256, 64, STATIC);
+    app->physics->CreateRectangle(0, 0, 256, 1000, STATIC);
+    /*app->physics->CreateRectangle(224 + 128, 543 + 32, 256, 64, STATIC);
     app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
-    app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
+    app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);*/
 
     if(ret == true)
     {
@@ -370,5 +372,3 @@ Properties::Property* Properties::GetProperty(const char* name)
 
     return p;
 }
-
-
