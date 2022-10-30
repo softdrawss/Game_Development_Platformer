@@ -119,3 +119,51 @@ void Textures::GetSize(const SDL_Texture* texture, uint& width, uint& height) co
 {
 	SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, (int*) &width, (int*) &height);
 }
+
+// Load new texture from file path
+int Textures::LoadSprite(const char* texture_path, uint columns, uint rows)
+{
+	int len = columns * rows;
+	int id = -1;
+
+	if (texture_path == nullptr || columns == NULL || rows == NULL)
+	{
+		LOG("Could not load font");
+		return id;
+	}
+
+	SDL_Texture* tex = Load(texture_path);
+
+	if (tex == nullptr || len >= MAX_TETROMINO_BLOCKS)
+	{
+		LOG("Could not load font at %s with '%d' columns", texture_path, columns);
+		return id;
+	}
+
+	id = 0;
+	for (; id < MAX_TETROMINOS; ++id)
+		if (tetrominos[id].texture == nullptr)
+			break;
+
+	if (id == MAX_TETROMINOS)
+	{
+		LOG("Cannot load font %s. Array is full (max %d).", texture_path, MAX_TETROMINOS);
+		return id;
+	}
+
+	Tetrominos& tetromino = tetrominos[id];
+
+	tetromino.texture = tex;
+	tetromino.rows = rows;
+	tetromino.columns = columns;
+	tetromino.totalLength = len;
+
+	uint tex_w, tex_h;
+	GetSize(tex, tex_w, tex_h);
+	tetromino.block_w = tex_w / tetromino.columns;
+	tetromino.block_h = tex_h / tetromino.rows;
+
+	LOG("Successfully loaded BMP font from %s", texture_path);
+
+	return id;
+}

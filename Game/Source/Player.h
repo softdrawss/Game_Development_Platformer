@@ -27,11 +27,11 @@ public:
 public:
 
 private:
-
+	
 	//L02: DONE 1: Declare player parameters
 	SDL_Texture* texture;
 	const char* texturePath;
-
+	int id;
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 	Animation* left, right, up, down, death;	// jump?

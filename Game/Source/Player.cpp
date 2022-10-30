@@ -36,9 +36,12 @@ bool Player::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-
+	id = app->tex->LoadSprite(texturePath, 15, 8);
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 16, bodyType::DYNAMIC);
+
+	left->PushBack(tetrominos[1]); // m'ho he de mirar
+
 	return true;
 }
 
