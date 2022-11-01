@@ -43,12 +43,12 @@ void Map::Draw()
     ListItem<TileSet*>* tileset;
     tileset = mapData.tilesets.start;
 
-    int i = 0;
+   /* int i = 0;
     while (tileset != NULL) {
         i++;
         app->render->DrawTexture(tileset->data->texture,50*i,0);
         tileset = tileset->next;
-    }
+    }*/
     
 
     // L05: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
@@ -56,8 +56,8 @@ void Map::Draw()
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
 
-    while (mapLayerItem != NULL) {
-
+    while (mapLayerItem != NULL)
+    {
         //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
@@ -194,7 +194,11 @@ bool Map::Load()
     
     // L07 DONE 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
-    app->physics->CreateRectangle(0, 0, 256, 1000, STATIC);
+    if (ret == true)
+    {
+        ret = CreateColliders();
+    }
+
     /*app->physics->CreateRectangle(224 + 128, 543 + 32, 256, 64, STATIC);
     app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
     app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);*/
@@ -354,6 +358,34 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
     return ret;
 }
 
+bool Map::CreateColliders()
+{
+    bool ret = true;
+
+    ListItem<MapLayer*>* mapLayerItem;
+    mapLayerItem = mapData.maplayers.start;
+
+    while (mapLayerItem != NULL)
+    {
+        if (mapLayerItem->data->name == "COLLIDERS")
+        {
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    if (mapLayerItem->data->Get(x, y) == 3139)
+                    {
+                        iPoint pos = MapToWorld(x, y);
+                        app->physics->CreateRectangle(pos.x, pos.y, 16, 16, STATIC);
+                    }                  
+                }
+            }
+        }
+
+        mapLayerItem = mapLayerItem->next;
+    }
+    return ret;
+}
 
 // L06: DONE 7: Ask for the value of a custom property
 Properties::Property* Properties::GetProperty(const char* name)
