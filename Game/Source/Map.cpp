@@ -369,6 +369,9 @@ bool Map::CreateColliders()
     {
         if (mapLayerItem->data->name == "COLLIDERS")
         {
+            int halfTileHeight = mapData.tileHeight / 2;
+            int halfTileWidth = mapData.tileWidth / 2;
+
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
@@ -376,7 +379,7 @@ bool Map::CreateColliders()
                     if (mapLayerItem->data->Get(x, y) == 3139)
                     {
                         iPoint pos = MapToWorld(x, y);
-                        app->physics->CreateRectangle(pos.x, pos.y, 16, 16, STATIC);
+                        app->physics->CreateRectangle(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC);
                     }                  
                 }
             }
