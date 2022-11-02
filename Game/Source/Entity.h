@@ -6,7 +6,7 @@
 #include "Input.h"
 #include "Render.h"
 
-struct Collider;
+class PhysBody;
 
 enum class EntityType
 {

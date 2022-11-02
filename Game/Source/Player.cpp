@@ -38,7 +38,7 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 
 	remainingJumpSteps = 0;
-	iddle = true;
+	idle = true;
 
 	//id = app->tex->LoadSprite(texturePath, 15, 8);
 	
@@ -46,14 +46,14 @@ bool Player::Start() {
 	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 16, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
-	//pbody->listener = this;
+	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
 	// Animations: Still do not work, something related to how the texture is shown
-	left.PushBack({ 0, 160, 32, 32 });
+	left.PushBack({  0, 160, 32, 32 });
 	left.PushBack({ 32, 160, 32, 32 });
 	left.PushBack({ 64, 160, 32, 32 });
 	left.PushBack({ 96, 160, 32, 32 });
@@ -114,30 +114,30 @@ bool Player::Update()
 	int speed = 5;
 	
 	b2Vec2 vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
-	iddle = true;
+	idle = true;
 
 	// L02: DONE 4: modify the position of the player using arrow keys and render the texture
 	// Climb stairs
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 		currentAnim = &climb;
 		vel = b2Vec2(0, -speed);
-		iddle = false;
+		idle = false;
 	}
 	// Crouch (maybe to go through passages where the player cannot stand up?)
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		currentAnim = &climb;
 		vel = b2Vec2(0, speed);
-		iddle = false;
+		idle = false;
 	}
 		
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		vel.x = -speed;
-		iddle = false;
+		idle = false;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		currentAnim = &LRun;
 		vel.x = speed;
-		iddle = false;
+		idle = false;
 	}
 	else
 		vel.x = 0;
@@ -146,7 +146,7 @@ bool Player::Update()
 		
 		currentAnim = &LJump;
 		remainingJumpSteps = 6;
-		iddle = false;
+		idle = false;
 	}
 
 #pragma region DEBUG_KEYS
@@ -187,7 +187,7 @@ bool Player::Update()
 #pragma endregion DEBUG_KEYS
 
 
-	if (iddle)
+	if (idle)
 	{
 		currentAnim = &left;
 	}
