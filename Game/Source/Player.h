@@ -37,9 +37,11 @@ private:
 	int remainingJumpSteps;
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
-	Animation* left, right, up, down, death;	// jump?
-	Animation* rLeft, rRight;
-	Animation deathanim, iddledeathanim;
+	Animation left, right, climb;	// jump?
+	Animation LRun, RRun, LJump, RJump;
+	Animation death, iddledeathanim;
+
+	Animation* currentAnim = nullptr;
 };
 
 #endif // __PLAYER_H__

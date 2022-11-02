@@ -36,12 +36,64 @@ bool Player::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-	id = app->tex->LoadSprite(texturePath, 15, 8);
+
 	remainingJumpSteps = 0;
+
+	//id = app->tex->LoadSprite(texturePath, 15, 8);
+	
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 16, bodyType::DYNAMIC);
 
-	//left->PushBack(tetrominos[1]); // m'ho he de mirar
+	// Animations: Still do not work, something related to how the texture is shown
+	left.PushBack({ 0, 160, 32, 32 });
+	left.PushBack({ 32, 160, 32, 32 });
+	left.PushBack({ 64, 160, 32, 32 });
+	left.PushBack({ 96, 160, 32, 32 });
+	left.speed = 0.1f;
+
+	//right
+
+	// Run animation, there is also a walk animation but as we are not using anything that changes the speed I'm going to stick to walk
+	LRun.PushBack({ 0, 64, 32, 32 });
+	LRun.PushBack({ 32, 64, 32, 32 });
+	LRun.PushBack({ 64, 64, 32, 32 });
+	LRun.PushBack({ 96, 64, 32, 32 });
+	LRun.PushBack({ 128, 64, 32, 32 });
+	LRun.PushBack({ 160, 64, 32, 32 });
+	LRun.speed = 0.1f;
+
+	//RRun
+
+	climb.PushBack({ 0, 128, 32, 32 });
+	climb.PushBack({ 32, 128, 32, 32 });
+	climb.PushBack({ 64, 128, 32, 32 });
+	climb.PushBack({ 96, 128, 32, 32 });
+	climb.speed = 0.1f;
+
+	LJump.PushBack({ 224, 32, 32, 32 });
+	LJump.PushBack({ 256, 32, 32, 32 });
+	LJump.PushBack({ 288, 32, 32, 32 });
+	LJump.PushBack({ 320, 32, 32, 32 });
+	LJump.PushBack({ 352, 32, 32, 32 });
+	LJump.PushBack({ 384, 32, 32, 32 });
+	LJump.PushBack({ 416, 32, 32, 32 });
+	LJump.PushBack({ 448, 32, 32, 32 });
+	LJump.speed = 0.1f;
+
+	//RJump
+
+	death.PushBack({ 224, 128, 32, 32 });
+	death.PushBack({ 256, 128, 32, 32 });
+	death.PushBack({ 288, 128, 32, 32 });
+	death.PushBack({ 320, 128, 32, 32 });
+	death.PushBack({ 352, 128, 32, 32 });
+	death.PushBack({ 384, 128, 32, 32 });
+	death.PushBack({ 416, 128, 32, 32 });
+	death.PushBack({ 448, 128, 32, 32 });
+	death.loop = false;
+	death.speed = 0.1f;
+
+	currentAnim = &left;
 
 	return true;
 }
@@ -49,6 +101,7 @@ bool Player::Start() {
 bool Player::Update()
 {
 	// L07 DONE 5: Add physics to the player - updated player position using physics
+	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 
 	int speed = 5;
 	
@@ -131,7 +184,7 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	app->render->DrawTexture(texture, position.x , position.y);
+	app->render->Blit(texture, position.x, position.y, &rect2);
 
 	return true;
 }
