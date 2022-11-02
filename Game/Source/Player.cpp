@@ -112,11 +112,13 @@ bool Player::Update()
 	// L02: DONE 4: modify the position of the player using arrow keys and render the texture
 	// Climb stairs
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		currentAnim = &climb;
 		vel = b2Vec2(0, -speed);
 		iddle = false;
 	}
 	// Crouch (maybe to go through passages where the player cannot stand up?)
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		currentAnim = &climb;
 		vel = b2Vec2(0, speed);
 		iddle = false;
 	}

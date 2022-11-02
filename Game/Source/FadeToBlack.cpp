@@ -70,7 +70,7 @@ bool FadeToBlack::PostUpdate()
 	return true;
 }
 
-bool FadeToBlack::Fade(Module* moduleToDisable, Module* moduleToEnable, float frames)
+bool FadeToBlack::FadeBlack(Module* moduleToDisable, Module* moduleToEnable, float frames)
 {
 	bool ret = false;
 
