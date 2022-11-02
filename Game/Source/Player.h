@@ -28,6 +28,8 @@ public:
 
 	bool IsJumping();
 
+	void OnCollision(PhysBody* physA, PhysBody* physB);
+
 public:
 
 private:
@@ -37,13 +39,15 @@ private:
 	const char* texturePath;
 
 	int remainingJumpSteps;
+
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 	Animation left, right, climb;	// jump?
 	Animation LRun, RRun, LJump, RJump;
 	Animation death, iddledeathanim;
-
 	Animation* currentAnim = nullptr;
+
+	int pickCoinFxId;
 	bool iddle;
 };
 

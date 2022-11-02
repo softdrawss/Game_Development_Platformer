@@ -45,6 +45,13 @@ bool Player::Start() {
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 16, bodyType::DYNAMIC);
 
+	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
+	//pbody->listener = this;
+	pbody->ctype = ColliderType::PLAYER;
+
+	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
+	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+
 	// Animations: Still do not work, something related to how the texture is shown
 	left.PushBack({ 0, 160, 32, 32 });
 	left.PushBack({ 32, 160, 32, 32 });
@@ -105,9 +112,9 @@ bool Player::Update()
 {
 	// L07 DONE 5: Add physics to the player - updated player position using physics
 	int speed = 5;
+	
+	b2Vec2 vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 	iddle = true;
-
-	b2Vec2 vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y*0.0166);
 
 	// L02: DONE 4: modify the position of the player using arrow keys and render the texture
 	// Climb stairs
@@ -179,10 +186,12 @@ bool Player::Update()
 	}
 #pragma endregion DEBUG_KEYS
 
+
 	if (iddle)
 	{
 		currentAnim = &left;
 	}
+
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
@@ -225,4 +234,21 @@ bool Player::CleanUp()
 {
 
 	return true;
+}
+
+void Player::OnCollision(PhysBody* physA, PhysBody* physB)
+{
+	switch (physB->ctype)
+	{
+	case ColliderType::ITEM:
+		LOG("Collision ITEM");
+		app->audio->PlayFx(pickCoinFxId);
+		break;
+	case ColliderType::PLATFORM:
+		LOG("Collision PLATFORM");
+		break;
+	case ColliderType::UNKNOWN:
+		LOG("Collision UNKNOWN");
+		break;
+	}
 }
