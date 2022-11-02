@@ -7,13 +7,14 @@
 #include "Title.h"
 #include "EntityManager.h"
 #include "Map.h"
-
+#include "FadeToBlack.h"
 #include "Defs.h"
 #include "Log.h"
 
 Title::Title() : Module()
 {
-	name.Create("scene");
+	name.Create("Title");
+	active = false;
 }
 
 // Destructor
@@ -104,8 +105,9 @@ bool Title::PostUpdate()
 		ret = false;
 	
 	// ENTER: BEGIN
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		//
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
+		app->fade->FadeBlack(this, (Module*)app->scene, 100);
+	}
 
 	return ret;
 }
@@ -114,6 +116,7 @@ bool Title::PostUpdate()
 bool Title::CleanUp()
 {
 	LOG("Freeing scene");
+	//app->tex->UnLoad();
 
 	return true;
 }

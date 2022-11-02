@@ -21,6 +21,8 @@ public:
 	bool Start();
 
 	bool Update();
+	
+	bool PostUpdate();
 
 	bool CleanUp();
 
@@ -35,7 +37,7 @@ private:
 	//L02: DONE 1: Declare player parameters
 	SDL_Texture* texture;
 	const char* texturePath;
-	int id;
+
 	int remainingJumpSteps;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
@@ -46,6 +48,7 @@ private:
 	Animation* currentAnim = nullptr;
 
 	int pickCoinFxId;
+	bool iddle;
 };
 
 #endif // __PLAYER_H__

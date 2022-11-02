@@ -15,8 +15,6 @@ public:
 	Module() : active(false)
 	{}
 	
-	bool isEnabled = true;
-	
 	void Init()
 	{
 		active = true;
@@ -76,18 +74,18 @@ public:
 
 	virtual void Enable()
 	{
-		if (!isEnabled)
+		if (!active)
 		{
-			isEnabled = true;
+			active = true;
 			Start();
 		}
 	}
 
 	virtual void Disable()
 	{
-		if (isEnabled)
+		if (active)
 		{
-			isEnabled = false;
+			active = false;
 			CleanUp();
 		}
 	}

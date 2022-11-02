@@ -38,6 +38,7 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 
 	remainingJumpSteps = 0;
+	iddle = true;
 
 	//id = app->tex->LoadSprite(texturePath, 15, 8);
 	
@@ -56,7 +57,7 @@ bool Player::Start() {
 	left.PushBack({ 32, 160, 32, 32 });
 	left.PushBack({ 64, 160, 32, 32 });
 	left.PushBack({ 96, 160, 32, 32 });
-	left.speed = 0.1f;
+	left.speed = 0.08f;
 
 	//right
 
@@ -68,7 +69,8 @@ bool Player::Start() {
 	LRun.PushBack({ 128, 64, 32, 32 });
 	LRun.PushBack({ 160, 64, 32, 32 });
 	LRun.speed = 0.1f;
-
+	LRun.loop;
+	
 	//RRun
 
 	climb.PushBack({ 0, 128, 32, 32 });
@@ -85,8 +87,9 @@ bool Player::Start() {
 	LJump.PushBack({ 384, 32, 32, 32 });
 	LJump.PushBack({ 416, 32, 32, 32 });
 	LJump.PushBack({ 448, 32, 32, 32 });
-	LJump.speed = 0.1f;
-
+	LJump.speed = 0.2f;
+	LJump.loop;
+	
 	//RJump
 
 	death.PushBack({ 224, 128, 32, 32 });
@@ -108,33 +111,42 @@ bool Player::Start() {
 bool Player::Update()
 {
 	// L07 DONE 5: Add physics to the player - updated player position using physics
-	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-
 	int speed = 5;
 	
 	b2Vec2 vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
+	iddle = true;
 
 	// L02: DONE 4: modify the position of the player using arrow keys and render the texture
 	// Climb stairs
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		currentAnim = &climb;
 		vel = b2Vec2(0, -speed);
+		iddle = false;
 	}
 	// Crouch (maybe to go through passages where the player cannot stand up?)
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		currentAnim = &climb;
 		vel = b2Vec2(0, speed);
+		iddle = false;
 	}
 		
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		vel.x = -speed;
+		iddle = false;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		currentAnim = &LRun;
 		vel.x = speed;
+		iddle = false;
 	}
 	else
 		vel.x = 0;
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		
+		currentAnim = &LJump;
 		remainingJumpSteps = 6;
+		iddle = false;
 	}
 
 #pragma region DEBUG_KEYS
@@ -174,7 +186,12 @@ bool Player::Update()
 	}
 #pragma endregion DEBUG_KEYS
 
- 
+
+	if (iddle)
+	{
+		currentAnim = &left;
+	}
+
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
@@ -185,14 +202,23 @@ bool Player::Update()
 		force /= 6.0;
 		pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
 		remainingJumpSteps--;
+		
 	}
 
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
+	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->Blit(texture, position.x, position.y, &rect2);
+	currentAnim->Update();
+	return true;
+}
 
+bool Player::PostUpdate()
+{
+	//For highscore
+	
 	return true;
 }
 

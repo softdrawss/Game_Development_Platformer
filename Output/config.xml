@@ -21,6 +21,9 @@
     <fx volume="128"/>
   </audio>
 
+	<logo>
+		<logoImage x="0" y="0" texturepath="Assets/Textures/logo.png"/>
+	</logo>
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
   <scene>
     <player x="0" y="0" texturepath="Assets/Textures/MC/1 Pink_Monster/Pink_Monster_Animation_List.png"/>
