@@ -227,6 +227,45 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 	return ret;
 }
 
+// Blit to screen
+bool Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, bool useCamera)
+{
+	bool ret = true;
+
+	SDL_Rect dstRect{
+		(int)(-camera.x * speed) + x * app->win->scale,
+		(int)(-camera.y * speed) + y * app->win->scale,
+		0, 0 };
+
+	if (useCamera)
+	{
+		dstRect.x -= (camera.x * speed);
+		dstRect.y -= (camera.y * speed);
+	}
+
+	if (section != nullptr)
+	{
+		dstRect.w = section->w;
+		dstRect.h = section->h;
+	}
+	else
+	{
+		//Collect the texture size into rect.w and rect.h variables
+		SDL_QueryTexture(texture, nullptr, nullptr, &dstRect.w, &dstRect.h);
+	}
+
+	dstRect.w *= app->win->scale;
+	dstRect.h *= app->win->scale;
+
+	if (SDL_RenderCopy(renderer, texture, section, &dstRect) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}
+
 // L03: DONE 6: Implement a method to load the state
 // for now load camera's x and y
 bool Render::LoadState(pugi::xml_node& data)
