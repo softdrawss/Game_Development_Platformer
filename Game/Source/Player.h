@@ -21,6 +21,8 @@ public:
 	bool Start();
 
 	bool Update();
+	
+	bool PostUpdate();
 
 	bool CleanUp();
 
@@ -42,6 +44,7 @@ private:
 	Animation death, iddledeathanim;
 
 	Animation* currentAnim = nullptr;
+	bool iddle;
 };
 
 #endif // __PLAYER_H__
