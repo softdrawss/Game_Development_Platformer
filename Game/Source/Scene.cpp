@@ -97,12 +97,23 @@ bool Scene::Update(float dt)
 #pragma endregion DEBUG_KEYS
 
 
-	//camera movement
-	if (player->position.x < 0)
-	{
-		app->render->camera.x = player->position.x;
-	}
+	//Left
+	if (player->position.x - app->render->camera.x < app->render->camera.w / 3)
+		app->render->camera.x = -player->position.x;
 
+	//Right
+	if (player->position.x - app->render->camera.x > app->render->camera.w / 1.5)
+		app->render->camera.x = -player->position.x;
+
+	//Up
+	if (player->position.y - app->render->camera.y < app->render->camera.h / 2 - 60)
+		app->render->camera.y = -player->position.y;
+
+	//Down
+	if (player->position.y - app->render->camera.y > app->render->camera.h / 2 + 60)
+		app->render->camera.y = -player->position.y;
+
+	
 
 	// Draw map
 	app->map->Draw();

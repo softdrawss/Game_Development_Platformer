@@ -201,8 +201,7 @@ bool Player::Update()
 		float force = pbody->body->GetMass() * 10 / 0.01666; //F = mv/t (t = 1/60fps)
 		force /= 6.0;
 		pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
-		remainingJumpSteps--;
-		
+		remainingJumpSteps--;	
 	}
 
 	//Update player position in pixels
@@ -210,7 +209,7 @@ bool Player::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->Blit(texture, position.x, position.y, &rect2);
+	app->render->DrawTexture(texture, position.x, position.y, &rect2);
 	currentAnim->Update();
 	return true;
 }

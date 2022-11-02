@@ -199,8 +199,6 @@ bool Map::Load()
         ret = CreateColliders();
     }
 
-    PhysBody* c1 = app->physics->CreateRectangle(224 + 128, 543 + 32, 256, 64, STATIC);
-    c1->ctype = ColliderType::PLATFORM;
 
     if(ret == true)
     {
@@ -378,7 +376,10 @@ bool Map::CreateColliders()
                     if (mapLayerItem->data->Get(x, y) == 3139)
                     {
                         iPoint pos = MapToWorld(x, y);
-                        app->physics->CreateRectangle(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC);
+                        //app->physics->CreateRectangle(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC);
+
+                        PhysBody* c1 = app->physics->CreateRectangle(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC);
+                        c1->ctype = ColliderType::PLATFORM;
                     }                  
                 }
             }
