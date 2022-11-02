@@ -69,8 +69,8 @@ public:
 		}
 	}
 
-	virtual void OnCollision(Collider* c1, Collider* c2) {
-	
+	virtual void OnCollision(PhysBody* physA, PhysBody* physB) {
+
 	};
 
 public:

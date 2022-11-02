@@ -44,6 +44,13 @@ bool Player::Start() {
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 16, bodyType::DYNAMIC);
 
+	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
+	//pbody->listener = this;
+	pbody->ctype = ColliderType::PLAYER;
+
+	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
+	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+
 	// Animations: Still do not work, something related to how the texture is shown
 	left.PushBack({ 0, 160, 32, 32 });
 	left.PushBack({ 32, 160, 32, 32 });
@@ -201,4 +208,21 @@ bool Player::CleanUp()
 {
 
 	return true;
+}
+
+void Player::OnCollision(PhysBody* physA, PhysBody* physB)
+{
+	switch (physB->ctype)
+	{
+	case ColliderType::ITEM:
+		LOG("Collision ITEM");
+		app->audio->PlayFx(pickCoinFxId);
+		break;
+	case ColliderType::PLATFORM:
+		LOG("Collision PLATFORM");
+		break;
+	case ColliderType::UNKNOWN:
+		LOG("Collision UNKNOWN");
+		break;
+	}
 }

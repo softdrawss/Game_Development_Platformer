@@ -199,9 +199,8 @@ bool Map::Load()
         ret = CreateColliders();
     }
 
-    /*app->physics->CreateRectangle(224 + 128, 543 + 32, 256, 64, STATIC);
-    app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
-    app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);*/
+    PhysBody* c1 = app->physics->CreateRectangle(224 + 128, 543 + 32, 256, 64, STATIC);
+    c1->ctype = ColliderType::PLATFORM;
 
     if(ret == true)
     {
