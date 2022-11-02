@@ -73,6 +73,8 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+#pragma region DEBUG_KEYS
+
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
 
@@ -90,6 +92,15 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 10;
+
+#pragma endregion DEBUG_KEYS
+
+
+	//camera movement
+	if (player->position.x < 0)
+	{
+		app->render->camera.x = player->position.x;
+	}
 
 
 	// Draw map

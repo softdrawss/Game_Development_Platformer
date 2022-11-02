@@ -105,7 +105,7 @@ bool Player::Update()
 
 	int speed = 5;
 	
-	b2Vec2 vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y*0.0166);
+	b2Vec2 vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 
 	// L02: DONE 4: modify the position of the player using arrow keys and render the texture
 	// Climb stairs
@@ -167,7 +167,7 @@ bool Player::Update()
 	}
 #pragma endregion DEBUG_KEYS
 
-
+ 
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
