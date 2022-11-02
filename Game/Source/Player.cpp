@@ -49,7 +49,7 @@ bool Player::Start() {
 	left.PushBack({ 32, 160, 32, 32 });
 	left.PushBack({ 64, 160, 32, 32 });
 	left.PushBack({ 96, 160, 32, 32 });
-	left.speed = 0.1f;
+	left.speed = 0.08f;
 
 	//right
 
@@ -78,7 +78,7 @@ bool Player::Start() {
 	LJump.PushBack({ 384, 32, 32, 32 });
 	LJump.PushBack({ 416, 32, 32, 32 });
 	LJump.PushBack({ 448, 32, 32, 32 });
-	LJump.speed = 0.1f;
+	LJump.speed = 0.2f;
 
 	//RJump
 
@@ -101,6 +101,7 @@ bool Player::Start() {
 bool Player::Update()
 {
 	// L07 DONE 5: Add physics to the player - updated player position using physics
+
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 
 	int speed = 5;
@@ -121,6 +122,7 @@ bool Player::Update()
 		vel.x = -speed;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		currentAnim = &LRun;
 		vel.x = speed;
 	}
 	else
@@ -128,6 +130,7 @@ bool Player::Update()
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		remainingJumpSteps = 6;
+		
 	}
 
 #pragma region DEBUG_KEYS
@@ -178,6 +181,7 @@ bool Player::Update()
 		force /= 6.0;
 		pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
 		remainingJumpSteps--;
+		currentAnim = &LJump;
 	}
 
 	//Update player position in pixels
@@ -185,7 +189,7 @@ bool Player::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
 	app->render->Blit(texture, position.x, position.y, &rect2);
-
+	currentAnim->Update();
 	return true;
 }
 
