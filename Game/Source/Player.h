@@ -24,6 +24,8 @@ public:
 
 	bool CleanUp();
 
+	bool IsJumping();
+
 public:
 
 private:
@@ -32,6 +34,7 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 	int id;
+	int remainingJumpSteps;
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 	Animation left, right, climb;	// jump?
