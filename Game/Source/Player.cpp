@@ -53,25 +53,34 @@ bool Player::Start() {
 	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
 	// Animations: Still do not work, something related to how the texture is shown
-	left.PushBack({  0, 160, 32, 32 });
-	left.PushBack({ 32, 160, 32, 32 });
-	left.PushBack({ 64, 160, 32, 32 });
-	left.PushBack({ 96, 160, 32, 32 });
+	right.PushBack({  0, 160, 32, 32 });
+	right.PushBack({ 32, 160, 32, 32 });
+	right.PushBack({ 64, 160, 32, 32 });
+	right.PushBack({ 96, 160, 32, 32 });
+	right.speed = 0.08f;
+
+	left.PushBack({ 0, 416, 32, 32 });
+	left.PushBack({ 32, 416, 32, 32 });
+	left.PushBack({ 64, 416, 32, 32 });
+	left.PushBack({ 96, 416, 32, 32 });
 	left.speed = 0.08f;
 
-	//right
-
 	// Run animation, there is also a walk animation but as we are not using anything that changes the speed I'm going to stick to walk
-	LRun.PushBack({ 0, 64, 32, 32 });
-	LRun.PushBack({ 32, 64, 32, 32 });
-	LRun.PushBack({ 64, 64, 32, 32 });
-	LRun.PushBack({ 96, 64, 32, 32 });
-	LRun.PushBack({ 128, 64, 32, 32 });
-	LRun.PushBack({ 160, 64, 32, 32 });
-	LRun.speed = 0.1f;
-	LRun.loop;
+	RRun.PushBack({ 0, 64, 32, 32 });
+	RRun.PushBack({ 32, 64, 32, 32 });
+	RRun.PushBack({ 64, 64, 32, 32 });
+	RRun.PushBack({ 96, 64, 32, 32 });
+	RRun.PushBack({ 128, 64, 32, 32 });
+	RRun.PushBack({ 160, 64, 32, 32 });
+	RRun.speed = 0.1f;
 	
-	//RRun
+	LRun.PushBack({ 0, 320, 32, 32 });
+	LRun.PushBack({ 32, 320, 32, 32 });
+	LRun.PushBack({ 64, 320, 32, 32 });
+	LRun.PushBack({ 96, 320, 32, 32 });
+	LRun.PushBack({ 128, 320, 32, 32 });
+	LRun.PushBack({ 160, 320, 32, 32 });
+	LRun.speed = 0.1f;
 
 	climb.PushBack({ 0, 128, 32, 32 });
 	climb.PushBack({ 32, 128, 32, 32 });
@@ -79,18 +88,27 @@ bool Player::Start() {
 	climb.PushBack({ 96, 128, 32, 32 });
 	climb.speed = 0.1f;
 
-	LJump.PushBack({ 224, 32, 32, 32 });
-	LJump.PushBack({ 256, 32, 32, 32 });
-	LJump.PushBack({ 288, 32, 32, 32 });
-	LJump.PushBack({ 320, 32, 32, 32 });
-	LJump.PushBack({ 352, 32, 32, 32 });
-	LJump.PushBack({ 384, 32, 32, 32 });
-	LJump.PushBack({ 416, 32, 32, 32 });
-	LJump.PushBack({ 448, 32, 32, 32 });
+	RJump.PushBack({ 224, 32, 32, 32 });
+	RJump.PushBack({ 256, 32, 32, 32 });
+	RJump.PushBack({ 288, 32, 32, 32 });
+	RJump.PushBack({ 320, 32, 32, 32 });
+	RJump.PushBack({ 352, 32, 32, 32 });
+	RJump.PushBack({ 384, 32, 32, 32 });
+	RJump.PushBack({ 416, 32, 32, 32 });
+	RJump.PushBack({ 448, 32, 32, 32 });
+	RJump.speed = 0.2f;
+	RJump.loop;
+	
+	LJump.PushBack({ 224, 288, 32, 32 });
+	LJump.PushBack({ 256, 288, 32, 32 });
+	LJump.PushBack({ 288, 288, 32, 32 });
+	LJump.PushBack({ 320, 288, 32, 32 });
+	LJump.PushBack({ 352, 288, 32, 32 });
+	LJump.PushBack({ 384, 288, 32, 32 });
+	LJump.PushBack({ 416, 288, 32, 32 });
+	LJump.PushBack({ 448, 288, 32, 32 });
 	LJump.speed = 0.2f;
 	LJump.loop;
-	
-	//RJump
 
 	death.PushBack({ 224, 128, 32, 32 });
 	death.PushBack({ 256, 128, 32, 32 });
@@ -103,7 +121,7 @@ bool Player::Start() {
 	death.loop = false;
 	death.speed = 0.1f;
 
-	currentAnim = &left;
+	currentAnim = &right;
 
 	return true;
 }
@@ -131,20 +149,23 @@ bool Player::Update()
 	}
 		
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		currentAnim = &LRun;
 		vel.x = -speed;
 		idle = false;
+		leftID = true;
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		currentAnim = &LRun;
+		currentAnim = &RRun;
 		vel.x = speed;
 		idle = false;
+		leftID = false;
 	}
 	else
 		vel.x = 0;
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		
-		currentAnim = &LJump;
+		//currentAnim = &LJump;
 		remainingJumpSteps = 6;
 		idle = false;
 	}
@@ -189,7 +210,13 @@ bool Player::Update()
 
 	if (idle)
 	{
-		currentAnim = &left;
+		if (leftID) {
+			currentAnim = &left;
+		}
+		else {
+			currentAnim = &right;
+		}
+		
 	}
 
 	//Set the velocity of the pbody of the player

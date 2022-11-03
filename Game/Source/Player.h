@@ -48,7 +48,7 @@ private:
 	Animation* currentAnim = nullptr;
 
 	int pickCoinFxId;
-	bool idle;
+	bool idle, leftID;
 };
 
 #endif // __PLAYER_H__
