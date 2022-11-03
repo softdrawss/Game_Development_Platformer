@@ -74,10 +74,16 @@ void Map::Draw()
                     SDL_Rect r = tileset->GetTileRect(gid);
                     iPoint pos = MapToWorld(x, y);
 
-                    app->render->DrawTexture(tileset->texture,
-                        pos.x,
-                        pos.y,
-                        &r);
+                    
+                    switch (mapLayerItem->data->id)
+                    {
+                    case 6: Parallax(tileset, pos, r, 0.1); break;
+                    case 5: Parallax(tileset, pos, r, 0.3); break;
+                    case 4: Parallax(tileset, pos, r, 0.6); break;
+                    case 3: Parallax(tileset, pos, r, 0.7); break;
+                    case 2: Parallax(tileset, pos, r, 0.9); break;
+                    default: Parallax(tileset, pos, r, 0);  break;
+                    }
                 }
             }
         }
@@ -388,6 +394,14 @@ bool Map::CreateColliders()
         mapLayerItem = mapLayerItem->next;
     }
     return ret;
+}
+
+void Map::Parallax(TileSet* tileset, iPoint pos, SDL_Rect r, float x)
+{
+    app->render->DrawTexture(tileset->texture,
+        pos.x - (app->render->camera.x) * x,
+        pos.y,
+        &r);
 }
 
 // L06: DONE 7: Ask for the value of a custom property

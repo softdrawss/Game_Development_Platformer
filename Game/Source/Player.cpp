@@ -208,17 +208,6 @@ bool Player::Update()
 #pragma endregion DEBUG_KEYS
 
 
-	if (idle)
-	{
-		if (leftID) {
-			currentAnim = &left;
-		}
-		else {
-			currentAnim = &right;
-		}
-		
-	}
-
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
@@ -235,9 +224,12 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
+	//Animations
+	if (idle) { currentAnim = leftID ? &left : &right; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect2);
 	currentAnim->Update();
+
 	return true;
 }
 
