@@ -11,7 +11,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-Scene::Scene() : Module()
+Scene::Scene(bool startEnabled) : Module(startEnabled)
 {
 	name.Create("scene");
 	active = false;
@@ -96,24 +96,24 @@ bool Scene::Update(float dt)
 
 #pragma endregion DEBUG_KEYS
 
+	int scale = app->win->GetScale();
 
 	//Left
-	if (player->position.x - app->render->camera.x < app->render->camera.w / 3)
-		app->render->camera.x = -player->position.x;
+ 	if (player->position.x + app->render->camera.x < app->render->camera.w / 3 / scale)
+		app->render->camera.x = -player->position.x + (app->render->camera.w / 3);
 
 	//Right
-	if (player->position.x - app->render->camera.x > app->render->camera.w / 1.5)
-		app->render->camera.x = -player->position.x;
+	else if(player->position.x + app->render->camera.x > app->render->camera.w / 1.5 / scale)
+		app->render->camera.x = -player->position.x + (app->render->camera.w / 1.5);
 
 	//Up
-	if (player->position.y - app->render->camera.y < app->render->camera.h / 2 - 60)
-		app->render->camera.y = -player->position.y;
+	if (player->position.y + app->render->camera.y < app->render->camera.h / 3 / scale)
+		app->render->camera.y = -player->position.y + (app->render->camera.h / 3);
 
 	//Down
-	if (player->position.y - app->render->camera.y > app->render->camera.h / 2 + 60)
-		app->render->camera.y = -player->position.y;
+	else if (player->position.y + app->render->camera.y > app->render->camera.h / 1.5 / scale)
+		app->render->camera.y = -player->position.y + (app->render->camera.h / 1.5);
 
-	
 
 	// Draw map
 	app->map->Draw();
@@ -125,6 +125,15 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+	//Draw Camera
+	rectCamera.x = -app->render->camera.x + (app->render->camera.w / 3);
+	rectCamera.y = -app->render->camera.y + (app->render->camera.h / 3);
+	rectCamera.w = app->render->camera.w / 3;
+	rectCamera.h = app->render->camera.h / 3;
+	app->render->DrawRectangle(rectCamera, 0, 255, 0, 255, false, true);
+
+
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

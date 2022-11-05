@@ -11,7 +11,7 @@ class Title : public Module
 {
 public:
 
-	Title();
+	Title(bool startEnabled);
 
 	// Destructor
 	virtual ~Title();

@@ -111,7 +111,7 @@ class Map : public Module
 {
 public:
 
-    Map();
+    Map(bool startEnabled);
 
     // Destructor
     virtual ~Map();
@@ -142,6 +142,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadAllLayers(pugi::xml_node mapNode);
 	bool CreateColliders();
+	void Parallax(TileSet* tileset, iPoint pos, SDL_Rect r, float x);
 
 	// L06: DONE 2
 	TileSet* GetTilesetFromTileId(int gid) const;

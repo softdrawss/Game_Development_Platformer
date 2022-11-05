@@ -6,7 +6,7 @@
 #include "Window.h"
 #include "SDL/include/SDL_render.h"
 
-FadeToBlack::FadeToBlack() : Module()
+FadeToBlack::FadeToBlack(bool startEnabled) : Module(startEnabled)
 {
 	
 }
@@ -20,7 +20,7 @@ bool FadeToBlack::Start()
 {
 	uint w, h;
 	app->win->GetWindowSize(w, h);
-	screenRect = { 0, 0, (int)w * (int)app->win->scale, (int)h * (int)app->win->scale };
+	screenRect = { 0, 0, (int)w * (int)app->win->GetScale(), (int)h * (int)app->win->GetScale() };
 
 	LOG("Preparing Fade Screen");
 
@@ -29,7 +29,7 @@ bool FadeToBlack::Start()
 	return true;
 }
 
-bool FadeToBlack::Update()
+bool FadeToBlack::Update(float dt)
 {
 	// Exit this function if we are not performing a fade
 	if (currentStep == Fade_Step::NONE) return true;

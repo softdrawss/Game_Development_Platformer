@@ -24,20 +24,20 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
 
-	input = new Input();
-	win = new Window();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
+	input = new Input(true);
+	win = new Window(true);
+	render = new Render(true);
+	tex = new Textures(true);
+	audio = new Audio(true);
 	//L07 DONE 2: Add Physics module
-	physics = new Physics();
-	scene = new Scene();
-	entityManager = new EntityManager();
-	map = new Map();
-	fade = new FadeToBlack();
-	logo = new Logo();
-	titleScreen = new Title();
-	endScreen = new Ending();
+	physics = new Physics(true);
+	entityManager = new EntityManager(false);
+	map = new Map(true);
+	fade = new FadeToBlack(true);
+	logo = new Logo(true);
+	titleScreen = new Title(false);
+	scene = new Scene(false);
+	endScreen = new Ending(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -47,8 +47,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
-	//AddModule(logo);
-	//AddModule(titleScreen);
+	AddModule(logo);
+	AddModule(titleScreen);
 	AddModule(scene);
 	//AddModule(endScreen);
 	AddModule(entityManager);
@@ -119,7 +119,10 @@ bool App::Start()
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->active)
+		{
+			ret = item->data->Start();
+		}
 		item = item->next;
 	}
 

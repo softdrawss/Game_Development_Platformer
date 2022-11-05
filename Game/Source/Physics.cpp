@@ -17,7 +17,7 @@
 #pragma comment( lib, "../Game/Source/External/Box2D/libx86/ReleaseLib/Box2D.lib" )
 #endif
 
-Physics::Physics() : Module()
+Physics::Physics(bool startEnabled) : Module(startEnabled)
 {
 	world = NULL;
 	mouse_joint = NULL;
@@ -35,7 +35,7 @@ bool Physics::Start()
 
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	
-
+	world->SetContactListener(this);
 	return true;
 }
 

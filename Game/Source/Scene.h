@@ -11,7 +11,7 @@ class Scene : public Module
 {
 public:
 
-	Scene();
+	Scene(bool startEnabled);
 
 	// Destructor
 	virtual ~Scene();
@@ -41,6 +41,7 @@ public:
 
 private:
 	SDL_Texture* img;
+	SDL_Rect rectCamera;
 
 };
 
