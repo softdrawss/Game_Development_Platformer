@@ -1,4 +1,4 @@
-# {2D Platformer - Koayashi Studios}
+# 2D Platformer - Koayashi Studios
 
 ## Description
 
