@@ -1,4 +1,4 @@
-# {Project Name}
+# {2D Platformer - Koayashi Studios}
 
 ## Description
 
