@@ -11,7 +11,7 @@ class Ending : public Module
 {
 public:
 
-	Ending();
+	Ending(bool startEnabled);
 
 	// Destructor
 	virtual ~Ending();

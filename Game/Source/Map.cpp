@@ -10,7 +10,7 @@
 #include <math.h>
 #include "SDL_image/include/SDL_image.h"
 
-Map::Map() : Module(), mapLoaded(false)
+Map::Map(bool startEnabled) : Module(startEnabled), mapLoaded(false)
 {
     name.Create("map");
 }
@@ -44,9 +44,9 @@ void Map::Draw()
     tileset = mapData.tilesets.start;
 
    /* int i = 0;
-    while (tileset != NULL) {
+    while (tileset != null) {
         i++;
-        app->render->DrawTexture(tileset->data->texture,50*i,0);
+        app->render->drawtexture(tileset->data->texture,50*i,0);
         tileset = tileset->next;
     }*/
     

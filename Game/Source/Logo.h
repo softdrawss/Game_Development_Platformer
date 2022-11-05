@@ -11,10 +11,10 @@ class Logo : public Module
 {
 public:
 
-	Logo();
+	Logo(bool startEnabled);
 
 	// Destructor
-	virtual ~Logo();
+	~Logo();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -37,7 +37,7 @@ public:
 public:
 
 private:
-	SDL_Texture* img;
+	SDL_Texture* img = nullptr;
 };
 
 #endif // __LOGO_H__

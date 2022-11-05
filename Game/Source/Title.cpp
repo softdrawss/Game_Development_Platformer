@@ -11,7 +11,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-Title::Title() : Module()
+Title::Title(bool startEnabled) : Module(startEnabled)
 {
 	name.Create("Title");
 	active = false;
