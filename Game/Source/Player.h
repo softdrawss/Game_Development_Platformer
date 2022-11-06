@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Point.h"
+#include "Physics.h"
 #include "SDL/include/SDL.h"
 #include "Animation.h"
 
@@ -26,6 +27,12 @@ public:
 
 public:
 	bool alive;
+	b2Vec2 initPosition;
+	//Physics
+	PhysBody* pbody;
+
+
+
 private:
 	
 	
@@ -35,8 +42,7 @@ private:
 	int remainingJumpSteps;
 
 
-	//Physics
-	PhysBody* pbody;
+	
 
 	//Texture
 	SDL_Texture* texture;
