@@ -35,6 +35,7 @@ public:
 	bool CleanUp();
 
 public:
+	int count;
 
 private:
 	SDL_Texture* img = nullptr;

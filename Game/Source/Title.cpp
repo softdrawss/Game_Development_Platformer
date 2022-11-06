@@ -66,7 +66,7 @@ bool Title::Update(float dt)
 {
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
-  		app->fade->FadeBlack(this, (Module*)app->scene, 1);
+  		app->fade->FadeBlack(this, (Module*)app->scene, 90);
 		app->entityManager->Enable();
 	}
 

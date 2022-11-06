@@ -53,6 +53,7 @@ bool Scene::Start()
 	app->debug->Enable();
 
 	player->alive = true;
+	cameraMoveCount = 0;
 
 	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
 
@@ -117,8 +118,8 @@ bool Scene::Update(float dt)
 
 
 	//Camera behaviour
-	//Left
- //	if (player->position.x + app->render->camera.x < app->render->camera.w * 0.4)
+	////Left
+	//if (player->position.x + app->render->camera.x < app->render->camera.w * 0.4)
 	//	app->render->camera.x = -player->position.x + (app->render->camera.w * 0.4);
 	////right
 	//else if(player->position.x + app->render->camera.x > app->render->camera.w * 0.6)
@@ -130,20 +131,21 @@ bool Scene::Update(float dt)
 	//else if (player->position.y + app->render->camera.y > app->render->camera.h * 0.6)
 	//	app->render->camera.y = -player->position.y + (app->render->camera.h * 0.6);
 
-	if (true)
+
+	cameraMoveCount++;
+	if (cameraMoveCount % 2 == 0)
 	{
-
-	}
-
-	if (!player->alive) {
-		app->fade->FadeBlack(this, (Module*)app->endScreen, 90);
+		app->render->camera.x -= 1;
 	}
 
 	//Camera limits
 	if (app->render->camera.x > 0)
 		app->render->camera.x = 0;
+	if (app->render->camera.x < -3310)
+		app->render->camera.x = -3310;
 	if (app->render->camera.y < -448)
 		app->render->camera.y = -448;
+	
 
 
 	// Draw map
