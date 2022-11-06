@@ -34,7 +34,7 @@ bool Logo::Awake(pugi::xml_node& config)
 bool Logo::Start()
 {
 	img = app->tex->Load("Assets/Textures/logo.png");
-
+	count = 0;
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
@@ -50,7 +50,8 @@ bool Logo::PreUpdate()
 // Called each loop iteration
 bool Logo::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	count++;
+	if (count = 180)
 	{
 		app->fade->FadeBlack(this, (Module*)app->titleScreen, 90);
 	}
