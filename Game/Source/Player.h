@@ -25,10 +25,10 @@ public:
 	void LoadAnimations();
 
 public:
-
+	bool alive;
 private:
 	
-	bool alive;
+	
 	bool idle, leftID;
 	bool isGrounded;
 	bool stairs;

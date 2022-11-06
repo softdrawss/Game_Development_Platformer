@@ -32,6 +32,11 @@ public:
 		return true;
 	}
 
+	virtual bool Start(pugi::xml_node&)
+	{
+		return true;
+	}
+
 	// Called each loop iteration
 	virtual bool PreUpdate()
 	{

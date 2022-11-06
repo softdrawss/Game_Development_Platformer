@@ -8,13 +8,13 @@
 #include "EntityManager.h"
 #include "FadeToBlack.h"
 #include "Map.h"
-
+#include "Title.h"
 #include "Defs.h"
 #include "Log.h"
 
 Logo::Logo(bool startEnabled) : Module(startEnabled)
 {
-	name.Create("scene");
+	name.Create("logo");
 }
 
 // Destructor
@@ -24,7 +24,7 @@ Logo::~Logo()
 // Called before render is available
 bool Logo::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Scene");
+	LOG("Loading Logo");
 	bool ret = true;
 
 	return ret;
@@ -50,9 +50,9 @@ bool Logo::PreUpdate()
 // Called each loop iteration
 bool Logo::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
-		app->fade->FadeBlack(this, (Module*)app->scene, 90);
+		app->fade->FadeBlack(this, (Module*)app->titleScreen, 90);
 	}
 
 	return true;
@@ -75,6 +75,6 @@ bool Logo::PostUpdate()
 bool Logo::CleanUp()
 {
 	LOG("Freeing scene");
-
+	app->tex->UnLoad(img);
 	return true;
 }

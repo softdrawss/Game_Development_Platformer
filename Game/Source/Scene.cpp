@@ -9,7 +9,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 #include "Debug.h"
-
+#include "FadeToBlack.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -38,17 +38,18 @@ bool Scene::Awake(pugi::xml_node& config)
 	}
 
 	//L02: DONE 3: Instantiate the player using the entity manager
-	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->parameters = config.child("player");
+	
 
 	return ret;
 }
 
 // Called before the first frame
-bool Scene::Start()
+bool Scene::Start(pugi::xml_node& config)
 {
 	app->entityManager->Enable();
 	app->debug->Enable();
+
+	
 
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
 	app->fonts->font_white = app->fonts->Load("Assets/Textures/sprite_font_white.png", lookupTable, 7);
@@ -69,8 +70,12 @@ bool Scene::Start()
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
 
-	app->win->SetTitle(title.GetString());
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	player->parameters = config.child("player");
 
+	player->alive = true;
+	app->win->SetTitle(title.GetString());
+	
 	return true;
 }
 
@@ -129,6 +134,9 @@ bool Scene::Update(float dt)
 
 	}
 
+	if (!player->alive) {
+		app->fade->FadeBlack(this, (Module*)app->endScreen, 90);
+	}
 
 	//Camera limits
 	if (app->render->camera.x > 0)
