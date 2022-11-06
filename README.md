@@ -2,11 +2,11 @@
 
 ## Description
 
-Pink Dude is a 2D Platformer developed by Kobayashi Studios, founded by Héctor Báscones Zamora [(@Hekbas)] (https://github.com/Hekbas) and Júlia Serra Trujillo [(@softdrawss)] (https://github.com/softdrawss).
+Pink Dude is a 2D Platformer developed by Kobayashi Studios, founded by Héctor Báscones Zamora @Hekbas Hekbas (https://github.com/Hekbas) and Júlia Serra Trujillo @softdrawss (https://github.com/softdrawss).
 
 ![logo](https://user-images.githubusercontent.com/99959289/200201246-e9a57554-41d6-4304-8de3-caa10a13133a.png)
 
-Link to the release: [https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Alpha] (https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Alpha)
+Link to the Alpha release: [https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Alpha] (https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Alpha)
 
 ## Key Features
 
