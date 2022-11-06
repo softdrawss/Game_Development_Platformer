@@ -22,7 +22,6 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
-	void Player::DebugKeys();
 	void LoadAnimations();
 
 public:
@@ -35,7 +34,6 @@ private:
 	bool stairs;
 	int remainingJumpSteps;
 
-	bool godMode;
 
 	//Physics
 	PhysBody* pbody;

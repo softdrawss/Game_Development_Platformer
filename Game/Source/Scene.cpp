@@ -1,12 +1,14 @@
 #include "App.h"
 #include "Input.h"
 #include "Textures.h"
+#include "Fonts.h"
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Debug.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -46,9 +48,12 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	app->entityManager->Enable();
+	app->debug->Enable();
 
+	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
+	app->fonts->font_white = app->fonts->Load("Assets/Textures/sprite_font_white.png", lookupTable, 7);
 	app->render->camera.x = 0;
-	app->render->camera.y = -448;
+	app->render->camera.y = -448* app->win->GetScale();
 
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
@@ -79,7 +84,7 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	int scale = app->win->GetScale();
-	int camSpeed = 10 / scale;
+	int camSpeed = 10;
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 #pragma region DEBUG_KEYS
@@ -105,25 +110,29 @@ bool Scene::Update(float dt)
 #pragma endregion DEBUG_KEYS
 
 
+	//Camera behaviour
 	//Left
- //	if (player->position.x + app->render->camera.x < app->render->camera.w / (3))
-	//	app->render->camera.x = (-player->position.x + (app->render->camera.w / 3)) * scale;
+ //	if (player->position.x + app->render->camera.x < app->render->camera.w * 0.4)
+	//	app->render->camera.x = -player->position.x + (app->render->camera.w * 0.4);
+	////right
+	//else if(player->position.x + app->render->camera.x > app->render->camera.w * 0.6)
+	//	app->render->camera.x = -player->position.x + (app->render->camera.w * 0.6);
+	////up
+	//if (player->position.y + app->render->camera.y < app->render->camera.h * 0.4)
+	//	app->render->camera.y = -player->position.y + (app->render->camera.h * 0.4);
+	////down
+	//else if (player->position.y + app->render->camera.y > app->render->camera.h * 0.6)
+	//	app->render->camera.y = -player->position.y + (app->render->camera.h * 0.6);
 
-	////Right
-	//else if(player->position.x + app->render->camera.x > app->render->camera.w / (1.8))
-	//	app->render->camera.x = (-player->position.x + (app->render->camera.w / 1.8)) * scale;
+	if (true)
+	{
 
-	////Up
-	//if (player->position.y + app->render->camera.y < app->render->camera.h / (3))
-	//	app->render->camera.y = (-player->position.y + (app->render->camera.h / 3) * scale);
+	}
 
-	////Down
-	//else if (player->position.y + app->render->camera.y > app->render->camera.h / (1.8))
-	//	app->render->camera.y = (-player->position.y + (app->render->camera.h / 1.8) * scale);
 
+	//Camera limits
 	if (app->render->camera.x > 0)
 		app->render->camera.x = 0;
-
 	if (app->render->camera.y < -448)
 		app->render->camera.y = -448;
 
@@ -137,19 +146,8 @@ bool Scene::Update(float dt)
 // Called each loop iteration
 bool Scene::PostUpdate()
 {
-	int scale = app->win->GetScale();
-	//Draw Camera
-	rectCamera.x = -app->render->camera.x + (app->render->camera.w / (3));
-	rectCamera.y = -app->render->camera.y + (app->render->camera.h / (1.8));
-	rectCamera.w = app->render->camera.w / (3);
-	rectCamera.h = app->render->camera.h / (1.8);
-	app->render->DrawRectangle(rectCamera, 0, 255, 0, 255, false, true);
-
-
-
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		return false;
-
 
 	return true;
 }

@@ -12,18 +12,23 @@
 // Modules
 class Window;
 class Input;
-class Render;
 class Textures;
+class Fonts;
 class Audio;
-class Scene;
+
 class EntityManager;
 class Map;
-//L07 DONE 2: Add Physics module
+
 class Physics;
 class FadeToBlack;
+
 class Logo;
 class Title;
+class Scene;
 class Ending;
+
+class Debug;
+class Render;
 
 class App
 {
@@ -89,8 +94,8 @@ public:
 	Input* input;
 	Render* render;
 	Textures* tex;
+	Fonts* fonts;
 	Audio* audio;
-	Scene* scene;
 	EntityManager* entityManager;
 	Map* map;
 	//L07 DONE 2: Add Physics module
@@ -98,7 +103,9 @@ public:
 	FadeToBlack* fade;
 	Logo* logo;
 	Title* titleScreen;
+	Scene* scene;
 	Ending* endScreen;
+	Debug* debug;
 
 private:
 

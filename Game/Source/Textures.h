@@ -5,22 +5,10 @@
 
 #include "List.h"
 
-#define MAX_TETROMINOS 10
-#define MAX_TETROMINO_BLOCKS 256
 
 struct SDL_Texture;
 struct SDL_Surface;
 
-struct Tetrominos
-{
-	// The font texture
-	SDL_Texture* texture = nullptr;
-
-	// Font setup data
-	uint totalLength;
-	uint rows, columns;
-	uint block_w, block_h;
-};
 
 class Textures : public Module
 {
@@ -49,7 +37,6 @@ public:
 
 
 public:
-	Tetrominos tetrominos[MAX_TETROMINOS];
 	List<SDL_Texture*> textures;
 };
 

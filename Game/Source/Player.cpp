@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Debug.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -35,7 +36,6 @@ bool Player::Awake() {
 bool Player::Start()
 {
 	alive = true;
-	godMode = false;
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -64,9 +64,7 @@ bool Player::Update()
 	b2Vec2 vel;
 	int speed = 5;
 
-	DebugKeys();
-
-	if (godMode)
+	if (app->debug->godMode)
 	{
 		alive = true;
 		pbody->body->SetGravityScale(0);	
@@ -86,7 +84,7 @@ bool Player::Update()
 	{
 		idle = true;
 
-		if (stairs || godMode)
+		if (stairs || app->debug->godMode)
 		{
 			//Up
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
@@ -195,44 +193,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
-	}
-}
-
-void Player::DebugKeys()
-{
-	// F1/F2: Start from the first/second level
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-
-	}
-
-	// F3: Start from the beginning of the current level
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-
-	}
-
-	// F5: Save the current game state
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-		savedPosition.x = position.x;
-		savedPosition.y = position.y;
-	}
-
-	// F6: Load the previous state (even across levels)
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-
-	}
-
-	// F9: View colliders / logic
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
-		app->physics->debug = !app->physics->debug;
-	}
-
-	// F10: God Mode (fly around, cannot be killed, etc)
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-		godMode = !godMode;
 	}
 }
 

@@ -3,10 +3,17 @@
 	<input />
 	<window />
 	<textures />
+	<:anonymous />
 	<audio />
+	<:anonymous />
+	<scene />
+	<Title />
 	<scene />
 	<entitymanager />
+	<map />
+	<:anonymous />
+	<:anonymous />
 	<renderer>
-		<camera x="0" y="-448" />
+		<camera x="0" y="-220" />
 	</renderer>
 </save_state>

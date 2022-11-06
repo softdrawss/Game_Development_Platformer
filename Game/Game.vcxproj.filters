@@ -58,6 +58,12 @@
     <ClCompile Include="Source\Player.cpp">
       <Filter>Modules\Gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Debug.cpp">
+      <Filter>Modules\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Fonts.cpp">
+      <Filter>Modules\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -141,6 +147,12 @@
     </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Modules\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Debug.h">
+      <Filter>Modules\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fonts.h">
+      <Filter>Modules\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

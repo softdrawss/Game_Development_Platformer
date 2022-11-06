@@ -4,13 +4,15 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
-#include "Scene.h"
+#include "Fonts.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
+#include "Debug.h"
 #include "Logo.h"
 #include "Title.h"
+#include "Scene.h"
 #include "Ending.h"
 
 #include "Defs.h"
@@ -28,6 +30,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	win = new Window(true);
 	render = new Render(true);
 	tex = new Textures(true);
+	fonts = new Fonts(true);
 	audio = new Audio(true);
 	//L07 DONE 2: Add Physics module
 	physics = new Physics(true);
@@ -38,14 +41,15 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	titleScreen = new Title(false);
 	scene = new Scene(false);
 	endScreen = new Ending(false);
+	debug = new Debug(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
+	AddModule(fonts);
 	AddModule(audio);
-	//L07 DONE 2: Add Physics module
 	AddModule(physics);
 	AddModule(logo);
 	AddModule(titleScreen);
@@ -54,6 +58,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(fade);
+	AddModule(debug);
 	
 	// Render last to swap buffer
 	AddModule(render);
