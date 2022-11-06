@@ -52,6 +52,8 @@ bool Scene::Start()
 
 	player->alive = true;
 
+	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
+
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
 	app->fonts->font_white = app->fonts->Load("Assets/Textures/sprite_font_white.png", lookupTable, 7);
 	app->render->camera.x = 0;

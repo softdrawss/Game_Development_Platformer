@@ -36,6 +36,10 @@ bool Player::Start()
 	alive = true;
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
+
+	initPosition.x = position.x;
+	initPosition.y = position.y;
+
 	texturePath = parameters.attribute("texturepath").as_string();
 	
 	//initilize textures

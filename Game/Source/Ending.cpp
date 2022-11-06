@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "FadeToBlack.h"
 #include "Defs.h"
+#include "Scene.h"
 #include "Log.h"
 
 Ending::Ending(bool startEnabled) : Module(startEnabled)
@@ -49,6 +50,8 @@ bool Ending::PreUpdate()
 // Called each loop iteration
 bool Ending::Update(float dt)
 {
+	app->scene->player->alive = true;
+
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		app->fade->FadeBlack(this, (Module*)app->titleScreen, 90);
