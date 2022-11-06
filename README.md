@@ -2,23 +2,24 @@
 
 ## Description
 
- - (logo, titleScreen and endScreen are commented on App.cpp in order to make the program work before we change it and make it function with enable() and disable())
+Pink Dude is a 2D Platformer developed by Kobayashi Studios, founded by Héctor Báscones Zamora [(@Hekbas)] (https://github.com/Hekbas) and Júlia Serra Trujillo [(@softdrawss)] (https://github.com/softdrawss).
 
-{project description}
+![logo](https://user-images.githubusercontent.com/99959289/200201246-e9a57554-41d6-4304-8de3-caa10a13133a.png)
+
+Link to the release: [https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Alpha] (https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Alpha)
 
 ## Key Features
 
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
+ - GOD MODE: Inmortal, move freely, turns off gravity
  
 ## Controls
 
- - {ControlsScheme}
  - WASD: Movement
  - SPACE: Jump
+ - ENTER: Start game
  - ESC: Quit
+ - TAB + C: Camera
+ - TAB + V: Variables
  - F1/F2: Start from the first/second level
  - F3: Start from the beginning of the current level
  - F5: Save the current game state
@@ -28,11 +29,9 @@
 
 ## Developers
 
- - {Héctor Báscones} - {Role(s)}
- - {Júlia Serra Trujillo} - {Role(s)}
+ - Héctor Báscones - Programmer
+ - Júlia Serra Trujillo - Designer, Audio Engineer, Programmer
 
 ## License
 
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
-
-{AdditionalLicenses}
