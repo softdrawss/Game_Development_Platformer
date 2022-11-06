@@ -77,12 +77,12 @@ void Map::Draw()
                     
                     switch (mapLayerItem->data->id)
                     {
-                    case 6: Parallax(tileset, pos, r, 0.1); break;
-                    case 5: Parallax(tileset, pos, r, 0.3); break;
-                    case 4: Parallax(tileset, pos, r, 0.6); break;
-                    case 3: Parallax(tileset, pos, r, 0.7); break;
-                    case 2: Parallax(tileset, pos, r, 0.9); break;
-                    default: Parallax(tileset, pos, r, 0);  break;
+                    case 6: Parallax(tileset, pos, r, 0); break; //0.1
+                    case 5: Parallax(tileset, pos, r, 0); break; //0.3
+                    case 4: Parallax(tileset, pos, r, 0); break; //0.6
+                    case 3: Parallax(tileset, pos, r, 0); break; //0.7
+                    case 2: Parallax(tileset, pos, r, 0); break; //0.9
+                    default: Parallax(tileset, pos, r, 0);  break; //0
                     }
                 }
             }
@@ -379,13 +379,19 @@ bool Map::CreateColliders()
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
                 {
-                    if (mapLayerItem->data->Get(x, y) == 3139)
+                    if (mapLayerItem->data->Get(x, y) != 0)
                     {
                         iPoint pos = MapToWorld(x, y);
-                        //app->physics->CreateRectangle(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC);
-
                         PhysBody* c1 = app->physics->CreateRectangle(pos.x + halfTileHeight, pos.y + halfTileWidth, mapData.tileWidth, mapData.tileHeight, STATIC);
-                        c1->ctype = ColliderType::PLATFORM;
+
+                        switch (mapLayerItem->data->Get(x, y))
+                        { 
+                        case 3139: c1->ctype = ColliderType::PLATFORM; break;
+                        case 3140: c1->ctype = ColliderType::GROUND; break;
+                        case 3141: c1->ctype = ColliderType::WALL; break;
+                        case 3143: c1->ctype = ColliderType::DEATH; break;
+                        default: break;
+                        }
                     }                  
                 }
             }

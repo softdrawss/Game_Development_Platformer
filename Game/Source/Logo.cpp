@@ -50,8 +50,10 @@ bool Logo::PreUpdate()
 // Called each loop iteration
 bool Logo::Update(float dt)
 {
-	app->fade->FadeBlack(this, (Module*)app->scene, 30);
-
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		app->fade->FadeBlack(this, (Module*)app->scene, 90);
+	}
 
 	return true;
 }
@@ -60,11 +62,8 @@ bool Logo::Update(float dt)
 bool Logo::PostUpdate()
 {
 	app->render->DrawTexture(img, 0, 0);
-
-	if (app->input->GetKey(SDL_SCANCODE_SPACE == KEY_REPEAT))
-	{
-	}
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE == KEY_REPEAT))
+	
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
 		return false;
 	}
