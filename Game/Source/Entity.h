@@ -31,11 +31,6 @@ public:
 		return true;
 	}
 
-	virtual bool Start(pugi::xml_node&)
-	{
-		return true;
-	}
-
 	virtual bool Update()
 	{
 		return true;

@@ -19,8 +19,6 @@ public:
 
 	bool Start();
 
-	bool Start(pugi::xml_node&);
-
 	bool Update();
 
 	bool CleanUp();
