@@ -9,7 +9,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 #include "Debug.h"
-
+#include "FadeToBlack.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -50,6 +50,8 @@ bool Scene::Start()
 	app->entityManager->Enable();
 	app->debug->Enable();
 
+	player->alive = true;
+
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
 	app->fonts->font_white = app->fonts->Load("Assets/Textures/sprite_font_white.png", lookupTable, 7);
 	app->render->camera.x = 0;
@@ -70,7 +72,7 @@ bool Scene::Start()
 		app->map->mapData.tilesets.Count());
 
 	app->win->SetTitle(title.GetString());
-
+	
 	return true;
 }
 
@@ -129,6 +131,9 @@ bool Scene::Update(float dt)
 
 	}
 
+	if (!player->alive) {
+		app->fade->FadeBlack(this, (Module*)app->endScreen, 90);
+	}
 
 	//Camera limits
 	if (app->render->camera.x > 0)

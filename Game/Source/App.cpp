@@ -54,7 +54,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(logo);
 	AddModule(titleScreen);
 	AddModule(scene);
-	//AddModule(endScreen);
+	AddModule(endScreen);
 	AddModule(entityManager);
 	AddModule(map);
 	AddModule(fade);

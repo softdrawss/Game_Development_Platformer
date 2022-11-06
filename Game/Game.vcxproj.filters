@@ -97,9 +97,6 @@
     <ClInclude Include="Source\App.h">
       <Filter>Aplication</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Module.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Audio.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
@@ -152,6 +149,9 @@
       <Filter>Modules\Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Fonts.h">
+      <Filter>Modules\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Module.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
   </ItemGroup>
