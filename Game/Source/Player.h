@@ -12,43 +12,47 @@ class Player : public Entity
 {
 public:
 
-	Player();
-	
+	Player();	
 	virtual ~Player();
 
 	bool Awake();
-
 	bool Start();
-
-	bool Update();
-	
+	bool Update();	
 	bool PostUpdate();
-
 	bool CleanUp();
 
-	bool IsJumping();
-
 	void OnCollision(PhysBody* physA, PhysBody* physB);
+	void Player::DebugKeys();
+	void LoadAnimations();
 
 public:
 
 private:
 	
-	//L02: DONE 1: Declare player parameters
+	bool alive;
+	bool idle, leftID;
+	bool isGrounded;
+	bool stairs;
+	int remainingJumpSteps;
+
+	bool godMode;
+
+	//Physics
+	PhysBody* pbody;
+
+	//Texture
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	int remainingJumpSteps;
-
-	// L07 DONE 5: Add physics to the player - declare a Physics body
-	PhysBody* pbody;
+	//Animation
 	Animation left, right, climb;	// jump?
 	Animation LRun, RRun, LJump, RJump;
 	Animation death, iddledeathanim;
 	Animation* currentAnim = nullptr;
 
+	//FX
 	int pickCoinFxId;
-	bool idle, leftID;
+	
 };
 
 #endif // __PLAYER_H__

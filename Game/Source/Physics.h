@@ -30,6 +30,9 @@ enum class ColliderType {
 	PLAYER,
 	ITEM,
 	PLATFORM,
+	GROUND,
+	WALL,
+	DEATH,
 	UNKNOWN
 	// ..
 };
@@ -80,9 +83,11 @@ public:
 	void BeginContact(b2Contact* contact);
 
 private:
-	bool debug = true;
 
 	b2World* world;
 	b2MouseJoint* mouse_joint;
 	b2Body* ground;
+
+public:
+	bool debug;
 };
