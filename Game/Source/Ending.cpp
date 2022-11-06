@@ -52,7 +52,7 @@ bool Ending::Update(float dt)
 {
 	app->scene->player->alive = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		app->fade->FadeBlack(this, (Module*)app->titleScreen, 90);
 	}
