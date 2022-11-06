@@ -38,18 +38,19 @@ bool Scene::Awake(pugi::xml_node& config)
 	}
 
 	//L02: DONE 3: Instantiate the player using the entity manager
-	
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	player->parameters = config.child("player");
 
 	return ret;
 }
 
 // Called before the first frame
-bool Scene::Start(pugi::xml_node& config)
+bool Scene::Start()
 {
 	app->entityManager->Enable();
 	app->debug->Enable();
 
-	
+	player->alive = true;
 
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
 	app->fonts->font_white = app->fonts->Load("Assets/Textures/sprite_font_white.png", lookupTable, 7);
@@ -70,10 +71,6 @@ bool Scene::Start(pugi::xml_node& config)
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
 
-	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->parameters = config.child("player");
-
-	player->alive = true;
 	app->win->SetTitle(title.GetString());
 	
 	return true;

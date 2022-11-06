@@ -126,9 +126,7 @@ bool App::Start()
 	{
 		if (item->data->active)
 		{
-			pugi::xml_node node = configNode.child(item->data->name.GetString());
 			ret = item->data->Start();
-			//ret = item->data->Start(node);
 		}
 		item = item->next;
 	}
