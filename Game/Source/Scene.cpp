@@ -92,55 +92,49 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	int scale = app->win->GetScale();
-
-	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-#pragma region DEBUG_KEYS
-
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		app->SaveGameRequest();
-
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		app->LoadGameRequest();
-
-	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += camSpeed;
-
-	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= camSpeed;
-
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += camSpeed;
-
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= camSpeed;
-
-#pragma endregion DEBUG_KEYS
+	
+	if (!app->debug->freeCam)
+	{
+		//Camera behaviour
+		//Left
+		if (player->position.x * scale + app->render->camera.x < app->render->camera.w * 0.4)
+			app->render->camera.x = -player->position.x * scale + (app->render->camera.w * 0.4);
+		//right
+		else if (player->position.x * scale + app->render->camera.x > app->render->camera.w * 0.6)
+			app->render->camera.x = -player->position.x * scale + (app->render->camera.w * 0.6);
+		//up
+		if (player->position.y * scale + app->render->camera.y < app->render->camera.h * 0.4)
+			app->render->camera.y = -player->position.y * scale + (app->render->camera.h * 0.4);
+		//down
+		else if (player->position.y * scale + app->render->camera.y > app->render->camera.h * 0.6)
+			app->render->camera.y = -player->position.y * scale + (app->render->camera.h * 0.6);
 
 
-	//Camera behaviour
-	//Left
-	if (player->position.x * scale + app->render->camera.x < app->render->camera.w * 0.4)
-		app->render->camera.x = -player->position.x * scale + (app->render->camera.w * 0.4);
-	//right
-	else if(player->position.x * scale + app->render->camera.x > app->render->camera.w * 0.6)
-		app->render->camera.x = -player->position.x * scale + (app->render->camera.w * 0.6);
-	//up
-	if (player->position.y * scale + app->render->camera.y < app->render->camera.h * 0.4)
-		app->render->camera.y = -player->position.y * scale + (app->render->camera.h * 0.4);
-	//down
-	else if (player->position.y * scale + app->render->camera.y > app->render->camera.h * 0.6)
-		app->render->camera.y = -player->position.y * scale + (app->render->camera.h * 0.6);
+		//Camera limits
+		if (app->render->camera.x > 0)
+			app->render->camera.x = 0;
+		else if (app->render->camera.x < -3310)
+			app->render->camera.x = -3310;
+		if (app->render->camera.y > -352)
+			app->render->camera.y = -352;
+		else if (app->render->camera.y < -448)
+			app->render->camera.y = -448;
+	}
+	else
+	{
+		//Free Camera
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			app->render->camera.y += camSpeed;
 
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			app->render->camera.y -= camSpeed;
 
-	//Camera limits
-	if (app->render->camera.x > 0)
-		app->render->camera.x = 0;
-	else if (app->render->camera.x < -3310)
-		app->render->camera.x = -3310;
-	if (app->render->camera.y > -352)
-		app->render->camera.y = -352;
-	else if (app->render->camera.y < -448)
-		app->render->camera.y = -448;
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			app->render->camera.x += camSpeed;
+
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			app->render->camera.x -= camSpeed;
+	}
 	
 
 	// Draw map

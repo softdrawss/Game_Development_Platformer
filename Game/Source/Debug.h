@@ -22,7 +22,7 @@ public:
 	//flags
 	bool debug;
 	bool godMode = false;
-	bool debugCam = false;
+	bool freeCam = false;
 	bool variables = false;
 	bool camLimits = false;
 	bool teleport = false;

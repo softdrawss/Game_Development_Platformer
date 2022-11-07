@@ -59,13 +59,12 @@ bool Debug::Update(float dt)
 
 	// F5: Save the current game state
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-		app->scene->player->savedPosition.x = app->scene->player->position.x;
-		app->scene->player->savedPosition.y = app->scene->player->position.y;
+		app->SaveGameRequest();
 	}
 
 	// F6: Load the previous state (even across levels)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-
+		app->LoadGameRequest();
 	}
 
 	// F9: View colliders / logic
@@ -78,6 +77,10 @@ bool Debug::Update(float dt)
 		godMode = !godMode;
 	}
 
+	// F11: Free camera
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		freeCam = !freeCam;
+	}
 	return true;
 }
 
@@ -101,18 +104,18 @@ void Debug::DrawDebug()
 
 	//Variables
 	if (variables)
-	{
-		app->fonts->BlitText(debugX, debugY + 30, 0, "#god mode");
+	{	
+		//God Mode
 		if (!godMode)
-			app->fonts->BlitText(debugX + 80, debugY + 30, 0, "off");
+			app->fonts->BlitText(debugX, debugY + 30, 0, "#god mode (f10)  off");
 		else
-			app->fonts->BlitText(debugX + 80, debugY + 30, 0, "on");
-
-		app->fonts->BlitText(debugX, debugY + 40, 0, "#free cam");
-		if (!debugCam)
-			app->fonts->BlitText(debugX + 80, debugY + 40, 0, "off");
+			app->fonts->BlitText(debugX, debugY + 30, 0, "#god mode (f10)  on");
+		
+		//Free Camera
+		if (!freeCam)
+			app->fonts->BlitText(debugX, debugY + 40, 0, "#free cam (f11)  off");
 		else
-			app->fonts->BlitText(debugX + 80, debugY + 40, 0, "on");
+			app->fonts->BlitText(debugX, debugY + 40, 0, "#free cam (f11)  on");
 
 		//Player x, y
 		app->fonts->BlitText(debugX , debugY + 55, 0, "player.x =");
