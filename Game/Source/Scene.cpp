@@ -53,7 +53,8 @@ bool Scene::Start()
 	app->debug->Enable();
 
 	player->alive = true;
-	cameraMoveCount = 0;
+	camSpeed = 4/ app->win->GetScale();
+
 
 	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
 
@@ -91,7 +92,6 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	int scale = app->win->GetScale();
-	int camSpeed = 10;
 
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 #pragma region DEBUG_KEYS
@@ -118,35 +118,30 @@ bool Scene::Update(float dt)
 
 
 	//Camera behaviour
-	////Left
-	//if (player->position.x + app->render->camera.x < app->render->camera.w * 0.4)
-	//	app->render->camera.x = -player->position.x + (app->render->camera.w * 0.4);
-	////right
-	//else if(player->position.x + app->render->camera.x > app->render->camera.w * 0.6)
-	//	app->render->camera.x = -player->position.x + (app->render->camera.w * 0.6);
-	////up
-	//if (player->position.y + app->render->camera.y < app->render->camera.h * 0.4)
-	//	app->render->camera.y = -player->position.y + (app->render->camera.h * 0.4);
-	////down
-	//else if (player->position.y + app->render->camera.y > app->render->camera.h * 0.6)
-	//	app->render->camera.y = -player->position.y + (app->render->camera.h * 0.6);
+	//Left
+	if (player->position.x * scale + app->render->camera.x < app->render->camera.w * 0.4)
+		app->render->camera.x = -player->position.x * scale + (app->render->camera.w * 0.4);
+	//right
+	else if(player->position.x * scale + app->render->camera.x > app->render->camera.w * 0.6)
+		app->render->camera.x = -player->position.x * scale + (app->render->camera.w * 0.6);
+	//up
+	if (player->position.y * scale + app->render->camera.y < app->render->camera.h * 0.4)
+		app->render->camera.y = -player->position.y * scale + (app->render->camera.h * 0.4);
+	//down
+	else if (player->position.y * scale + app->render->camera.y > app->render->camera.h * 0.6)
+		app->render->camera.y = -player->position.y * scale + (app->render->camera.h * 0.6);
 
-
-	cameraMoveCount++;
-	if (cameraMoveCount % 2 == 0)
-	{
-		app->render->camera.x -= 1;
-	}
 
 	//Camera limits
 	if (app->render->camera.x > 0)
 		app->render->camera.x = 0;
-	if (app->render->camera.x < -3310)
+	else if (app->render->camera.x < -3310)
 		app->render->camera.x = -3310;
-	if (app->render->camera.y < -448)
+	if (app->render->camera.y > -352)
+		app->render->camera.y = -352;
+	else if (app->render->camera.y < -448)
 		app->render->camera.y = -448;
 	
-
 
 	// Draw map
 	app->map->Draw();

@@ -51,7 +51,7 @@ bool Logo::PreUpdate()
 bool Logo::Update(float dt)
 {
 	count++;
-	if (count = 180)
+	if (count == 100)
 	{
 		app->fade->FadeBlack(this, (Module*)app->titleScreen, 90);
 	}

@@ -33,14 +33,6 @@ bool Title::Awake(pugi::xml_node& config)
 	LOG("Loading Title");
 	bool ret = true;
 
-	// iterate all objects in the scene
-	// Check https://pugixml.org/docs/quickstart.html#access
-	/*for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-	{
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		item->parameters = itemNode;
-	}*/
-
 	return ret;
 }
 
@@ -67,7 +59,6 @@ bool Title::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
   		app->fade->FadeBlack(this, (Module*)app->scene, 90);
-		app->entityManager->Enable();
 	}
 
 	return true;
