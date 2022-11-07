@@ -26,7 +26,7 @@
 	</logo>
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
   <scene>
-    <player x="112" y="511" texturepath="Assets/Textures/MC/1 Pink_Monster/Pink_Monster_Animation_List_3.png"/>
+    <player x="128" y="512" texturepath="Assets/Textures/MC/1 Pink_Monster/Pink_Monster_Animation_List_3.png"/>
   </scene>
 
   <map>

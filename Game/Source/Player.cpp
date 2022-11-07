@@ -34,6 +34,7 @@ bool Player::Awake() {
 bool Player::Start()
 {
 	alive = true;
+	stairs = false;
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 

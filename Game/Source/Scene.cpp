@@ -93,7 +93,6 @@ bool Scene::Update(float dt)
 {
 	int scale = app->win->GetScale();
 	
-
 	if (!app->debug->freeCam)
 	{
 		//Camera behaviour
