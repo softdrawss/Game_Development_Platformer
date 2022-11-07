@@ -53,7 +53,7 @@ bool Scene::Start()
 	app->debug->Enable();
 
 	player->alive = true;
-	camSpeed = 4/ app->win->GetScale();
+	camSpeed = 6 * app->win->GetScale();
 
 
 	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
@@ -93,6 +93,7 @@ bool Scene::Update(float dt)
 {
 	int scale = app->win->GetScale();
 	
+
 	if (!app->debug->freeCam)
 	{
 		//Camera behaviour
