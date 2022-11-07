@@ -41,6 +41,9 @@ bool Debug::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 			camLimits = !camLimits;
+
+		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+			teleport = !teleport;
 	}
 
 	// F1/F2: Start from the first/second level
@@ -99,8 +102,13 @@ void Debug::DrawDebug()
 	int debugX = app->render->camera.w / scale * 0.7;
 	int debugY = app->render->camera.h / scale * 0.1;
 
-	app->fonts->BlitText(debugX, debugY, 0, "v - variables");
-	app->fonts->BlitText(debugX, debugY + 10, 0, "c - camera limits");
+	app->fonts->BlitText(debugX, debugY, 0, "variables (v)");
+	//Camera Limits
+	if (camLimits)
+		app->fonts->BlitText(debugX, debugY + 10, 0, "camera limits (c)  on");
+	else
+		app->fonts->BlitText(debugX, debugY + 10, 0, "camera limits (c)  off");
+	
 
 	//Variables
 	if (variables)
@@ -143,27 +151,20 @@ void Debug::DrawDebug()
 	{
 		int scale = app->win->GetScale();
 
-		app->scene->rectCamera.x = -app->render->camera.x + (app->render->camera.w * 0.4);
-		app->scene->rectCamera.y = -app->render->camera.y + (app->render->camera.h * 0.4);
+		app->scene->rectCamera.x = app->render->camera.w * 0.4;
+		app->scene->rectCamera.y = app->render->camera.h * 0.4;
 		app->scene->rectCamera.w = app->render->camera.w * 0.2;
 		app->scene->rectCamera.h = app->render->camera.h * 0.2;
 		app->render->DrawRectangle(app->scene->rectCamera, 0, 255, 0, 255, false, false);
 	}
 
 	//Teleport
-	/*if (teleport)
+	if (teleport)
 	{
-		app->fonts->BlitText(10, spawnBox + 40, 0, "TELEPORT.");
-		app->fonts->BlitText(75, spawnBox + 40, 0, "1.START");
-		app->fonts->BlitText(75, spawnBox + 50, 0, "2.FENCE");
-		app->fonts->BlitText(75, spawnBox + 60, 0, "3.BRIDGE");
-		app->fonts->BlitText(75, spawnBox + 70, 0, "4.BOSS");
-
-		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
-			app->scene->player->position.x = 230;
-			app->scene->player->position.y = -60;
-			app->render->camera.x = app->scene->player->position.x - 100;
-			app->render->camera.y = app->scene->player->position.x - 200;
+		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		{
+			app->scene->player->position.x = 2120;
+			app->scene->player->position.y = 385;
 		}
-	}*/
+	}
 }
