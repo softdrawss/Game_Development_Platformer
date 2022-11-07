@@ -26,6 +26,7 @@ public:
 	void LoadAnimations();
 
 public:
+
 	bool alive;
 	b2Vec2 initPosition;
 	//Physics
@@ -35,14 +36,10 @@ public:
 
 private:
 	
-	
 	bool idle, leftID;
 	bool isGrounded;
 	bool stairs;
 	int remainingJumpSteps;
-
-
-	
 
 	//Texture
 	SDL_Texture* texture;

@@ -106,16 +106,16 @@ void Debug::DrawDebug()
 	if (variables)
 	{	
 		//God Mode
-		if (!godMode)
-			app->fonts->BlitText(debugX, debugY + 30, 0, "#god mode (f10)  off");
-		else
+		if (godMode)
 			app->fonts->BlitText(debugX, debugY + 30, 0, "#god mode (f10)  on");
-		
-		//Free Camera
-		if (!freeCam)
-			app->fonts->BlitText(debugX, debugY + 40, 0, "#free cam (f11)  off");
 		else
+			app->fonts->BlitText(debugX, debugY + 30, 0, "#god mode (f10)  off");
+
+		//Free Camera
+		if (freeCam)
 			app->fonts->BlitText(debugX, debugY + 40, 0, "#free cam (f11)  on");
+		else
+			app->fonts->BlitText(debugX, debugY + 40, 0, "#free cam (f11)  off");
 
 		//Player x, y
 		app->fonts->BlitText(debugX , debugY + 55, 0, "player.x =");
@@ -123,18 +123,19 @@ void Debug::DrawDebug()
 
 		app->fonts->BlitText(debugX, debugY + 65, 0, "player.y =");
 		app->fonts->BlitText(debugX + 88, debugY + 65, 0, std::to_string(app->scene->player->position.y).c_str());
+
 		//Camera x, y
 		app->fonts->BlitText(debugX, debugY + 80, 0, "camera.x =");
 		app->fonts->BlitText(debugX + 88, debugY + 80, 0, std::to_string(app->render->camera.x).c_str());
 
 		app->fonts->BlitText(debugX, debugY + 90, 0, "camera.y =");
 		app->fonts->BlitText(debugX + 88, debugY + 90, 0, std::to_string(app->render->camera.y).c_str());
-		//Camera w, h
-		app->fonts->BlitText(debugX, debugY + 105, 0, "debug.x =");
-		app->fonts->BlitText(debugX + 88, debugY + 105, 0, std::to_string(debugX).c_str());
 
-		app->fonts->BlitText(debugX, debugY + 115, 0, "debug.y =");
-		app->fonts->BlitText(debugX + 88, debugY + 115, 0, std::to_string(debugY).c_str());
+		//Player alive
+		if (app->scene->player->alive)
+			app->fonts->BlitText(debugX, debugY + 105, 0, "player.alive = true");
+		else
+			app->fonts->BlitText(debugX, debugY + 105, 0, "player.alive = false");
 	}
 
 	//Camera limits

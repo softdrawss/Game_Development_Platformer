@@ -140,6 +140,12 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
+
+	if (!player->alive)
+	{
+		app->fade->FadeBlack(this, (Module*)app->endScreen, 90);
+	}
+
 	return true;
 }
 
