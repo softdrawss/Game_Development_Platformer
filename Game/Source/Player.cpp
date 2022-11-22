@@ -147,7 +147,7 @@ bool Player::Update()
 		remainingJumpSteps--;	
 	}
 
-	//Update player position in pixels
+	//Update player position in pixelspl
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 

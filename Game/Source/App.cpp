@@ -51,11 +51,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(audio);
 	AddModule(physics);
-	AddModule(map);
+
 	AddModule(logo);
 	AddModule(titleScreen);
 	AddModule(scene);
 	AddModule(endScreen);
+
+	AddModule(map);
 	AddModule(entityManager);
 	AddModule(fade);
 	AddModule(debug);
