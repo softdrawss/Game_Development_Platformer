@@ -165,6 +165,9 @@ bool Map::CleanUp()
         RELEASE(layerItem->data);
         layerItem = layerItem->next;
     }
+    mapData.maplayers.Clear();
+
+    mapLoaded = false;
 
     return true;
 }
