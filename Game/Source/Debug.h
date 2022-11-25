@@ -17,6 +17,7 @@ public:
 	bool PostUpdate();		// Draw if debug true
 
 	void DrawDebug();
+	void DrawColliders();
 
 public:
 	//flags
@@ -26,6 +27,7 @@ public:
 	bool godMode = false;
 	bool freeCam = false;
 	bool teleport = false;
+	bool drawColliders = false;
 
 private:
 

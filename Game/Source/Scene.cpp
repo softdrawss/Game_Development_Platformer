@@ -50,6 +50,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	app->map->Enable();
+	app->physics->Enable();
 	app->entityManager->Enable();
 	app->debug->Enable();
 

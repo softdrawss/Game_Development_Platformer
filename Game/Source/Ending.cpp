@@ -35,10 +35,13 @@ bool Ending::Start()
 {
 	img = app->tex->Load("Assets/Textures/end.png");
 
+
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
 	app->map->Disable();
+	app->physics->Disable();
+
 	return true;
 }
 
