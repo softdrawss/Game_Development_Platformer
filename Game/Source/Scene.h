@@ -43,6 +43,14 @@ public:
 private:
 	SDL_Texture* img;
 
+	//Music XML
+	char* musicPath;
+
+	//Fonts XML
+	char* fontPath;
+
+	//CAMERA XML
+	int camX, camY, speed;
 };
 
 #endif // __SCENE_H__

@@ -38,7 +38,8 @@ public:
 
 private:
 	SDL_Texture* img;
-
+	char* titlepath;
+	int x, y;
 };
 
 #endif // __TITLE_H__

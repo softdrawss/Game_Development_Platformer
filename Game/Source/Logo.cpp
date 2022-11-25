@@ -27,13 +27,24 @@ bool Logo::Awake(pugi::xml_node& config)
 	LOG("Loading Logo");
 	bool ret = true;
 
+	// iterate all objects in the scene
+	// Check https://pugixml.org/docs/quickstart.html#access
+	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	{
+		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		item->parameters = itemNode;
+	}
+
+	logopath = (char*)config.child("pos").attribute("texturepath").as_string();
+	x = config.child("pos").attribute("x").as_int();
+	y = config.child("pos").attribute("y").as_int();
 	return ret;
 }
 
 // Called before the first frame
 bool Logo::Start()
 {
-	img = app->tex->Load("Assets/Textures/logo.png");
+	img = app->tex->Load(logopath);
 	count = 0;
 
 	return true;
@@ -60,7 +71,7 @@ bool Logo::Update(float dt)
 // Called each loop iteration
 bool Logo::PostUpdate()
 {
-	app->render->DrawTexture(img, 0, 0);
+	app->render->DrawTexture(img, x, y);
 	
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
