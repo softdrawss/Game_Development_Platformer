@@ -38,6 +38,7 @@ bool Ending::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	app->map->Disable();
 	return true;
 }
 
@@ -50,8 +51,6 @@ bool Ending::PreUpdate()
 // Called each loop iteration
 bool Ending::Update(float dt)
 {
-	app->scene->player->alive = true;
-
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		app->fade->FadeBlack(this, (Module*)app->titleScreen, 90);

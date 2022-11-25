@@ -58,10 +58,13 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	//PLAYER
+  //Enables
+	app->map->Enable();
 	app->entityManager->Enable();
 	app->debug->Enable();
-	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
+  
+	//PLAYER
+  player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
 	player->alive = true;
 
 	//MUSIC
