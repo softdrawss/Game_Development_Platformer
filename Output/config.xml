@@ -36,6 +36,10 @@
 	<camera speed="6" x="0" y="-448"/>
   </scene>
 
+  <ending>
+  	<pos x="0" y="0" texturepath="Assets/Textures/end.png"/>
+  </ending>
+	
   <map>
     <mapfolder path="Assets/Maps/"/>
     <mapfile path="Assets/Maps/Level_1.tmx"/>
