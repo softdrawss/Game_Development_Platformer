@@ -9,7 +9,7 @@
 	<logo />
 	<title />
 	<scene>
-		<player x="324" y="561" />
+		<player x="420" y="535" />
 	</scene>
 	<ending />
 	<map />
@@ -17,6 +17,6 @@
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="-10" y="-448" />
+		<camera x="-104" y="-448" />
 	</renderer>
 </save_state>

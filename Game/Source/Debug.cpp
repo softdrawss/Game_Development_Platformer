@@ -63,7 +63,6 @@ bool Debug::Update(float dt)
 	// F5: Save the current game state
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		app->SaveGameRequest();
-		app->fonts->BlitText(50, 50 + 30, 0, "saved");
 	}
 
 	// F6: Load the previous state (even across levels)
