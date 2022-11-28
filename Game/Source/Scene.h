@@ -36,7 +36,9 @@ public:
 
 public:
 	int camSpeed;
-	//L02: DONE 3: Declare a Player attribute 
+
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
 	Player* player;
 	SDL_Rect rectCamera;
 

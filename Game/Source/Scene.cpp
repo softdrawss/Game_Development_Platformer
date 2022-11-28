@@ -176,3 +176,23 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+// L03: DONE 6: Implement a method to load the state load players's x and y
+bool Scene::LoadState(pugi::xml_node& data)
+{
+	player->SetPosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+
+	return true;
+}
+
+// L03: DONE 8: Create a method to save the state of the player
+// using append_child and append_attribute
+bool Scene::SaveState(pugi::xml_node& data)
+{
+	pugi::xml_node play = data.append_child("player");
+
+	play.append_attribute("x") = player->position.x + 16;
+	play.append_attribute("y") = player->position.y + 16;
+
+	return true;
+}

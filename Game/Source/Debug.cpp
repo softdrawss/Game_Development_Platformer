@@ -48,21 +48,22 @@ bool Debug::Update(float dt)
 
 	// F1/F2: Start from the first/second level
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-
+		app->fade->FadeBlack((Module*)app->scene, (Module*)app->scene); //actually this should not work like this but there is no level 2 so it works
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-
+		//No level 2 yet :D
 	}
 
 	// F3: Start from the beginning of the current level
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-
+		app->fade->FadeBlack((Module*)app->scene, (Module*)app->scene);
 	}
 
 	// F5: Save the current game state
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		app->SaveGameRequest();
+		app->fonts->BlitText(50, 50 + 30, 0, "saved");
 	}
 
 	// F6: Load the previous state (even across levels)
