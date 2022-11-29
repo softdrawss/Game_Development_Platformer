@@ -2,10 +2,13 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include <chrono>
+using namespace std::chrono;
+#include <thread>
 
 // NOTE: SDL redefines main function
 #include "SDL/include/SDL.h"
-
+#include "Debug.h"
 // NOTE: Library linkage is configured in Linker Options
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2.lib")
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2main.lib")
@@ -34,6 +37,8 @@ int main(int argc, char* args[])
 
 	while(state != EXIT)
 	{
+		high_resolution_clock::time_point startTime = high_resolution_clock::now();
+
 		switch(state)
 		{
 			// Allocate the engine --------------------------------------------
@@ -104,6 +109,24 @@ int main(int argc, char* args[])
 			state = EXIT;
 			break;
 		}
+		
+		//FPS CONTROL
+
+		high_resolution_clock::time_point endTime = high_resolution_clock::now();
+		app->debug->timePerCycle = duration_cast<microseconds>(endTime - startTime);
+
+		//Frames per microseconds of the desiredFPS
+		app->debug->desiredFPSmic = (int)((1.0f / (float)app->debug->desiredFPS) * 1E6);
+
+		//Sleep if the time is less than the desiredFPSmic
+		if (app->debug->timePerCycle < std::chrono::microseconds(app->debug->desiredFPSmic))
+		{
+			std::this_thread::sleep_for(std::chrono::microseconds(std::chrono::microseconds(app->debug->desiredFPSmic) - app->debug->timePerCycle));
+		}
+
+		//Calculate the time with the delay
+		endTime = high_resolution_clock::now();
+		app->debug->elapsedFrame = duration_cast<microseconds>(endTime - startTime);
 	}
 
 	LOG("... Bye! :)\n");

@@ -9,12 +9,12 @@
 
 struct SDL_Texture;
 
-class Enemy : public Entity
+class EnemyFly : public Entity
 {
 public:
 
-	Enemy();
-	virtual ~Enemy();
+	EnemyFly();
+	virtual ~EnemyFly();
 
 	bool Awake();
 	bool Start();
