@@ -30,6 +30,7 @@ class Ending;
 class Debug;
 class Render;
 
+class PathFinding;
 class App
 {
 public:
@@ -106,7 +107,7 @@ public:
 	Scene* scene;
 	Ending* endScreen;
 	Debug* debug;
-
+	PathFinding* pathfinding;
 private:
 
 	int argc;

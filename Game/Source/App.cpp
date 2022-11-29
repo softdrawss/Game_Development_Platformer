@@ -14,7 +14,7 @@
 #include "Title.h"
 #include "Scene.h"
 #include "Ending.h"
-
+#include "Pathfinding.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -42,7 +42,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene(false);
 	endScreen = new Ending(false);
 	debug = new Debug(false);
-
+	pathfinding = new PathFinding(false);
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -61,7 +61,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(fade);
 	AddModule(debug);
-	
+	AddModule(pathfinding);
 	// Render last to swap buffer
 	AddModule(render);
 }
