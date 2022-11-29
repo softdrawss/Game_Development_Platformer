@@ -82,7 +82,8 @@ public:
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
-private:
+	b2World* GetWorld();
+public:
 
 	b2World* world;
 	b2MouseJoint* mouse_joint;

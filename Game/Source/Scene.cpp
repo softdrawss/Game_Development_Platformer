@@ -60,6 +60,7 @@ bool Scene::Start()
 {
   //Enables
 	app->map->Enable();
+	app->physics->Enable();
 	app->entityManager->Enable();
 	app->debug->Enable();
   
