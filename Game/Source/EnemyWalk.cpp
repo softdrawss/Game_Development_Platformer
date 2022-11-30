@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "EnemyWalk.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -11,16 +11,16 @@
 #include "Debug.h"
 #include "FadeToBlack.h"
 
-Enemy::Enemy() : Entity(EntityType::ENEMY)
+EnemyWalk::EnemyWalk() : Entity(EntityType::WALK)
 {
 	name.Create("Enemy");
 }
 
-Enemy::~Enemy() {
+EnemyWalk::~EnemyWalk() {
 
 }
 
-bool Enemy::Awake() {
+bool EnemyWalk::Awake() {
 
 	//L02: DONE 1: Initialize Player parameters
 	//pos = position;
@@ -31,7 +31,7 @@ bool Enemy::Awake() {
 	return true;
 }
 
-bool Enemy::Start()
+bool EnemyWalk::Start()
 {
 	//alive = true;
 	//stairs = false;
@@ -66,7 +66,7 @@ bool Enemy::Start()
 	return true;
 }
 
-bool Enemy::Update()
+bool EnemyWalk::Update()
 {
 	//b2Vec2 vel;
 	//int speed = 5;
@@ -161,20 +161,20 @@ bool Enemy::Update()
 	return true;
 }
 
-bool Enemy::PostUpdate()
+bool EnemyWalk::PostUpdate()
 {
 	//For highscore
 
 	return true;
 }
 
-bool Enemy::CleanUp()
+bool EnemyWalk::CleanUp()
 {
 
 	return true;
 }
 
-void Enemy::OnCollision(PhysBody* physA, PhysBody* physB)
+void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
@@ -203,7 +203,7 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB)
 	}
 }
 
-void Enemy::LoadAnimations()
+void EnemyWalk::LoadAnimations()
 {
 	//right.PushBack({ 0, 160, 32, 32 });
 	//right.PushBack({ 32, 160, 32, 32 });
@@ -279,7 +279,7 @@ void Enemy::LoadAnimations()
 	//currentAnim = &right;
 }
 
-void Enemy::SetPosition(int posX, int posY)
+void EnemyWalk::SetPosition(int posX, int posY)
 {
 	/*b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
 	pbody->body->SetTransform(position, 0);*/

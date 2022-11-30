@@ -2,6 +2,8 @@
 #define __DEBUG_H__
 
 #include "Module.h"
+#include <chrono>
+using namespace std::chrono;
 
 #define DEBUG_BOX 225
 
@@ -29,8 +31,13 @@ public:
 	bool teleport = false;
 	bool moveRight = false;
 	bool drawColliders = false;
-
-
+	bool controlFPS = false;
+	// FPS
+	microseconds timePerCycle;
+	microseconds elapsedFrame;
+	int desiredFPSmic;
+	int desiredFPS = 60;
+  
 private:
 
 	

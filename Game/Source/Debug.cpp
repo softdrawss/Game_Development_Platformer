@@ -14,7 +14,6 @@
 #include "Title.h"
 #include "Scene.h"
 #include "Ending.h"
-
 #include "Defs.h"
 #include "Log.h"
 
@@ -70,6 +69,11 @@ bool Debug::Update(float dt)
 		app->LoadGameRequest();
 	}
 
+	// F8: Free camera
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		freeCam = !freeCam;
+	}
+
 	// F9: View colliders / logic
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		drawColliders = !drawColliders;
@@ -80,9 +84,9 @@ bool Debug::Update(float dt)
 		godMode = !godMode;
 	}
 
-	// F11: Free camera
-	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
-		freeCam = !freeCam;
+	// F11: Enable/Disable FPS cap to 30
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+		controlFPS = !controlFPS;
 	}
 
 	// F7: Auto move right
@@ -121,17 +125,17 @@ void Debug::DrawDebug()
 	//Variables
 	if (variables)
 	{	
-		//God Mode
-		if (godMode)
-			app->fonts->BlitText(debugX, debugY + 30, 0, "#god mode (f10)  on");
-		else
-			app->fonts->BlitText(debugX, debugY + 30, 0, "#god mode (f10)  off");
-
 		//Free Camera
 		if (freeCam)
-			app->fonts->BlitText(debugX, debugY + 40, 0, "#free cam (f11)  on");
+			app->fonts->BlitText(debugX, debugY + 30, 0, "#free cam (f8)  on");
 		else
-			app->fonts->BlitText(debugX, debugY + 40, 0, "#free cam (f11)  off");
+			app->fonts->BlitText(debugX, debugY + 30, 0, "#free cam (f8)  off");
+		
+		//God Mode
+		if (godMode)
+			app->fonts->BlitText(debugX, debugY + 40, 0, "#god mode (f10)  on");
+		else
+			app->fonts->BlitText(debugX, debugY + 40, 0, "#god mode (f10)  off");
 
 		//Player x, y
 		app->fonts->BlitText(debugX , debugY + 55, 0, "player.x =");
@@ -174,6 +178,10 @@ void Debug::DrawDebug()
 			app->scene->player->position.x = 2120;
 			app->scene->player->position.y = 385;
 		}
+	}
+
+	if (controlFPS) {
+		desiredFPS = 30;
 	}
 }
 
