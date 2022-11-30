@@ -74,7 +74,7 @@ bool Debug::Update(float dt)
 		freeCam = !freeCam;
 	}
 
-	// F9: View colliders / logic
+	// F9: View colliders / logic / paths
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		drawColliders = !drawColliders;
 	}

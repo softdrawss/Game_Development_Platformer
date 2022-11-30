@@ -58,7 +58,7 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-  //Enables
+	//Enables
 	app->map->Enable();
 	app->physics->Enable();
 	app->entityManager->Enable();

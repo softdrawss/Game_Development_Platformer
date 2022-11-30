@@ -10,10 +10,11 @@
 #include "Physics.h"
 #include "Debug.h"
 #include "FadeToBlack.h"
+#include "Pathfinding.h"
 
 EnemyFly::EnemyFly() : Entity(EntityType::FLY)
 {
-	name.Create("Enemy");
+	name.Create("EnemyFly");
 }
 
 EnemyFly::~EnemyFly() {
@@ -33,8 +34,8 @@ bool EnemyFly::Awake() {
 
 bool EnemyFly::Start()
 {
-	//alive = true;
-	//stairs = false;
+	alive = true;
+	
 	//position.x = parameters.attribute("x").as_int();
 	//position.y = parameters.attribute("y").as_int();
 
@@ -178,24 +179,24 @@ void EnemyFly::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
+	case ColliderType::DEATH:
+		LOG("Collision DEATH");
+		alive = false;
+		break;
+	case ColliderType::GROUND:
+		LOG("Collision GROUND");
+		//isGrounded = true;
+		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		app->audio->PlayFx(pickCoinFxId);
 		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
-		break;
-	case ColliderType::GROUND:
-		LOG("Collision GROUND");
-		isGrounded = true;
-		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-		isGrounded = true;
+		//isGrounded = true;
 		break;
-	case ColliderType::DEATH:
-		LOG("Collision DEATH");
-		alive = false;
+	case ColliderType::WALL:
+		LOG("Collision WALL");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

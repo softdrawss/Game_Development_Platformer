@@ -48,18 +48,14 @@ bool Player::Start()
 
 	remainingJumpSteps = 0;
 	idle = true;
-
-	//id = app->tex->LoadSprite(texturePath, 15, 8);
 	
-	// L07 DONE 5: Add physics to the player - initialize physics body
+	// Pysics body
 	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 12, bodyType::DYNAMIC);
-
-	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
-	pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	//pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
 	LoadAnimations();
 
@@ -71,6 +67,7 @@ bool Player::Update()
 	b2Vec2 vel;
 	int speed = 5;
 
+	//God Mode
 	if (app->debug->godMode)
 	{
 		alive = true;
@@ -82,6 +79,7 @@ bool Player::Update()
 		vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 	}
 
+	//Death
 	if (!alive)
 	{
 		idle = false;
@@ -91,6 +89,7 @@ bool Player::Update()
 	{
 		idle = true;
 
+		//Stairs
 		if (stairs || app->debug->godMode)
 		{
 			//Up
@@ -134,7 +133,6 @@ bool Player::Update()
 		}
 	}
 	
-	//F8:
 	if (app->debug->moveRight)
 		vel.x = speed;
 
@@ -150,7 +148,7 @@ bool Player::Update()
 		remainingJumpSteps--;	
 	}
 
-	//Update player position in pixelspl
+	//Player position
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
@@ -173,7 +171,7 @@ bool Player::PostUpdate()
 
 bool Player::CleanUp()
 {
-
+	app->tex->UnLoad(texture);
 	return true;
 }
 
@@ -181,24 +179,29 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		app->audio->PlayFx(pickCoinFxId);
+	case ColliderType::DEATH:
+		LOG("Collision DEATH");
+		alive = false;
 		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
+	case ColliderType::ENEMY:
+		//need to tell it, depending on how we kill (or make disappear) enemies
+		//will we shoot to them? or more like mario, smashing them up to the ground with our weight?
+		alive = false;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
 		isGrounded = true;
 		break;
+	case ColliderType::ITEM:
+		LOG("Collision ITEM");
+		app->audio->PlayFx(pickCoinFxId);
+		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 		isGrounded = true;
 		break;
-	case ColliderType::DEATH:
-		LOG("Collision DEATH");
-		alive = false;
+	case ColliderType::WALL:
+		LOG("Collision WALL");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
@@ -286,4 +289,13 @@ void Player::SetPosition(int posX, int posY)
 {
 	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
 	pbody->body->SetTransform(position, 0);
+}
+
+void Player::Attack() {
+
+	//IDEAS
+	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
+	//Specially if the player has to shoot to a flying enemy, and do the animations for that
+	//Jump onto them if not
+
 }

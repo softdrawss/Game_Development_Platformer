@@ -25,6 +25,7 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void LoadAnimations();
 	void SetPosition(int posX, int posY);
+	void Attack();
 
 public:
 
@@ -33,10 +34,9 @@ public:
 	//Physics
 	PhysBody* pbody;
 
-
-
 private:
 	
+	//Bools
 	bool idle, leftID;
 	bool isGrounded;
 	bool stairs;
@@ -54,7 +54,6 @@ private:
 
 	//FX
 	int pickCoinFxId;
-	
 };
 
 #endif // __PLAYER_H__
