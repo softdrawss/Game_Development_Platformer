@@ -35,11 +35,15 @@ public:
 	bool CleanUp();
 
 public:
+
+	//L02: DONE 3: Declare a Player attribute 
+	Player* player;
+
 	int camSpeed;
 
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
-	Player* player;
+
 	SDL_Rect rectCamera;
 
 private:

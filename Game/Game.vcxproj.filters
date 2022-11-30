@@ -64,6 +64,12 @@
     <ClCompile Include="Source\Fonts.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Modules\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>Modules\Gameplay</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Pathfinding.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
@@ -162,6 +168,12 @@
     </ClInclude>
     <ClInclude Include="Source\Module.h">
       <Filter>Modules\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Modules\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>Modules\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="Source\Pathfinding.h">
       <Filter>Modules\Core</Filter>

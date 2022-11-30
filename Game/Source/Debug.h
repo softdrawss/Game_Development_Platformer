@@ -29,6 +29,7 @@ public:
 	bool godMode = false;
 	bool freeCam = false;
 	bool teleport = false;
+	bool moveRight = false;
 	bool drawColliders = false;
 	bool controlFPS = false;
 	// FPS
@@ -36,6 +37,7 @@ public:
 	microseconds elapsedFrame;
 	int desiredFPSmic;
 	int desiredFPS = 60;
+  
 private:
 
 	
