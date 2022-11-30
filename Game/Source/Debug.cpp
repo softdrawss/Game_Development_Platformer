@@ -84,6 +84,11 @@ bool Debug::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
 		freeCam = !freeCam;
 	}
+
+	// F7: Auto move right
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+		moveRight = !moveRight;
+	}
 	return true;
 }
 

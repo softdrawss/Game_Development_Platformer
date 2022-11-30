@@ -134,6 +134,9 @@ bool Player::Update()
 		}
 	}
 	
+	//F8:
+	if (app->debug->moveRight)
+		vel.x = speed;
 
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
@@ -163,7 +166,7 @@ bool Player::Update()
 
 bool Player::PostUpdate()
 {
-	//For highscore
+	
 	
 	return true;
 }
@@ -250,7 +253,7 @@ void Player::LoadAnimations()
 	RJump.PushBack({ 416, 32, 32, 32 });
 	RJump.PushBack({ 448, 32, 32, 32 });
 	RJump.speed = 0.2f;
-	RJump.loop;
+	RJump.loop = false;
 
 	LJump.PushBack({ 224, 288, 32, 32 });
 	LJump.PushBack({ 256, 288, 32, 32 });

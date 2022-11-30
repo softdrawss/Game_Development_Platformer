@@ -15,18 +15,18 @@ class Input;
 class Textures;
 class Fonts;
 class Audio;
-
-class EntityManager;
-class Map;
-
 class Physics;
-class FadeToBlack;
 
 class Logo;
 class Title;
 class Scene;
 class Ending;
 
+class Map;
+class EntityManager;
+class Camera;
+
+class FadeToBlack;
 class Debug;
 class Render;
 
@@ -93,21 +93,26 @@ public:
 	// Modules
 	Window* win;
 	Input* input;
-	Render* render;
 	Textures* tex;
 	Fonts* fonts;
 	Audio* audio;
-	EntityManager* entityManager;
-	Map* map;
-	//L07 DONE 2: Add Physics module
 	Physics* physics;
-	FadeToBlack* fade;
+	
 	Logo* logo;
 	Title* titleScreen;
 	Scene* scene;
 	Ending* endScreen;
-	Debug* debug;
+
+	Map* map;
+	EntityManager* entityManager;
 	PathFinding* pathfinding;
+	Camera* camera;
+
+	FadeToBlack* fade;
+	Debug* debug;
+	Render* render;
+
+
 private:
 
 	int argc;

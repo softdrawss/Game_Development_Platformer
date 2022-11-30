@@ -96,63 +96,19 @@ bool Scene::Start()
 	return true;
 }
 
-// Called each loop iteration
+
 bool Scene::PreUpdate()
 {
 	return true;
 }
 
-// Called each loop iteration
+
 bool Scene::Update(float dt)
 {
-	int scale = app->win->GetScale();
-	
-	if (!app->debug->freeCam)
-	{
-		//Camera behaviour
-		//Left
-		if (player->position.x * scale + app->render->camera.x < app->render->camera.w * 0.4)
-			app->render->camera.x = -player->position.x * scale + (app->render->camera.w * 0.4);
-		//right
-		else if (player->position.x * scale + app->render->camera.x > app->render->camera.w * 0.6)
-			app->render->camera.x = -player->position.x * scale + (app->render->camera.w * 0.6);
-		//up
-		if (player->position.y * scale + app->render->camera.y < app->render->camera.h * 0.4)
-			app->render->camera.y = -player->position.y * scale + (app->render->camera.h * 0.4);
-		//down
-		else if (player->position.y * scale + app->render->camera.y > app->render->camera.h * 0.6)
-			app->render->camera.y = -player->position.y * scale + (app->render->camera.h * 0.6);
-
-
-		//Camera limits
-		if (app->render->camera.x > 0)
-			app->render->camera.x = 0;
-		else if (app->render->camera.x < -3310)
-			app->render->camera.x = -3310;
-		if (app->render->camera.y > -352)
-			app->render->camera.y = -352;
-		else if (app->render->camera.y < -448)
-			app->render->camera.y = -448;
-	}
-	else
-	{
-		//Free Camera
-		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			app->render->camera.y += camSpeed;
-
-		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			app->render->camera.y -= camSpeed;
-
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			app->render->camera.x += camSpeed;
-
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			app->render->camera.x -= camSpeed;
-	}
-
 	// Draw map
 	app->map->Draw();
 
+	//Check player death
 	if (!player->alive)
 	{
 		app->fade->FadeBlack(this, (Module*)app->endScreen, 90);
@@ -161,7 +117,7 @@ bool Scene::Update(float dt)
 	return true;
 }
 
-// Called each loop iteration
+
 bool Scene::PostUpdate()
 {
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
