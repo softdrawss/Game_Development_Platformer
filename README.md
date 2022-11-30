@@ -18,14 +18,19 @@ Link to the Alpha release: [https://github.com/softdrawss/Game_Development_Platf
  - SPACE: Jump
  - ENTER: Start game
  - ESC: Quit
+ 
+ ### Debug
  - TAB + C: Camera
  - TAB + V: Variables
- - F1/F2: Start from the first/second level
+ - F1: Start from the first level
+ - F2: Start from the second level
  - F3: Start from the beginning of the current level
  - F5: Save the current game state
  - F6: Load the previous state (even across levels)
- - F9: View colliders / logic
+ - F8: Free camera
+ - F9: View colliders / logic / paths
  - F10: God Mode (fly around, cannot be killed, etc)
+ - F11: Enable/Disable FPS cap to 30
 
 ## Developers
 
