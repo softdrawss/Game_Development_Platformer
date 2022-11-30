@@ -35,7 +35,6 @@ public:
 	bool CleanUp();
 
 public:
-	int camSpeed;
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
 	SDL_Rect rectCamera;

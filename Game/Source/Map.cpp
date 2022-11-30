@@ -34,7 +34,7 @@ bool Map::Awake(pugi::xml_node& config)
 
 void Map::Draw()
 {
-    if(mapLoaded == false)
+    if(!mapLoaded)
         return;
 
     

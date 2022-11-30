@@ -14,6 +14,7 @@
 #include "Title.h"
 #include "Scene.h"
 #include "Ending.h"
+#include "Camera.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -28,20 +29,23 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	input = new Input(true);
 	win = new Window(true);
-	render = new Render(true);
 	tex = new Textures(true);
 	fonts = new Fonts(true);
 	audio = new Audio(true);
-	//L07 DONE 2: Add Physics module
 	physics = new Physics(true);
-	entityManager = new EntityManager(false);
-	map = new Map(true);
-	fade = new FadeToBlack(true);
+
 	logo = new Logo(true);
 	titleScreen = new Title(false);
 	scene = new Scene(false);
 	endScreen = new Ending(false);
+
+	map = new Map(true);
+	entityManager = new EntityManager(false);
+	camera = new Camera(true);
+
+	fade = new FadeToBlack(true);
 	debug = new Debug(false);
+	render = new Render(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -59,6 +63,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(map);
 	AddModule(entityManager);
+	AddModule(camera);
+
 	AddModule(fade);
 	AddModule(debug);
 	

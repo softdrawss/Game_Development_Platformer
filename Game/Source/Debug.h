@@ -26,6 +26,7 @@ public:
 	bool godMode = false;
 	bool freeCam = false;
 	bool teleport = false;
+	bool moveRight = false;
 
 private:
 
