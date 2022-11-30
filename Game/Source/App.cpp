@@ -15,6 +15,7 @@
 #include "Scene.h"
 #include "Ending.h"
 #include "Camera.h"
+#include "Pathfinding.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -41,6 +42,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	map = new Map(true);
 	entityManager = new EntityManager(false);
+	pathfinding = new PathFinding(false);
 	camera = new Camera(true);
 
 	fade = new FadeToBlack(true);
@@ -67,7 +69,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(fade);
 	AddModule(debug);
-	
+	AddModule(pathfinding);
 	// Render last to swap buffer
 	AddModule(render);
 }

@@ -35,13 +35,28 @@ public:
 	bool CleanUp();
 
 public:
+
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+
+	int camSpeed;
+
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
+
 	SDL_Rect rectCamera;
 
 private:
 	SDL_Texture* img;
 
+	//Music XML
+	char* musicPath;
+
+	//Fonts XML
+	char* fontPath;
+
+	//CAMERA XML
+	int camX, camY, speed;
 };
 
 #endif // __SCENE_H__

@@ -26,19 +26,30 @@ bool Ending::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Ending");
 	bool ret = true;
+	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	{
+		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		item->parameters = itemNode;
+	}
 
+	endpath = (char*)config.child("pos").attribute("texturepath").as_string();
+	x = config.child("pos").attribute("x").as_int();
+	y = config.child("pos").attribute("y").as_int();
 	return ret;
 }
 
 // Called before the first frame
 bool Ending::Start()
 {
-	img = app->tex->Load("Assets/Textures/end.png");
+	img = app->tex->Load(endpath);
+
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
 	app->map->Disable();
+	app->physics->Disable();
+
 	return true;
 }
 
@@ -62,7 +73,7 @@ bool Ending::Update(float dt)
 // Called each loop iteration
 bool Ending::PostUpdate()
 {
-	app->render->DrawTexture(img, 0, 0);
+	app->render->DrawTexture(img, x, y);
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{

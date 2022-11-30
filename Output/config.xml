@@ -21,14 +21,25 @@
     <fx volume="32"/>
   </audio>
 
-	<logo>
-		<logoImage x="0" y="0" texturepath="Assets/Textures/logo.png"/>
-	</logo>
-  <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
+  <logo>
+	<pos x="0" y="0" texturepath="Assets/Textures/logo.png"/>
+  </logo>
+
+  <title>
+  	<pos x="0" y="0" texturepath="Assets/Textures/menu.png"/>
+  </title>
+	
   <scene>
     <player x="128" y="512" texturepath="Assets/Textures/MC/1 Pink_Monster/Pink_Monster_Animation_List_3.png"/>
+	<music audioPath="Assets/Audio/Music/platform.ogg"/>
+	<fonts fontPath="Assets/Textures/sprite_font_white.png"/>
+	<camera speed="6" x="0" y="-448"/>
   </scene>
 
+  <ending>
+  	<pos x="0" y="0" texturepath="Assets/Textures/end.png"/>
+  </ending>
+	
   <map>
     <mapfolder path="Assets/Maps/"/>
     <mapfile path="Assets/Maps/Level_1.tmx"/>

@@ -6,15 +6,18 @@
 	<:anonymous />
 	<audio />
 	<:anonymous />
-	<map />
 	<logo />
-	<Title />
-	<scene />
+	<title />
+	<scene>
+		<player x="150" y="503" />
+	</scene>
 	<ending />
+	<map />
 	<entitymanager />
 	<:anonymous />
 	<:anonymous />
+	<pathfinding />
 	<renderer>
-		<camera x="-286" y="-448" />
+		<camera x="0" y="-448" />
 	</renderer>
 </save_state>

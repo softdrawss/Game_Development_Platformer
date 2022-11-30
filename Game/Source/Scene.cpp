@@ -37,11 +37,20 @@ bool Scene::Awake(pugi::xml_node& config)
 		item->parameters = itemNode;
 	}
 
-	//L02: DONE 3: Instantiate the player using the entity manager
+	//PLAYER
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
-	app->audio->PlayMusic("Assets/Audio/Music/platform.ogg", 1.0F);
+	//MUSIC
+	musicPath = (char*)config.child("music").attribute("audioPath").as_string();
+	
+	//FONTS
+	fontPath = (char*)config.child("fonts").attribute("fontPath").as_string();
+
+	//CAMERA
+	speed = config.child("camera").attribute("speed").as_int();
+	camX = config.child("camera").attribute("x").as_int();
+	camY = config.child("camera").attribute("y").as_int();
 
 	return ret;
 }
@@ -49,35 +58,41 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+  //Enables
 	app->map->Enable();
+	app->physics->Enable();
 	app->entityManager->Enable();
 	app->debug->Enable();
-
+  
+	//PLAYER
+  player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
 	player->alive = true;
 
-	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
+	//MUSIC
+	app->audio->PlayMusic(musicPath, 1.0F);
 
+	//FONTS
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
-	app->fonts->font_white = app->fonts->Load("Assets/Textures/sprite_font_white.png", lookupTable, 7);
-	app->render->camera.x = 0;
-	app->render->camera.y = -448* app->win->GetScale();
-
-	//img = app->tex->Load("Assets/Textures/test.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	app->fonts->font_white = app->fonts->Load(fontPath, lookupTable, 7);
 	
-	// L03: DONE: Load map
+	//CAMERA
+	app->render->camera.x = camX;
+	app->render->camera.y = camY * app->win->GetScale();
+	camSpeed = speed * app->win->GetScale();
+
+	//MAP
 	app->map->Load();
 
-	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->mapData.width,
 		app->map->mapData.height,
 		app->map->mapData.tileWidth,
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
-
-	app->win->SetTitle(title.GetString());
 	
+	//WINDOW
+	app->win->SetTitle(title.GetString());
+
 	return true;
 }
 
@@ -115,6 +130,26 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	return true;
+}
+
+// L03: DONE 6: Implement a method to load the state load players's x and y
+bool Scene::LoadState(pugi::xml_node& data)
+{
+	player->SetPosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+
+	return true;
+}
+
+// L03: DONE 8: Create a method to save the state of the player
+// using append_child and append_attribute
+bool Scene::SaveState(pugi::xml_node& data)
+{
+	pugi::xml_node play = data.append_child("player");
+
+	play.append_attribute("x") = player->position.x + 16;
+	play.append_attribute("y") = player->position.y - 10;
 
 	return true;
 }

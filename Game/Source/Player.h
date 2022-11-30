@@ -24,6 +24,7 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void LoadAnimations();
+	void SetPosition(int posX, int posY);
 
 public:
 

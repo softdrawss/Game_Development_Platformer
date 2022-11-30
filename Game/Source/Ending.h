@@ -38,6 +38,8 @@ public:
 
 private:
 	SDL_Texture* img;
+	char* endpath;
+	int x, y;
 };
 
 #endif // __ENDING_H__

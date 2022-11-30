@@ -30,6 +30,7 @@ class FadeToBlack;
 class Debug;
 class Render;
 
+class PathFinding;
 class App
 {
 public:
@@ -104,6 +105,7 @@ public:
 
 	Map* map;
 	EntityManager* entityManager;
+	PathFinding* pathfinding;
 	Camera* camera;
 
 	FadeToBlack* fade;

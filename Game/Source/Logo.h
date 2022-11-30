@@ -39,6 +39,8 @@ public:
 
 private:
 	SDL_Texture* img = nullptr;
+	char* logopath;
+	int x, y;
 };
 
 #endif // __LOGO_H__

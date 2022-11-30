@@ -281,3 +281,9 @@ void Player::LoadAnimations()
 
 	currentAnim = &right;
 }
+
+void Player::SetPosition(int posX, int posY)
+{
+	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
+	pbody->body->SetTransform(position, 0);
+}
