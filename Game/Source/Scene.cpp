@@ -65,20 +65,20 @@ bool Scene::Start()
 	app->debug->Enable();
   
 	//PLAYER
-  player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
+	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
 	player->alive = true;
 
 	//MUSIC
-	app->audio->PlayMusic(musicPath, 1.0F);
+	//app->audio->PlayMusic(musicPath, 1.0F);
 
 	//FONTS
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
 	app->fonts->font_white = app->fonts->Load(fontPath, lookupTable, 7);
 	
 	//CAMERA
-	app->render->camera.x = camX;
+	/*app->render->camera.x = camX;
 	app->render->camera.y = camY * app->win->GetScale();
-	camSpeed = speed * app->win->GetScale();
+	camSpeed = speed * app->win->GetScale();*/
 
 	//MAP
 	app->map->Load();

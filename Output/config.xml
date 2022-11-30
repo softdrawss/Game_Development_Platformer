@@ -22,11 +22,11 @@
   </audio>
 
   <logo>
-	<pos x="0" y="0" texturepath="Assets/Textures/logo.png"/>
+	<pos x="0" y="175" texturepath="Assets/Textures/logo.png"/>
   </logo>
 
   <title>
-  	<pos x="0" y="0" texturepath="Assets/Textures/menu.png"/>
+  	<pos x="0" y="175" texturepath="Assets/Textures/menu.png"/>
   </title>
 	
   <scene>
@@ -34,11 +34,11 @@
 	<fly x="50" y="80"/>
 	<music audioPath="Assets/Audio/Music/platform.ogg"/>
 	<fonts fontPath="Assets/Textures/sprite_font_white.png"/>
-	<camera speed="6" x="0" y="-448"/>
+	<camera speed="6" x="0" y="0"/>
   </scene>
 
   <ending>
-  	<pos x="0" y="0" texturepath="Assets/Textures/end.png"/>
+  	<pos x="0" y="225" texturepath="Assets/Textures/end.png"/>
   </ending>
 	
   <map>
