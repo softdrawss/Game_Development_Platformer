@@ -14,7 +14,6 @@
 #include "Title.h"
 #include "Scene.h"
 #include "Ending.h"
-#include <chrono>
 #include "Defs.h"
 #include "Log.h"
 
