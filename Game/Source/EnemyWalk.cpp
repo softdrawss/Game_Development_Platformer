@@ -114,20 +114,20 @@ bool EnemyWalk::Update()
 	//		currentAnim = &LRun;
 	//		vel.x = -speed;
 	//		idle = false;
-	//		leftID = true;
+	//		flipLeft = true;
 	//	}
 	//	//Right
 	//	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 	//		currentAnim = &RRun;
 	//		vel.x = speed;
 	//		idle = false;
-	//		leftID = false;
+	//		flipLeft = false;
 	//	}
 	//	else
 	//		vel.x = 0;
 
 	//	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isGrounded && remainingJumpSteps == 0) {
-	//		currentAnim = leftID ? &LJump : &RJump;
+	//		currentAnim = flipLeft ? &LJump : &RJump;
 	//		remainingJumpSteps = 6;
 	//		idle = false;
 	//		isGrounded = false;
@@ -152,8 +152,8 @@ bool EnemyWalk::Update()
 	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	////Animations
-	//if (idle) { currentAnim = leftID ? &left : &right; }
-	//if (!isGrounded) { currentAnim = leftID ? &LJump : &RJump; }
+	//if (idle) { currentAnim = flipLeft ? &left : &right; }
+	//if (!isGrounded) { currentAnim = flipLeft ? &LJump : &RJump; }
 	//SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	//app->render->DrawTexture(texture, position.x, position.y, &rect2);
 	//currentAnim->Update();

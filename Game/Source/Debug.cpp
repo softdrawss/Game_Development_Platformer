@@ -85,7 +85,7 @@ bool Debug::Update(float dt)
 	}
 
 	// F11: Enable/Disable FPS cap to 30
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
 		controlFPS = !controlFPS;
 	}
 
@@ -93,6 +93,7 @@ bool Debug::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
 		moveRight = !moveRight;
 	}
+
 	return true;
 }
 
@@ -178,10 +179,6 @@ void Debug::DrawDebug()
 			app->scene->player->position.x = 2120;
 			app->scene->player->position.y = 385;
 		}
-	}
-
-	if (controlFPS) {
-		desiredFPS = 30;
 	}
 }
 

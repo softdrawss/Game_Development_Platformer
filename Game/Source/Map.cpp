@@ -80,7 +80,7 @@ void Map::Draw()
                     {
                     case 6: Parallax(tileset, pos, r, 0.1); break; //0.1
                     case 5: Parallax(tileset, pos, r, 0.3); break; //0.3
-                    case 4: Parallax(tileset, pos, r, 0.6); break; //0.6
+                    case 4: Parallax(tileset, pos, r, 0.4); break; //0.6
                     case 3: Parallax(tileset, pos, r, 0.7); break; //0.7
                     case 2: Parallax(tileset, pos, r, 0.9); break; //0.9
                     default: Parallax(tileset, pos, r, 0);  break; //0
@@ -411,6 +411,7 @@ void Map::Parallax(TileSet* tileset, iPoint pos, SDL_Rect r, float x)
     app->render->DrawTexture(tileset->texture,
         pos.x - (app->render->camera.x * (x / app->win->GetScale())),
         pos.y,
+        SDL_FLIP_NONE, 
         &r);
 }
 

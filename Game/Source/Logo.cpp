@@ -71,7 +71,7 @@ bool Logo::Update(float dt)
 // Called each loop iteration
 bool Logo::PostUpdate()
 {
-	app->render->DrawTexture(img, x, y);
+	app->render->DrawTexture(img, x, y, SDL_FLIP_NONE);
 	
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{

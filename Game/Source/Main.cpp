@@ -110,7 +110,8 @@ int main(int argc, char* args[])
 			break;
 		}
 		
-		if (state == LOOP) {
+		if (state == LOOP && app->debug->controlFPS)
+		{
 			//FPS CONTROL
 			high_resolution_clock::time_point endTime = high_resolution_clock::now();
 			app->debug->timePerCycle = duration_cast<microseconds>(endTime - startTime);

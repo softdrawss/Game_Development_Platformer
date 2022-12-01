@@ -37,21 +37,22 @@ public:
 private:
 	
 	//Bools
-	bool idle, leftID;
+	bool isIdle;
 	bool isGrounded;
 	bool stairs;
 	int remainingJumpSteps;
-	bool isAttacking;
+	bool isAttackingRock;
+
 	//Texture
 	SDL_Texture* texture;
 	const char* texturePath;
 
 	//Animation
-	Animation left, right, climb;	// jump?
-	Animation LRun, RRun, LJump, RJump;
-	Animation death, iddledeathanim;
-	Animation Lattack, Rattack;
 	Animation* currentAnim = nullptr;
+	SDL_RendererFlip flip;
+	Animation idle, run, jump, climb;
+	Animation death, iddledeathanim;
+	Animation attackRock;
 
 	//FX
 	int pickCoinFxId;

@@ -32,11 +32,12 @@ public:
 	bool moveRight = false;
 	bool drawColliders = false;
 	bool controlFPS = false;
+
 	// FPS
 	microseconds timePerCycle;
 	microseconds elapsedFrame;
 	int desiredFPSmic;
-	int desiredFPS = 60;
+	int desiredFPS = 30;
   
 private:
 

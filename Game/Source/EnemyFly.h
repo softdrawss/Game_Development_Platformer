@@ -35,7 +35,7 @@ public:
 
 private:
 
-	bool idle, leftID;
+	bool isIdle, flipLeft;
 	bool isGrounded;
 	bool stairs;
 	int remainingJumpSteps;
