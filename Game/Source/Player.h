@@ -41,7 +41,7 @@ private:
 	bool isGrounded;
 	bool stairs;
 	int remainingJumpSteps;
-
+	bool isAttacking;
 	//Texture
 	SDL_Texture* texture;
 	const char* texturePath;
@@ -50,6 +50,7 @@ private:
 	Animation left, right, climb;	// jump?
 	Animation LRun, RRun, LJump, RJump;
 	Animation death, iddledeathanim;
+	Animation Lattack, Rattack;
 	Animation* currentAnim = nullptr;
 
 	//FX

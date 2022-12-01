@@ -131,6 +131,12 @@ bool Player::Update()
 			idle = false;
 			isGrounded = false;
 		}
+
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isAttacking) {
+			Attack();
+			currentAnim = &Rattack;
+			idle = false;
+		}
 	}
 	
 	if (app->debug->moveRight)
@@ -256,7 +262,7 @@ void Player::LoadAnimations()
 	RJump.PushBack({ 416, 32, 32, 32 });
 	RJump.PushBack({ 448, 32, 32, 32 });
 	RJump.speed = 0.2f;
-	RJump.loop = false;
+	RJump.loop;
 
 	LJump.PushBack({ 224, 288, 32, 32 });
 	LJump.PushBack({ 256, 288, 32, 32 });
@@ -281,6 +287,13 @@ void Player::LoadAnimations()
 	death.speed = 0.1f;
 	death.loop = false;
 
+	Rattack.PushBack({ 224, 192, 32, 32 });
+	Rattack.PushBack({ 256, 192, 32, 32 });
+	Rattack.PushBack({ 288, 192, 32, 32 });
+	Rattack.PushBack({ 320, 192, 32, 32 });
+	Rattack.PushBack({ 352, 192, 32, 32 });
+	Rattack.speed = 0.08f;
+	Rattack.loop = false;
 
 	currentAnim = &right;
 }
