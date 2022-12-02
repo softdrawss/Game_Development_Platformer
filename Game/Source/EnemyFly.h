@@ -1,5 +1,5 @@
-#ifndef __ENEMY_H__
-#define __ENEMY_H__
+#ifndef __ENEMYFLY_H__
+#define __ENEMYFLY_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -55,4 +55,4 @@ private:
 
 };
 
-#endif // __ENEMY_H__
+#endif // __ENEMYFLY_H__

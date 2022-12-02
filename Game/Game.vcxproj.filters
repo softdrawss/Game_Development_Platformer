@@ -43,6 +43,9 @@
     <ClCompile Include="Source\Title.cpp">
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Modules\Gameplay</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Map.cpp">
       <Filter>Modules\Gameplay</Filter>
     </ClCompile>
@@ -72,9 +75,6 @@
     </ClCompile>
     <ClCompile Include="Source\Item.cpp">
       <Filter>Modules\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\EntityManager.cpp">
-      <Filter>Modules\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +139,12 @@
     <ClInclude Include="Source\Title.h">
       <Filter>Modules\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Modules\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>Modules\Gameplay</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Map.h">
       <Filter>Modules\Gameplay</Filter>
     </ClInclude>
@@ -169,14 +175,8 @@
     <ClInclude Include="Source\EnemyWalk.h">
       <Filter>Modules\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Entity.h">
-      <Filter>Modules\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Item.h">
       <Filter>Modules\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EntityManager.h">
-      <Filter>Modules\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -205,7 +205,7 @@
       <UniqueIdentifier>{1d52225b-5837-41ff-be7c-d8c566c359ca}</UniqueIdentifier>
     </Filter>
     <Filter Include="Modules\Entities">
-      <UniqueIdentifier>{f5898671-5e45-4b54-afbe-b2c56a05f568}</UniqueIdentifier>
+      <UniqueIdentifier>{e9f149eb-3442-421f-aa46-05871af65b31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

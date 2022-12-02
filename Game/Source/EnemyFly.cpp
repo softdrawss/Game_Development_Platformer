@@ -15,7 +15,7 @@
 
 EnemyFly::EnemyFly() : Entity(EntityType::FLY)
 {
-	name.Create("EnemyFly");
+	name.Create("fly");
 }
 
 EnemyFly::~EnemyFly() {
@@ -25,8 +25,6 @@ EnemyFly::~EnemyFly() {
 bool EnemyFly::Awake() {
 
 	//L02: DONE 1: Initialize Player parameters
-	//pos = position;
-	//texturePath = "Assets/Textures/player/idle1.png";
 
 	//L02: DONE 5: Get Player parameters from XML
 
@@ -48,30 +46,55 @@ bool EnemyFly::Start()
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
-	//// L07 DONE 5: Add physics to the player - initialize physics body
-	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::DYNAMIC);
+	// L07 DONE 5: Add physics to the player - initialize physics body
+	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::DYNAMIC);
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
-	//pbody->listener = this;
-	//pbody->ctype = ColliderType::PLAYER;
+	pbody->listener = this;
+	pbody->ctype = ColliderType::ENEMY;
 
-	////initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
+	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	//pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
-	//LoadAnimations();
+	LoadAnimations();
 
 	return true;
 }
 
 bool EnemyFly::Update()
 {
+	b2Vec2 vel;
+	
+	if (!alive)
+	{
+		isIdle = false;
+		currentAnim = &death;
+		app->entityManager->DestroyEntity(this);
+	}
+	else
+	{
+		isIdle = true;
+		if (!isGrounded) {
+			//Code to see if the player has approached the enemy
+			/*if () {
+
+			}*/
+		}
+	}
+
+	//Here just for debbugging, to see what velocity we like for enemies
+	vel.x = 0;
+	vel.y = 0;
+	//Set the velocity of the pbody of the enemy
+	pbody->body->SetLinearVelocity(vel);
+
+	//Update player position in pixels
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
+
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
 	currentAnim->Update();
-
-	if (!alive) {
-		app->entityManager->DestroyEntity(this);
-	}
 	return true;
 }
 
@@ -84,7 +107,7 @@ bool EnemyFly::PostUpdate()
 
 bool EnemyFly::CleanUp()
 {
-
+	RELEASE(texture);
 	return true;
 }
 
@@ -195,6 +218,6 @@ void EnemyFly::LoadAnimations()
 
 void EnemyFly::SetPosition(int posX, int posY)
 {
-	/*b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
-	pbody->body->SetTransform(position, 0);*/
+	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
+	pbody->body->SetTransform(position, 0);
 }

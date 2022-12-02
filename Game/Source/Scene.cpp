@@ -52,8 +52,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	camX = config.child("camera").attribute("x").as_int();
 	camY = config.child("camera").attribute("y").as_int();
 
-	/*enemyFly = (Player*)app->entityManager->CreateEntity(EntityType::FLY);
-	player->parameters = config.child("player");*/
+	enemyFly = (EnemyFly*)app->entityManager->CreateEntity(EntityType::FLY);
+	enemyFly->parameters = config.child("player");
 	return ret;
 }
 
