@@ -40,10 +40,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene(false);
 	endScreen = new Ending(false);
 
-	map = new Map(true);
+	map = new Map(false);
 	entityManager = new EntityManager(false);
 	pathfinding = new PathFinding(false);
-	camera = new Camera(true);
+	camera = new Camera(false);
 
 	fade = new FadeToBlack(true);
 	debug = new Debug(false);
@@ -129,6 +129,7 @@ bool App::Awake()
 bool App::Start()
 {
 	bool ret = true;
+	bool ret2 = true;
 	ListItem<Module*>* item;
 	item = modules.start;
 
@@ -137,11 +138,13 @@ bool App::Start()
 		if (item->data->active)
 		{
 			ret = item->data->Start();
+			pugi::xml_node node = configNode.child(item->data->name.GetString());
+			ret2 = item->data->Start(node);
 		}
 		item = item->next;
 	}
 
-	return ret;
+	return ret && ret2;
 }
 
 // Called each loop iteration

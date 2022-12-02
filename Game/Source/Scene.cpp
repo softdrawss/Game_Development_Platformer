@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Camera.h"
 #include "Debug.h"
 #include "FadeToBlack.h"
 #include "Defs.h"
@@ -38,8 +39,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	}
 
 	//PLAYER
-	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->parameters = config.child("player");
+	
 
 	//MUSIC
 	musicPath = (char*)config.child("music").attribute("audioPath").as_string();
@@ -56,15 +56,19 @@ bool Scene::Awake(pugi::xml_node& config)
 }
 
 // Called before the first frame
-bool Scene::Start()
+bool Scene::Start(pugi::xml_node& config)
 {
 	//Enables
 	app->map->Enable();
 	app->physics->Enable();
 	app->entityManager->Enable();
+	app->camera->Enable();
 	app->debug->Enable();
   
 	//PLAYER
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	player->parameters = config.child("player");
+
 	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
 	player->alive = true;
 
@@ -72,7 +76,7 @@ bool Scene::Start()
 	//app->audio->PlayMusic(musicPath, 1.0F);
 
 	//FONTS
-	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
+	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 012+3456789.,;:$#'! /?%&()@ -+=      " };++
 	app->fonts->font_white = app->fonts->Load(fontPath, lookupTable, 7);
 	
 	//CAMERA
