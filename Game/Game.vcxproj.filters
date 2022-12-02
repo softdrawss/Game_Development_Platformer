@@ -43,12 +43,6 @@
     <ClCompile Include="Source\Title.cpp">
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EntityManager.cpp">
-      <Filter>Modules\Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Item.cpp">
-      <Filter>Modules\Gameplay</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Map.cpp">
       <Filter>Modules\Gameplay</Filter>
     </ClCompile>
@@ -67,16 +61,19 @@
     <ClCompile Include="Source\Camera.cpp">
       <Filter>Modules\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>Modules\Gameplay</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Pathfinding.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\EnemyFly.cpp">
-      <Filter>Modules\Gameplay</Filter>
+      <Filter>Modules\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\EnemyWalk.cpp">
+      <Filter>Modules\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Item.cpp">
+      <Filter>Modules\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Modules\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>
@@ -142,15 +139,6 @@
     <ClInclude Include="Source\Title.h">
       <Filter>Modules\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Entity.h">
-      <Filter>Modules\Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EntityManager.h">
-      <Filter>Modules\Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Item.h">
-      <Filter>Modules\Gameplay</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Map.h">
       <Filter>Modules\Gameplay</Filter>
     </ClInclude>
@@ -172,16 +160,22 @@
     <ClInclude Include="Source\Camera.h">
       <Filter>Modules\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Modules\Gameplay</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Pathfinding.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\EnemyFly.h">
-      <Filter>Modules\Gameplay</Filter>
+      <Filter>Modules\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\EnemyWalk.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityManager.h">
       <Filter>Modules\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
@@ -209,6 +203,9 @@
     </Filter>
     <Filter Include="Modules\Scenes">
       <UniqueIdentifier>{1d52225b-5837-41ff-be7c-d8c566c359ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Entities">
+      <UniqueIdentifier>{f5898671-5e45-4b54-afbe-b2c56a05f568}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

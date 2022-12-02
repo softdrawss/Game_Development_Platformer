@@ -52,6 +52,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	camX = config.child("camera").attribute("x").as_int();
 	camY = config.child("camera").attribute("y").as_int();
 
+	/*enemyFly = (Player*)app->entityManager->CreateEntity(EntityType::FLY);
+	player->parameters = config.child("player");*/
 	return ret;
 }
 
@@ -150,6 +152,7 @@ bool Scene::SaveState(pugi::xml_node& data)
 
 	play.append_attribute("x") = player->position.x + 16;
 	play.append_attribute("y") = player->position.y - 10;
+
 
 	return true;
 }

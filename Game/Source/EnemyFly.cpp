@@ -11,6 +11,7 @@
 #include "Debug.h"
 #include "FadeToBlack.h"
 #include "Pathfinding.h"
+#include "EntityManager.h"
 
 EnemyFly::EnemyFly() : Entity(EntityType::FLY)
 {
@@ -36,21 +37,16 @@ bool EnemyFly::Start()
 {
 	alive = true;
 	
-	//position.x = parameters.attribute("x").as_int();
-	//position.y = parameters.attribute("y").as_int();
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
 
-	//initPosition.x = position.x;
-	//initPosition.y = position.y;
+	initPosition.x = position.x;
+	initPosition.y = position.y;
 
-	//texturePath = parameters.attribute("texturepath").as_string();
+	texturePath = parameters.attribute("texturepath").as_string();
 
-	////initilize textures
-	//texture = app->tex->Load(texturePath);
-
-	//remainingJumpSteps = 0;
-	//idle = true;
-
-	////id = app->tex->LoadSprite(texturePath, 15, 8);
+	//initilize textures
+	texture = app->tex->Load(texturePath);
 
 	//// L07 DONE 5: Add physics to the player - initialize physics body
 	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::DYNAMIC);
@@ -69,96 +65,13 @@ bool EnemyFly::Start()
 
 bool EnemyFly::Update()
 {
-	//b2Vec2 vel;
-	//int speed = 5;
+	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
+	currentAnim->Update();
 
-	//if (app->debug->godMode)
-	//{
-	//	alive = true;
-	//	pbody->body->SetGravityScale(0);
-	//}
-	//else
-	//{
-	//	pbody->body->SetGravityScale(1);
-	//	vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
-	//}
-
-	//if (!alive)
-	//{
-	//	idle = false;
-	//	currentAnim = &death;
-	//}
-	//else
-	//{
-	//	idle = true;
-
-	//	if (stairs || app->debug->godMode)
-	//	{
-	//		//Up
-	//		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-	//			currentAnim = &climb;
-	//			vel = b2Vec2(0, -speed);
-	//			idle = false;
-	//		}
-	//		//Down
-	//		else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-	//			currentAnim = &climb;
-	//			vel = b2Vec2(0, speed);
-	//			idle = false;
-	//		}
-	//		else
-	//			vel.y = 0;
-	//	}
-
-	//	//Left
-	//	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-	//		currentAnim = &LRun;
-	//		vel.x = -speed;
-	//		idle = false;
-	//		flipLeft = true;
-	//	}
-	//	//Right
-	//	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-	//		currentAnim = &RRun;
-	//		vel.x = speed;
-	//		idle = false;
-	//		flipLeft = false;
-	//	}
-	//	else
-	//		vel.x = 0;
-
-	//	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isGrounded && remainingJumpSteps == 0) {
-	//		currentAnim = flipLeft ? &LJump : &RJump;
-	//		remainingJumpSteps = 6;
-	//		idle = false;
-	//		isGrounded = false;
-	//	}
-	//}
-
-
-	////Set the velocity of the pbody of the player
-	//pbody->body->SetLinearVelocity(vel);
-
-	////Apply Jump Force
-	//if (remainingJumpSteps > 0)
-	//{
-	//	float force = pbody->body->GetMass() * 10 / 0.01666; //F = mv/t (t = 1/60fps)
-	//	force /= 6.0;
-	//	pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
-	//	remainingJumpSteps--;
-	//}
-
-	////Update player position in pixelspl
-	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
-
-	////Animations
-	//if (idle) { currentAnim = flipLeft ? &left : &right; }
-	//if (!isGrounded) { currentAnim = flipLeft ? &LJump : &RJump; }
-	//SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	//app->render->DrawTexture(texture, position.x, position.y, &rect2);
-	//currentAnim->Update();
-
+	if (!alive) {
+		app->entityManager->DestroyEntity(this);
+	}
 	return true;
 }
 
