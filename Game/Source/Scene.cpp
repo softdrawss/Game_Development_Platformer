@@ -30,6 +30,24 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	
+
+	return ret;
+}
+
+// Called before the first frame
+bool Scene::Start()
+{
+	pugi::xml_node node = app->GetNode();
+	pugi::xml_node config = node.child(name.GetString());
+
+	//Enables
+	app->map->Enable();
+	app->physics->Enable();
+	app->entityManager->Enable();
+	app->camera->Enable();
+	app->debug->Enable();
+
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
@@ -39,50 +57,29 @@ bool Scene::Awake(pugi::xml_node& config)
 	}
 
 	//PLAYER
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	player->parameters = config.child("player");
 	
 
 	//MUSIC
 	musicPath = (char*)config.child("music").attribute("audioPath").as_string();
+	//app->audio->PlayMusic(musicPath, 1.0F);
 	
 	//FONTS
 	fontPath = (char*)config.child("fonts").attribute("fontPath").as_string();
+	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 012+3456789.,;:$#'! /?%&()@ -+=      " };
+	app->fonts->font_white = app->fonts->Load(fontPath, lookupTable, 7);
 
 	//CAMERA
 	speed = config.child("camera").attribute("speed").as_int();
 	camX = config.child("camera").attribute("x").as_int();
 	camY = config.child("camera").attribute("y").as_int();
-
-	return ret;
-}
-
-// Called before the first frame
-bool Scene::Start(pugi::xml_node& config)
-{
-	//Enables
-	app->map->Enable();
-	app->physics->Enable();
-	app->entityManager->Enable();
-	app->camera->Enable();
-	app->debug->Enable();
-  
-	//PLAYER
-	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->parameters = config.child("player");
-
-	player->pbody->body->SetTransform(PIXEL_TO_METERS(player->initPosition), 0);
-	player->alive = true;
-
-	//MUSIC
-	//app->audio->PlayMusic(musicPath, 1.0F);
-
-	//FONTS
-	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 012+3456789.,;:$#'! /?%&()@ -+=      " };++
-	app->fonts->font_white = app->fonts->Load(fontPath, lookupTable, 7);
-	
-	//CAMERA
 	/*app->render->camera.x = camX;
 	app->render->camera.y = camY * app->win->GetScale();
 	camSpeed = speed * app->win->GetScale();*/
+
+
+	
 
 	//MAP
 	app->map->Load();

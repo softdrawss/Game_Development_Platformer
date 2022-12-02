@@ -95,6 +95,19 @@ void App::AddModule(Module* module)
 	modules.Add(module);
 }
 
+pugi::xml_node App::GetNode()
+{
+	pugi::xml_node node;
+	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+
+	if (parseResult)
+		node = configFile.child("config");
+	else
+		LOG("Error in App::LoadConfig(): %s", parseResult.description());
+
+	return node;
+}
+
 // Called before render is available
 bool App::Awake()
 {
@@ -137,9 +150,7 @@ bool App::Start()
 	{
 		if (item->data->active)
 		{
-			ret = item->data->Start();
-			pugi::xml_node node = configNode.child(item->data->name.GetString());
-			ret2 = item->data->Start(node);
+			ret2 = item->data->Start();
 		}
 		item = item->next;
 	}

@@ -32,12 +32,6 @@ public:
 		return true;
 	}
 
-	// Called before the first frame
-	virtual bool Start(pugi::xml_node&)
-	{
-		return true;
-	}
-
 	// Called each loop iteration
 	virtual bool PreUpdate()
 	{
@@ -78,13 +72,12 @@ public:
 
 	}
 
-	virtual void Enable(pugi::xml_node& config)
+	virtual void Enable()
 	{
 		if (!active)
 		{
 			active = true;
 			Start();
-			Start(config);
 		}
 	}
 

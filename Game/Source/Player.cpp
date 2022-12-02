@@ -54,6 +54,8 @@ bool Player::Start()
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
+	pbody->body->SetTransform(PIXEL_TO_METERS(initPosition), 0);
+	alive = true;
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	//pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 

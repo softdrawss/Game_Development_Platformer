@@ -26,23 +26,21 @@ bool Ending::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Ending");
 	bool ret = true;
-	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-	{
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		item->parameters = itemNode;
-	}
-
-	endpath = (char*)config.child("pos").attribute("texturepath").as_string();
-	x = config.child("pos").attribute("x").as_int();
-	y = config.child("pos").attribute("y").as_int();
+	
 	return ret;
 }
 
 // Called before the first frame
 bool Ending::Start()
 {
-	img = app->tex->Load(endpath);
+	pugi::xml_node node = app->GetNode();
+	pugi::xml_node config = node.child(name.GetString());
 
+	endpath = (char*)config.child("pos").attribute("texturepath").as_string();
+	x = config.child("pos").attribute("x").as_int();
+	y = config.child("pos").attribute("y").as_int();
+
+	img = app->tex->Load(endpath);
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
