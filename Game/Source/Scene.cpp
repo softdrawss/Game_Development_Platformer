@@ -41,6 +41,10 @@ bool Scene::Start()
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
 
+	//PLAYER
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	player->parameters = config.child("player");
+
 	//Enables
 	app->map->Enable();
 	app->physics->Enable();
@@ -56,9 +60,7 @@ bool Scene::Start()
 		item->parameters = itemNode;
 	}
 
-	//PLAYER
-	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->parameters = config.child("player");
+	
 	
 
 	//MUSIC
@@ -78,8 +80,6 @@ bool Scene::Start()
 	app->render->camera.y = camY * app->win->GetScale();
 	camSpeed = speed * app->win->GetScale();*/
 
-
-	
 
 	//MAP
 	app->map->Load();
