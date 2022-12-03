@@ -73,7 +73,7 @@ bool Player::Update()
 	if (app->debug->godMode)
 	{
 		alive = true;
-		pbody->body->SetGravityScale(0);	
+		pbody->body->SetGravityScale(0);
 	}
 	else
 	{
@@ -84,6 +84,8 @@ bool Player::Update()
 	//Death
 	if (!alive)
 	{
+		pbody->body->SetActive(false);
+		pbody->body->SetType(b2_staticBody);
 		isIdle = false;
 		currentAnim = &death;
 	}

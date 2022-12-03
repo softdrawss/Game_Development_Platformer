@@ -46,6 +46,7 @@ bool Ending::Start()
 	app->render->camera.y = 0;
 
 	app->map->Disable();
+	app->entityManager->Disable();
 	app->physics->Disable();
 
 	return true;

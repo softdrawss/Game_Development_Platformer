@@ -61,7 +61,6 @@ bool Scene::Start()
 	}
 
 	
-	
 
 	//MUSIC
 	musicPath = (char*)config.child("music").attribute("audioPath").as_string();
@@ -69,7 +68,7 @@ bool Scene::Start()
 	
 	//FONTS
 	fontPath = (char*)config.child("fonts").attribute("fontPath").as_string();
-	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 012+3456789.,;:$#'! /?%&()@ -+=      " };
+	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
 	app->fonts->font_white = app->fonts->Load(fontPath, lookupTable, 7);
 
 	//CAMERA
