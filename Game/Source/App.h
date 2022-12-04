@@ -57,6 +57,7 @@ public:
 	void AddModule(Module* module);
 
 	// Exposing some properties for reading
+	pugi::xml_node GetNode();
 	int GetArgc() const;
 	const char* GetArgv(int index) const;
 	const char* GetTitle() const;

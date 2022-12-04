@@ -40,10 +40,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene(false);
 	endScreen = new Ending(false);
 
-	map = new Map(true);
+	map = new Map(false);
 	entityManager = new EntityManager(false);
 	pathfinding = new PathFinding(false);
-	camera = new Camera(true);
+	camera = new Camera(false);
 
 	fade = new FadeToBlack(true);
 	debug = new Debug(false);
@@ -95,6 +95,19 @@ void App::AddModule(Module* module)
 	modules.Add(module);
 }
 
+pugi::xml_node App::GetNode()
+{
+	pugi::xml_node node;
+	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
+
+	if (parseResult)
+		node = configFile.child("config");
+	else
+		LOG("Error in App::LoadConfig(): %s", parseResult.description());
+
+	return node;
+}
+
 // Called before render is available
 bool App::Awake()
 {
@@ -129,6 +142,7 @@ bool App::Awake()
 bool App::Start()
 {
 	bool ret = true;
+	bool ret2 = true;
 	ListItem<Module*>* item;
 	item = modules.start;
 
@@ -136,12 +150,12 @@ bool App::Start()
 	{
 		if (item->data->active)
 		{
-			ret = item->data->Start();
+			ret2 = item->data->Start();
 		}
 		item = item->next;
 	}
 
-	return ret;
+	return ret && ret2;
 }
 
 // Called each loop iteration

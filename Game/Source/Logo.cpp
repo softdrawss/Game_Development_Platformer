@@ -84,7 +84,7 @@ bool Logo::PostUpdate()
 // Called before quitting
 bool Logo::CleanUp()
 {
-	LOG("Freeing scene");
+	LOG("Freeing Logo");
 	app->tex->UnLoad(img);
 	return true;
 }

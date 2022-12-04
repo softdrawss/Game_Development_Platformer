@@ -54,6 +54,8 @@ bool Player::Start()
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
+	pbody->body->SetTransform(PIXEL_TO_METERS(initPosition), 0);
+	alive = true;
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	//pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
@@ -71,7 +73,7 @@ bool Player::Update()
 	if (app->debug->godMode)
 	{
 		alive = true;
-		pbody->body->SetGravityScale(0);	
+		pbody->body->SetGravityScale(0);
 	}
 	else
 	{
@@ -82,6 +84,8 @@ bool Player::Update()
 	//Death
 	if (!alive)
 	{
+		pbody->body->SetActive(false);
+		pbody->body->SetType(b2_staticBody);
 		isIdle = false;
 		currentAnim = &death;
 	}
