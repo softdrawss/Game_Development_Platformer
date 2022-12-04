@@ -101,9 +101,9 @@ bool EnemyWalk::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	//Animations
-	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+	/*SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
-	currentAnim->Update();
+	currentAnim->Update();*/
 
 	return true;
 }
