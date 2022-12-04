@@ -1,5 +1,5 @@
-#ifndef __ENEMY_H__
-#define __ENEMY_H__
+#ifndef __ENEMYFLY_H__
+#define __ENEMYFLY_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -49,10 +49,10 @@ private:
 	Animation LRun, RRun, LJump, RJump;
 	Animation death, iddledeathanim;
 	Animation* currentAnim = nullptr;
-
+	SDL_RendererFlip flip;
 	//FX
 	int pickCoinFxId;
 
 };
 
-#endif // __ENEMY_H__
+#endif // __ENEMYFLY_H__

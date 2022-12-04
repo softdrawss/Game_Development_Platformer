@@ -11,10 +11,11 @@
 #include "Debug.h"
 #include "FadeToBlack.h"
 #include "Pathfinding.h"
+#include "EntityManager.h"
 
 EnemyFly::EnemyFly() : Entity(EntityType::FLY)
 {
-	name.Create("EnemyFly");
+	name.Create("fly");
 }
 
 EnemyFly::~EnemyFly() {
@@ -24,8 +25,6 @@ EnemyFly::~EnemyFly() {
 bool EnemyFly::Awake() {
 
 	//L02: DONE 1: Initialize Player parameters
-	//pos = position;
-	//texturePath = "Assets/Textures/player/idle1.png";
 
 	//L02: DONE 5: Get Player parameters from XML
 
@@ -36,129 +35,67 @@ bool EnemyFly::Start()
 {
 	alive = true;
 	
-	//position.x = parameters.attribute("x").as_int();
-	//position.y = parameters.attribute("y").as_int();
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
 
-	//initPosition.x = position.x;
-	//initPosition.y = position.y;
+	initPosition.x = position.x;
+	initPosition.y = position.y;
 
-	//texturePath = parameters.attribute("texturepath").as_string();
+	texturePath = parameters.attribute("texturepath").as_string();
 
-	////initilize textures
-	//texture = app->tex->Load(texturePath);
+	//initilize textures
+	texture = app->tex->Load(texturePath);
 
-	//remainingJumpSteps = 0;
-	//idle = true;
-
-	////id = app->tex->LoadSprite(texturePath, 15, 8);
-
-	//// L07 DONE 5: Add physics to the player - initialize physics body
-	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::DYNAMIC);
+	// L07 DONE 5: Add physics to the player - initialize physics body
+	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::DYNAMIC);
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
-	//pbody->listener = this;
-	//pbody->ctype = ColliderType::PLAYER;
+	pbody->listener = this;
+	pbody->ctype = ColliderType::ENEMY;
 
-	////initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
+	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	//pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
-	//LoadAnimations();
+	LoadAnimations();
 
 	return true;
 }
 
 bool EnemyFly::Update()
 {
-	//b2Vec2 vel;
-	//int speed = 5;
+	b2Vec2 vel;
+	
+	if (!alive)
+	{
+		isIdle = false;
+		currentAnim = &death;
+		app->entityManager->DestroyEntity(this);
+	}
+	else
+	{
+		isIdle = true;
+		if (!isGrounded) {
+			//Code to see if the player has approached the enemy
+			/*if () {
 
-	//if (app->debug->godMode)
-	//{
-	//	alive = true;
-	//	pbody->body->SetGravityScale(0);
-	//}
-	//else
-	//{
-	//	pbody->body->SetGravityScale(1);
-	//	vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
-	//}
+			}*/
+		}
+	}
 
-	//if (!alive)
-	//{
-	//	idle = false;
-	//	currentAnim = &death;
-	//}
-	//else
-	//{
-	//	idle = true;
+	//Here just for debbugging, to see what velocity we like for enemies
+	vel.x = 0;
+	vel.y = 0;
+	//Set the velocity of the pbody of the enemy
+	pbody->body->SetLinearVelocity(vel);
 
-	//	if (stairs || app->debug->godMode)
-	//	{
-	//		//Up
-	//		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-	//			currentAnim = &climb;
-	//			vel = b2Vec2(0, -speed);
-	//			idle = false;
-	//		}
-	//		//Down
-	//		else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-	//			currentAnim = &climb;
-	//			vel = b2Vec2(0, speed);
-	//			idle = false;
-	//		}
-	//		else
-	//			vel.y = 0;
-	//	}
+	//Update player position in pixels
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
-	//	//Left
-	//	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-	//		currentAnim = &LRun;
-	//		vel.x = -speed;
-	//		idle = false;
-	//		flipLeft = true;
-	//	}
-	//	//Right
-	//	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-	//		currentAnim = &RRun;
-	//		vel.x = speed;
-	//		idle = false;
-	//		flipLeft = false;
-	//	}
-	//	else
-	//		vel.x = 0;
-
-	//	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isGrounded && remainingJumpSteps == 0) {
-	//		currentAnim = flipLeft ? &LJump : &RJump;
-	//		remainingJumpSteps = 6;
-	//		idle = false;
-	//		isGrounded = false;
-	//	}
-	//}
-
-
-	////Set the velocity of the pbody of the player
-	//pbody->body->SetLinearVelocity(vel);
-
-	////Apply Jump Force
-	//if (remainingJumpSteps > 0)
-	//{
-	//	float force = pbody->body->GetMass() * 10 / 0.01666; //F = mv/t (t = 1/60fps)
-	//	force /= 6.0;
-	//	pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
-	//	remainingJumpSteps--;
-	//}
-
-	////Update player position in pixelspl
-	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
-
-	////Animations
-	//if (idle) { currentAnim = flipLeft ? &left : &right; }
-	//if (!isGrounded) { currentAnim = flipLeft ? &LJump : &RJump; }
-	//SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	//app->render->DrawTexture(texture, position.x, position.y, &rect2);
-	//currentAnim->Update();
-
+	//Animation
+	/*SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
+	currentAnim->Update();*/
 	return true;
 }
 
@@ -171,7 +108,7 @@ bool EnemyFly::PostUpdate()
 
 bool EnemyFly::CleanUp()
 {
-
+	RELEASE(texture);
 	return true;
 }
 
@@ -282,6 +219,6 @@ void EnemyFly::LoadAnimations()
 
 void EnemyFly::SetPosition(int posX, int posY)
 {
-	/*b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
-	pbody->body->SetTransform(position, 0);*/
+	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
+	pbody->body->SetTransform(position, 0);
 }

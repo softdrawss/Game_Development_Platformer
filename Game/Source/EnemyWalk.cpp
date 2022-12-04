@@ -10,10 +10,11 @@
 #include "Physics.h"
 #include "Debug.h"
 #include "FadeToBlack.h"
+#include "EntityManager.h"
 
 EnemyWalk::EnemyWalk() : Entity(EntityType::WALK)
 {
-	name.Create("Enemy");
+	name.Create("walk");
 }
 
 EnemyWalk::~EnemyWalk() {
@@ -22,10 +23,6 @@ EnemyWalk::~EnemyWalk() {
 
 bool EnemyWalk::Awake() {
 
-	//L02: DONE 1: Initialize Player parameters
-	//pos = position;
-	//texturePath = "Assets/Textures/player/idle1.png";
-
 	//L02: DONE 5: Get Player parameters from XML
 
 	return true;
@@ -33,112 +30,64 @@ bool EnemyWalk::Awake() {
 
 bool EnemyWalk::Start()
 {
-	//alive = true;
-	//stairs = false;
-	//position.x = parameters.attribute("x").as_int();
-	//position.y = parameters.attribute("y").as_int();
+	alive = true;
 
-	//initPosition.x = position.x;
-	//initPosition.y = position.y;
+	position.x = parameters.attribute("x").as_int();
+	position.y = parameters.attribute("y").as_int();
 
-	//texturePath = parameters.attribute("texturepath").as_string();
+	initPosition.x = position.x;
+	initPosition.y = position.y;
 
-	////initilize textures
-	//texture = app->tex->Load(texturePath);
+	texturePath = parameters.attribute("texturepath").as_string();
 
-	//remainingJumpSteps = 0;
-	//idle = true;
+	//initilize textures
+	texture = app->tex->Load(texturePath);
 
-	////id = app->tex->LoadSprite(texturePath, 15, 8);
+	isIdle = true;
 
-	//// L07 DONE 5: Add physics to the player - initialize physics body
-	//pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::DYNAMIC);
+	// L07 DONE 5: Add physics to the enemy - initialize physics body
+	//We have to or we will have to change the radium, since probably the enemy is not as big as the player
+	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::DYNAMIC);
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
-	//pbody->listener = this;
-	//pbody->ctype = ColliderType::PLAYER;
+	pbody->listener = this;
+	pbody->ctype = ColliderType::ENEMY;
 
-	////initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
-	//pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
-
-	//LoadAnimations();
+	LoadAnimations();
 
 	return true;
 }
 
 bool EnemyWalk::Update()
 {
-	//b2Vec2 vel;
-	//int speed = 5;
+	b2Vec2 vel;
 
-	//if (app->debug->godMode)
-	//{
-	//	alive = true;
-	//	pbody->body->SetGravityScale(0);
-	//}
-	//else
-	//{
-	//	pbody->body->SetGravityScale(1);
-	//	vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
-	//}
+	if (!alive)
+	{
+		isIdle = false;
+		currentAnim = &death;
+		app->entityManager->DestroyEntity(this);
 
-	//if (!alive)
-	//{
-	//	idle = false;
-	//	currentAnim = &death;
-	//}
-	//else
-	//{
-	//	idle = true;
+	}
+	else
+	{
+		isIdle = true;
+		if (isGrounded) {
+			//Code to see if the player has approached the enemy
+			/*if () {
 
-	//	if (stairs || app->debug->godMode)
-	//	{
-	//		//Up
-	//		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-	//			currentAnim = &climb;
-	//			vel = b2Vec2(0, -speed);
-	//			idle = false;
-	//		}
-	//		//Down
-	//		else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-	//			currentAnim = &climb;
-	//			vel = b2Vec2(0, speed);
-	//			idle = false;
-	//		}
-	//		else
-	//			vel.y = 0;
-	//	}
+			}*/
+		}
+	}
 
-	//	//Left
-	//	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-	//		currentAnim = &LRun;
-	//		vel.x = -speed;
-	//		idle = false;
-	//		flipLeft = true;
-	//	}
-	//	//Right
-	//	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-	//		currentAnim = &RRun;
-	//		vel.x = speed;
-	//		idle = false;
-	//		flipLeft = false;
-	//	}
-	//	else
-	//		vel.x = 0;
+	//Here just for debbugging, to see what velocity we like for enemies
+	vel.x = 0;
+	vel.y = 0;
+	//Set the velocity of the pbody of the enemy
+	pbody->body->SetLinearVelocity(vel);
 
-	//	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isGrounded && remainingJumpSteps == 0) {
-	//		currentAnim = flipLeft ? &LJump : &RJump;
-	//		remainingJumpSteps = 6;
-	//		idle = false;
-	//		isGrounded = false;
-	//	}
-	//}
-
-
-	////Set the velocity of the pbody of the player
-	//pbody->body->SetLinearVelocity(vel);
-
-	////Apply Jump Force
+	//Not rlly necessary? But I will leave it to use it if we want enemies to jump, even though I think they are probably not capable because of the level
+	//Apply Jump Force
 	//if (remainingJumpSteps > 0)
 	//{
 	//	float force = pbody->body->GetMass() * 10 / 0.01666; //F = mv/t (t = 1/60fps)
@@ -147,16 +96,14 @@ bool EnemyWalk::Update()
 	//	remainingJumpSteps--;
 	//}
 
-	////Update player position in pixelspl
-	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
+	//Update player position in pixels
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
-	////Animations
-	//if (idle) { currentAnim = flipLeft ? &left : &right; }
-	//if (!isGrounded) { currentAnim = flipLeft ? &LJump : &RJump; }
-	//SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	//app->render->DrawTexture(texture, position.x, position.y, &rect2);
-	//currentAnim->Update();
+	//Animations
+	/*SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
+	currentAnim->Update();*/
 
 	return true;
 }
@@ -170,7 +117,8 @@ bool EnemyWalk::PostUpdate()
 
 bool EnemyWalk::CleanUp()
 {
-
+	app->tex->UnLoad(texture);
+	RELEASE(texture);
 	return true;
 }
 
@@ -178,24 +126,24 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		app->audio->PlayFx(pickCoinFxId);
-		break;
-	case ColliderType::WALL:
-		LOG("Collision WALL");
+	case ColliderType::DEATH:
+		LOG("Collision DEATH");
+		alive = false;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
 		isGrounded = true;
 		break;
+	case ColliderType::ITEM:
+		LOG("Collision ITEM");
+		app->audio->PlayFx(pickCoinFxId);
+		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 		isGrounded = true;
 		break;
-	case ColliderType::DEATH:
-		LOG("Collision DEATH");
-		alive = false;
+	case ColliderType::WALL:
+		LOG("Collision WALL");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
@@ -276,11 +224,11 @@ void EnemyWalk::LoadAnimations()
 	//death.loop = false;
 
 
-	//currentAnim = &right;
+	currentAnim = &idle;
 }
 
 void EnemyWalk::SetPosition(int posX, int posY)
 {
-	/*b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
-	pbody->body->SetTransform(position, 0);*/
+	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
+	pbody->body->SetTransform(position, 0);
 }

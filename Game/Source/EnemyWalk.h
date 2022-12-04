@@ -1,5 +1,5 @@
-#ifndef __ENEMY_H__
-#define __ENEMY_H__
+#ifndef __ENEMYWALK_H__
+#define __ENEMYWALK_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -45,14 +45,15 @@ private:
 	const char* texturePath;
 
 	//Animation
-	Animation left, right, climb;	// jump?
-	Animation LRun, RRun, LJump, RJump;
+	Animation idle, walk;	// jump?
+	Animation attack;
 	Animation death, iddledeathanim;
 	Animation* currentAnim = nullptr;
+	SDL_RendererFlip flip;
 
 	//FX
 	int pickCoinFxId;
 
 };
 
-#endif // __ENEMY_H__
+#endif // __ENEMYWALK_H__

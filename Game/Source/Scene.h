@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "EnemyWalk.h"
+#include "EnemyFly.h"
 
 struct SDL_Texture;
 
@@ -38,6 +40,8 @@ public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+	EnemyFly* enemyFly;
+	EnemyWalk* enemyWalk;
 
 	int camSpeed;
 
