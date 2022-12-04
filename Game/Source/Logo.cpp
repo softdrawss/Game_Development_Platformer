@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Logo.h"
 #include "EntityManager.h"
+#include "Camera.h"
 #include "FadeToBlack.h"
 #include "Map.h"
 #include "Title.h"
@@ -27,24 +28,23 @@ bool Logo::Awake(pugi::xml_node& config)
 	LOG("Loading Logo");
 	bool ret = true;
 
-	// iterate all objects in the scene
-	// Check https://pugixml.org/docs/quickstart.html#access
-	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-	{
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		item->parameters = itemNode;
-	}
-
-	logopath = (char*)config.child("pos").attribute("texturepath").as_string();
-	x = config.child("pos").attribute("x").as_int();
-	y = config.child("pos").attribute("y").as_int();
 	return ret;
 }
 
 // Called before the first frame
 bool Logo::Start()
 {
+	pugi::xml_node node = app->GetNode();
+	pugi::xml_node config = node.child(name.GetString());
+
+	logopath = (char*)config.child("pos").attribute("texturepath").as_string();
+	x = config.child("pos").attribute("x").as_int();
+	y = config.child("pos").attribute("y").as_int();
+
 	img = app->tex->Load(logopath);
+
+
+	app->camera->SetPosition(0, 0);
 	count = 0;
 
 	return true;

@@ -207,7 +207,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::ENEMY:
 		//need to tell it, depending on how we kill (or make disappear) enemies
 		//will we shoot to them? or more like mario, smashing them up to the ground with our weight?
-		alive = false;
+		//alive = false;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");

@@ -7,6 +7,7 @@
 #include "Title.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Camera.h"
 #include "FadeToBlack.h"
 #include "Defs.h"
 #include "Log.h"
@@ -33,25 +34,22 @@ bool Title::Awake(pugi::xml_node& config)
 	LOG("Loading Title");
 	bool ret = true;
 
-	// iterate all objects in the scene
-	// Check https://pugixml.org/docs/quickstart.html#access
-	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-	{
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		item->parameters = itemNode;
-	}
-
-	titlepath = (char*)config.child("pos").attribute("texturepath").as_string();
-	x = config.child("pos").attribute("x").as_int();
-	y = config.child("pos").attribute("y").as_int();
-
 	return ret;
 }
 
 // Called before the first frame
 bool Title::Start()
 {
+	pugi::xml_node node = app->GetNode();
+	pugi::xml_node config = node.child(name.GetString());
+
+	titlepath = (char*)config.child("pos").attribute("texturepath").as_string();
+	x = config.child("pos").attribute("x").as_int();
+	y = config.child("pos").attribute("y").as_int();
+
 	img = app->tex->Load(titlepath);
+
+	app->camera->SetPosition(0, 0);
 
 	return true;
 }

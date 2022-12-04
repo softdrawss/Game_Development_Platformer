@@ -30,10 +30,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
-	
 
-	enemyFly = (EnemyFly*)app->entityManager->CreateEntity(EntityType::FLY);
-	enemyFly->parameters = config.child("player");
 	return ret;
 }
 
@@ -47,6 +44,10 @@ bool Scene::Start()
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
+	//ENEMIES
+	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
+	enemyWalk->parameters = config.child("walk");
+
 	//Enables
 	app->map->Enable();
 	app->physics->Enable();
@@ -54,15 +55,15 @@ bool Scene::Start()
 	app->camera->Enable();
 	app->debug->Enable();
 
-	// iterate all objects in the scene
-	// Check https://pugixml.org/docs/quickstart.html#access
+	// Iterate all objects in the scene -- Check https://pugixml.org/docs/quickstart.html#access	
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
 		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 		item->parameters = itemNode;
 	}
 
-	
+	//MAP
+	app->map->Load();
 
 	//MUSIC
 	musicPath = (char*)config.child("music").attribute("audioPath").as_string();
@@ -74,6 +75,7 @@ bool Scene::Start()
 	app->fonts->font_white = app->fonts->Load(fontPath, lookupTable, 7);
 
 	//CAMERA
+	app->camera->cameraMode = PLAYER;
 	speed = config.child("camera").attribute("speed").as_int();
 	camX = config.child("camera").attribute("x").as_int();
 	camY = config.child("camera").attribute("y").as_int();
@@ -81,10 +83,7 @@ bool Scene::Start()
 	app->render->camera.y = camY * app->win->GetScale();
 	camSpeed = speed * app->win->GetScale();*/
 
-
-	//MAP
-	app->map->Load();
-
+	//WINDOW
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->mapData.width,
 		app->map->mapData.height,
@@ -92,7 +91,6 @@ bool Scene::Start()
 		app->map->mapData.tileHeight,
 		app->map->mapData.tilesets.Count());
 	
-	//WINDOW
 	app->win->SetTitle(title.GetString());
 
 	return true;

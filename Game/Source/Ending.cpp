@@ -7,6 +7,7 @@
 #include "Ending.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Camera.h"
 #include "FadeToBlack.h"
 #include "Defs.h"
 #include "Scene.h"
@@ -42,8 +43,7 @@ bool Ending::Start()
 
 	img = app->tex->Load(endpath);
 
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+	app->camera->SetPosition(0, 0);
 
 	app->map->Disable();
 	app->entityManager->Disable();

@@ -43,7 +43,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(false);
 	entityManager = new EntityManager(false);
 	pathfinding = new PathFinding(false);
-	camera = new Camera(false);
+	camera = new Camera(true);
 
 	fade = new FadeToBlack(true);
 	debug = new Debug(false);
@@ -142,7 +142,6 @@ bool App::Awake()
 bool App::Start()
 {
 	bool ret = true;
-	bool ret2 = true;
 	ListItem<Module*>* item;
 	item = modules.start;
 
@@ -150,12 +149,12 @@ bool App::Start()
 	{
 		if (item->data->active)
 		{
-			ret2 = item->data->Start();
+			ret = item->data->Start();
 		}
 		item = item->next;
 	}
 
-	return ret && ret2;
+	return ret;
 }
 
 // Called each loop iteration

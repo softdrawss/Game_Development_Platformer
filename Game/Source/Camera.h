@@ -5,6 +5,11 @@
 #include "Point.h"
 #include "Physics.h"
 
+enum CameraMode
+{
+	PLAYER,
+	CINEMATIC,
+};
 
 class Camera : public Module
 {
@@ -24,9 +29,14 @@ public:
 	// Moves camera a set amount x, y
 	void AddPosition(int x, int y);
 
+	void FollowPlayer();
+	void CameraLimits();
+	void FreeCamera();
+
 public:
 
 	int camSpeed;
+	CameraMode cameraMode;
 
 };
 
