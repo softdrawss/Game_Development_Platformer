@@ -110,13 +110,13 @@ bool EnemyWalk::Update()
 bool EnemyWalk::PostUpdate()
 {
 	//For highscore
-
+	
 	return true;
 }
 
 bool EnemyWalk::CleanUp()
 {
-	app->tex->UnLoad(texture);
+	app->entityManager->DestroyEntity(this);
 	RELEASE(texture);
 	return true;
 }
@@ -156,12 +156,16 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyWalk::LoadAnimations()
 {
-	idle.PushBack({ 15, 0, 20, 26 });
-	idle.PushBack({ 15, 26, 20, 26 });
-	idle.PushBack({ 15, 52, 20, 26 });
-	idle.PushBack({ 15, 78, 20, 26 });
-	idle.PushBack({ 15, 104, 20, 26 });
-	idle.speed = 0.08f;
+	sleep.PushBack({ 0, 0, 30, 26 });
+
+
+	getUp.PushBack({ 0, 26, 30, 26 });
+	getUp.PushBack({ 0, 52, 30, 26 });
+	getUp.PushBack({ 0, 78, 30, 26 });
+	getUp.PushBack({ 0, 104, 30, 26 });
+	getUp.PushBack({ 0, 130, 30, 26 });
+	//awake.loop = false;
+	getUp.speed = 0.1f;
 
 	//left.PushBack({ 0, 416, 32, 32 });
 	//left.PushBack({ 32, 416, 32, 32 });
@@ -228,7 +232,7 @@ void EnemyWalk::LoadAnimations()
 	//death.loop = false;
 
 
-	currentAnim = &idle;
+	currentAnim = &getUp;
 }
 
 void EnemyWalk::SetPosition(int posX, int posY)

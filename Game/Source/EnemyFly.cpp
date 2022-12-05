@@ -108,6 +108,7 @@ bool EnemyFly::PostUpdate()
 
 bool EnemyFly::CleanUp()
 {
+	app->entityManager->DestroyEntity(this);
 	RELEASE(texture);
 	return true;
 }
