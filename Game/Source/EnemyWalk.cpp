@@ -39,7 +39,6 @@ bool EnemyWalk::Start()
 	initPosition.y = position.y;
 
 	texturePath = parameters.attribute("texturepath").as_string();
-
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -47,7 +46,7 @@ bool EnemyWalk::Start()
 
 	// L07 DONE 5: Add physics to the enemy - initialize physics body
 	//We have to or we will have to change the radium, since probably the enemy is not as big as the player
-	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x + 10, position.y + 10, 12, bodyType::DYNAMIC);
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -101,9 +100,9 @@ bool EnemyWalk::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	//Animations
-	/*SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
-	currentAnim->Update();*/
+	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x, position.y, SDL_FLIP_NONE, &rect2);
+	currentAnim->Update();
 
 	return true;
 }
@@ -142,6 +141,10 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 		LOG("Collision PLATFORM");
 		isGrounded = true;
 		break;
+	case ColliderType::PLAYER:
+		LOG("Collision PLATFORM");
+		alive = false;
+		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
 		break;
@@ -153,11 +156,12 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyWalk::LoadAnimations()
 {
-	//right.PushBack({ 0, 160, 32, 32 });
-	//right.PushBack({ 32, 160, 32, 32 });
-	//right.PushBack({ 64, 160, 32, 32 });
-	//right.PushBack({ 96, 160, 32, 32 });
-	//right.speed = 0.08f;
+	idle.PushBack({ 15, 0, 20, 26 });
+	idle.PushBack({ 15, 26, 20, 26 });
+	idle.PushBack({ 15, 52, 20, 26 });
+	idle.PushBack({ 15, 78, 20, 26 });
+	idle.PushBack({ 15, 104, 20, 26 });
+	idle.speed = 0.08f;
 
 	//left.PushBack({ 0, 416, 32, 32 });
 	//left.PushBack({ 32, 416, 32, 32 });

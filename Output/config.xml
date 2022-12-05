@@ -32,7 +32,7 @@
   <scene>
     <player x="128" y="512" texturepath="Assets/Textures/MC/1 Pink_Monster/Pink_Monster_Animation_List_3.png"/>
     <fly x="570" y="610" texturepath="Assets/Textures/NOT_USED_ANIM/merchant/idle.png"/>
-	<walk x="570" y="545" texturepath="Assets/Textures/NOT_USED_ANIM/merchant/idle.png"/>
+	<walk x="570" y="545" texturepath="Assets/Textures/NOT_USED_ANIM/Bot Wheel/wake.png"/>
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
 	<fonts fontPath="Assets/Textures/sprite_font_white.png"/>
 	<camera speed="6" x="0" y="0"/>
