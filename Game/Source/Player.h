@@ -51,8 +51,8 @@ private:
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;
 	Animation idle, run, jump, climb;
-	Animation death, iddledeathanim;
 	Animation attackRock;
+	Animation death;
 
 	//FX
 	int pickCoinFxId;

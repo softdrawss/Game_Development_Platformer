@@ -38,15 +38,14 @@ bool EnemyWalk::Start()
 	initPosition.x = position.x;
 	initPosition.y = position.y;
 
-	texturePath = parameters.attribute("texturepath").as_string();
 	//initilize textures
+	texturePath = parameters.attribute("texturepath").as_string();
 	texture = app->tex->Load(texturePath);
 
-	isIdle = true;
+	isAsleep = true;
 
 	// L07 DONE 5: Add physics to the enemy - initialize physics body
-	//We have to or we will have to change the radium, since probably the enemy is not as big as the player
-	pbody = app->physics->CreateCircle(position.x + 10, position.y + 10, 12, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 11, 22, bodyType::DYNAMIC);
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -60,48 +59,78 @@ bool EnemyWalk::Start()
 bool EnemyWalk::Update()
 {
 	b2Vec2 vel;
+	int speed = 4;
 
+	vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
+
+
+	//Death
 	if (!alive)
 	{
-		isIdle = false;
+		pbody->body->SetActive(false);
+		pbody->body->SetType(b2_staticBody);
+		isAsleep = false;
 		currentAnim = &death;
-		app->entityManager->DestroyEntity(this);
-
 	}
 	else
 	{
-		isIdle = true;
-		if (isGrounded) {
-			//Code to see if the player has approached the enemy
-			/*if () {
+		isAsleep = true;
 
-			}*/
+		//Left
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+			currentAnim = &move;
+			vel.x = -speed;
+			isAsleep = false;
+			flip = SDL_FLIP_HORIZONTAL;
+		}
+		//Right
+		else if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+			currentAnim = &move;
+			vel.x = speed;
+			isAsleep = false;
+			flip = SDL_FLIP_NONE;
+		}
+		else
+			vel.x = 0;
+
+		//Start charge
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT && isCharging != 0) {
+			isCharging = 120;
+			currentAnim = &shoot;
+			isAsleep = false;
+		}
+
+		//Charging
+		if (isCharging != 0)
+		{
+			isCharging--;
+			isAsleep = false;
+		}
+		else if (app->input->GetKey(SDL_SCANCODE_E) == KEY_UP)
+		{
+			isCharging = 0;
+			isAsleep = true;
 		}
 	}
 
-	//Here just for debbugging, to see what velocity we like for enemies
-	vel.x = 0;
-	vel.y = 0;
 	//Set the velocity of the pbody of the enemy
 	pbody->body->SetLinearVelocity(vel);
 
-	//Not rlly necessary? But I will leave it to use it if we want enemies to jump, even though I think they are probably not capable because of the level
-	//Apply Jump Force
-	//if (remainingJumpSteps > 0)
+	//Set Enemy position
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+
+	////Animations
+	//if (isAttackingRock && attackRock.GetCurrentFrameint() == 4)
 	//{
-	//	float force = pbody->body->GetMass() * 10 / 0.01666; //F = mv/t (t = 1/60fps)
-	//	force /= 6.0;
-	//	pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
-	//	remainingJumpSteps--;
+	//	attackRock.Reset();
+	//	isAttackingRock = false;
 	//}
 
-	//Update player position in pixels
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
-
-	//Animations
+	/*if (isAsleep && !isAttackingRock) { currentAnim = &sleep; }
+	if (isAttackingRock) { currentAnim = &attackRock; }*/
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, SDL_FLIP_NONE, &rect2);
+	app->render->DrawTexture(texture, position.x - 14, position.y - 7, flip, &rect2);
 	currentAnim->Update();
 
 	return true;
@@ -127,7 +156,7 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 	{
 	case ColliderType::DEATH:
 		LOG("Collision DEATH");
-		alive = false;
+		//alive = false;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
@@ -156,83 +185,64 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyWalk::LoadAnimations()
 {
-	sleep.PushBack({ 0, 0, 30, 26 });
+	sleep.PushBack({ 0, 0, 50, 30 });
 
+	wake.PushBack({   0, 30, 50, 30 });
+	wake.PushBack({  50, 30, 50, 30 });
+	wake.PushBack({ 100, 30, 50, 30 });
+	wake.PushBack({ 150, 30, 50, 30 });
+	wake.PushBack({ 200, 30, 50, 30 });
+	wake.loop = false;
+	wake.speed = 0.1f;
 
-	getUp.PushBack({ 0, 26, 30, 26 });
-	getUp.PushBack({ 0, 52, 30, 26 });
-	getUp.PushBack({ 0, 78, 30, 26 });
-	getUp.PushBack({ 0, 104, 30, 26 });
-	getUp.PushBack({ 0, 130, 30, 26 });
-	//awake.loop = false;
-	getUp.speed = 0.1f;
+	move.PushBack({   0, 60, 50, 30 });
+	move.PushBack({  50, 60, 50, 30 });
+	move.PushBack({ 100, 60, 50, 30 });
+	move.PushBack({ 150, 60, 50, 30 });
+	move.PushBack({ 200, 60, 50, 30 });
+	move.PushBack({ 250, 60, 50, 30 });
+	move.PushBack({ 300, 60, 50, 30 });
+	move.PushBack({ 250, 60, 50, 30 });
+	move.speed = 0.1f;
 
-	//left.PushBack({ 0, 416, 32, 32 });
-	//left.PushBack({ 32, 416, 32, 32 });
-	//left.PushBack({ 64, 416, 32, 32 });
-	//left.PushBack({ 96, 416, 32, 32 });
-	//left.speed = 0.08f;
+	dash.PushBack({ 300,   0, 115, 30 });
+	dash.PushBack({ 300,  30, 115, 30 });
+	dash.PushBack({ 300,  60, 115, 30 });
+	dash.PushBack({ 300,  90, 115, 30 });
+	dash.PushBack({ 300, 120, 115, 30 });
+	dash.PushBack({ 300, 150, 115, 30 });
+	dash.PushBack({ 300, 180, 115, 30 });
+	dash.loop = false;
+	dash.speed = 0.1f;
 
-	//// Run animation, there is also a walk animation
-	//// but as we are not using anything that changes the speed I'm going to stick to walk
-	//RRun.PushBack({ 0, 64, 32, 32 });
-	//RRun.PushBack({ 32, 64, 32, 32 });
-	//RRun.PushBack({ 64, 64, 32, 32 });
-	//RRun.PushBack({ 96, 64, 32, 32 });
-	//RRun.PushBack({ 128, 64, 32, 32 });
-	//RRun.PushBack({ 160, 64, 32, 32 });
-	//RRun.speed = 0.1f;
+	charge.PushBack({   0, 90, 50, 30 });
+	charge.PushBack({  50, 90, 50, 30 });
+	charge.PushBack({ 100, 90, 50, 30 });
+	charge.PushBack({ 150, 90, 50, 30 });
+	charge.speed = 0.1f;
+	 
+	shoot.PushBack({   0, 120, 50, 30 });
+	shoot.PushBack({  50, 120, 50, 30 });
+	shoot.PushBack({ 100, 120, 50, 30 });
+	shoot.PushBack({ 150, 120, 50, 30 });
+	shoot.loop = false;
+	shoot.speed = 0.1f;
 
-	//LRun.PushBack({ 0, 320, 32, 32 });
-	//LRun.PushBack({ 32, 320, 32, 32 });
-	//LRun.PushBack({ 64, 320, 32, 32 });
-	//LRun.PushBack({ 96, 320, 32, 32 });
-	//LRun.PushBack({ 128, 320, 32, 32 });
-	//LRun.PushBack({ 160, 320, 32, 32 });
-	//LRun.speed = 0.1f;
+	hit.PushBack({  0, 150, 50, 30 });
+	hit.PushBack({ 50, 150, 50, 30 });
+	hit.loop = false;
+	hit.speed = 0.1f;
 
-	//climb.PushBack({ 0, 128, 32, 32 });
-	//climb.PushBack({ 32, 128, 32, 32 });
-	//climb.PushBack({ 64, 128, 32, 32 });
-	//climb.PushBack({ 96, 128, 32, 32 });
-	//climb.speed = 0.1f;
+	death.PushBack({   0, 180, 50, 30 });
+	death.PushBack({  50, 180, 50, 30 });
+	death.PushBack({ 100, 180, 50, 30 });
+	death.PushBack({ 150, 180, 50, 30 });
+	death.PushBack({ 200, 180, 50, 30 });
+	death.PushBack({ 250, 180, 50, 30 });
+	death.loop = false;
+	death.speed = 0.1f;
 
-	//RJump.PushBack({ 224, 32, 32, 32 });
-	//RJump.PushBack({ 256, 32, 32, 32 });
-	//RJump.PushBack({ 288, 32, 32, 32 });
-	//RJump.PushBack({ 320, 32, 32, 32 });
-	//RJump.PushBack({ 352, 32, 32, 32 });
-	//RJump.PushBack({ 384, 32, 32, 32 });
-	//RJump.PushBack({ 416, 32, 32, 32 });
-	//RJump.PushBack({ 448, 32, 32, 32 });
-	//RJump.speed = 0.2f;
-	//RJump.loop;
-
-	//LJump.PushBack({ 224, 288, 32, 32 });
-	//LJump.PushBack({ 256, 288, 32, 32 });
-	//LJump.PushBack({ 288, 288, 32, 32 });
-	//LJump.PushBack({ 320, 288, 32, 32 });
-	//LJump.PushBack({ 352, 288, 32, 32 });
-	//LJump.PushBack({ 384, 288, 32, 32 });
-	//LJump.PushBack({ 416, 288, 32, 32 });
-	//LJump.PushBack({ 448, 288, 32, 32 });
-	//LJump.speed = 0.2f;
-	//LJump.loop;
-
-	//death.PushBack({ 224, 128, 32, 32 });
-	//death.PushBack({ 256, 128, 32, 32 });
-	//death.PushBack({ 288, 128, 32, 32 });
-	//death.PushBack({ 320, 128, 32, 32 });
-	//death.PushBack({ 352, 128, 32, 32 });
-	//death.PushBack({ 384, 128, 32, 32 });
-	//death.PushBack({ 416, 128, 32, 32 });
-	//death.PushBack({ 448, 128, 32, 32 });
-	//death.PushBack({ 480, 128, 32, 32 });
-	//death.speed = 0.1f;
-	//death.loop = false;
-
-
-	currentAnim = &getUp;
+	currentAnim = &sleep;
 }
 
 void EnemyWalk::SetPosition(int posX, int posY)

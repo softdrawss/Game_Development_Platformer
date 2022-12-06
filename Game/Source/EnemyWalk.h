@@ -35,9 +35,9 @@ public:
 
 private:
 
-	bool isIdle, flipLeft;
+	bool isAsleep;
 	bool isGrounded;
-	bool stairs;
+	int isCharging;
 	int remainingJumpSteps;
 
 	//Texture
@@ -45,12 +45,12 @@ private:
 	const char* texturePath;
 
 	//Animation
-	Animation sleep, idle, getUp, walk, sprint;	// jump?
-	Animation attack, recharge;
-	Animation death, iddledeathanim;
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;
-
+	Animation sleep, wake, move, dash;
+	Animation charge, shoot;
+	Animation hit, death;
+	
 	//FX
 	int pickCoinFxId;
 
