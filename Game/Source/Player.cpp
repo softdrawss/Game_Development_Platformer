@@ -50,7 +50,7 @@ bool Player::Start()
 	isIdle = true;
 	
 	// Pysics body
-	pbody = app->physics->CreateCircle(position.x+16, position.y+16, 12, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 

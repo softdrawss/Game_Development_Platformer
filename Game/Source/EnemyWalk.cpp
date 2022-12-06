@@ -117,8 +117,8 @@ bool EnemyWalk::Update()
 	pbody->body->SetLinearVelocity(vel);
 
 	//Set Enemy position
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 21;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	////Animations
 	//if (isAttackingRock && attackRock.GetCurrentFrameint() == 4)
@@ -130,7 +130,7 @@ bool EnemyWalk::Update()
 	/*if (isAsleep && !isAttackingRock) { currentAnim = &sleep; }
 	if (isAttackingRock) { currentAnim = &attackRock; }*/
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x - 14, position.y - 7, flip, &rect2);
+	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
 	currentAnim->Update();
 
 	return true;
