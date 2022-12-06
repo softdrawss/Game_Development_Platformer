@@ -38,6 +38,7 @@ private:
 	bool isAsleep;
 	bool isGrounded;
 	int isCharging;
+	bool isShooting;
 	int remainingJumpSteps;
 
 	//Texture

@@ -94,22 +94,31 @@ bool EnemyWalk::Update()
 			vel.x = 0;
 
 		//Start charge
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT && isCharging != 0) {
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT && isCharging == 0 && !isShooting)
+		{
 			isCharging = 120;
 			currentAnim = &shoot;
 			isAsleep = false;
 		}
 
 		//Charging
-		if (isCharging != 0)
-		{
-			isCharging--;
-			isAsleep = false;
-		}
-		else if (app->input->GetKey(SDL_SCANCODE_E) == KEY_UP)
+		if (isCharging == 1)
 		{
 			isCharging = 0;
-			isAsleep = true;
+			isShooting = true;
+		}
+		else if (isCharging != 0)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_E) == KEY_UP)
+			{
+				isCharging = 0;
+				isAsleep = true;
+			}
+			else
+			{
+				isCharging--;
+				isAsleep = false;
+			}
 		}
 	}
 
@@ -117,18 +126,19 @@ bool EnemyWalk::Update()
 	pbody->body->SetLinearVelocity(vel);
 
 	//Set Enemy position
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 21;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 28;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
-	////Animations
-	//if (isAttackingRock && attackRock.GetCurrentFrameint() == 4)
-	//{
-	//	attackRock.Reset();
-	//	isAttackingRock = false;
-	//}
+	//Animations
+	if (isShooting && shoot.GetCurrentFrameint() == 3)
+	{
+		shoot.Reset();
+		isShooting = false;
+	}
 
-	/*if (isAsleep && !isAttackingRock) { currentAnim = &sleep; }
-	if (isAttackingRock) { currentAnim = &attackRock; }*/
+	if (isAsleep) { currentAnim = &sleep; }
+	if (isCharging != 0) { currentAnim = &charge; }
+	if (isShooting) { currentAnim = &shoot; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
 	currentAnim->Update();
@@ -185,62 +195,62 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyWalk::LoadAnimations()
 {
-	sleep.PushBack({ 0, 0, 50, 30 });
+	sleep.PushBack({ 0, 0, 55, 30 });
 
-	wake.PushBack({   0, 30, 50, 30 });
-	wake.PushBack({  50, 30, 50, 30 });
-	wake.PushBack({ 100, 30, 50, 30 });
-	wake.PushBack({ 150, 30, 50, 30 });
-	wake.PushBack({ 200, 30, 50, 30 });
+	wake.PushBack({   0, 30, 55, 30 });
+	wake.PushBack({  55, 30, 55, 30 });
+	wake.PushBack({ 110, 30, 55, 30 });
+	wake.PushBack({ 165, 30, 55, 30 });
+	wake.PushBack({ 220, 30, 55, 30 });
 	wake.loop = false;
 	wake.speed = 0.1f;
 
-	move.PushBack({   0, 60, 50, 30 });
-	move.PushBack({  50, 60, 50, 30 });
-	move.PushBack({ 100, 60, 50, 30 });
-	move.PushBack({ 150, 60, 50, 30 });
-	move.PushBack({ 200, 60, 50, 30 });
-	move.PushBack({ 250, 60, 50, 30 });
-	move.PushBack({ 300, 60, 50, 30 });
-	move.PushBack({ 250, 60, 50, 30 });
-	move.speed = 0.1f;
+	move.PushBack({   0, 60, 55, 30 });
+	move.PushBack({  55, 60, 55, 30 });
+	move.PushBack({ 110, 60, 55, 30 });
+	move.PushBack({ 165, 60, 55, 30 });
+	move.PushBack({ 220, 60, 55, 30 });
+	move.PushBack({ 275, 60, 55, 30 });
+	move.PushBack({ 330, 60, 55, 30 });
+	move.PushBack({ 385, 60, 55, 30 });
+	move.speed = 0.2f;
 
-	dash.PushBack({ 300,   0, 115, 30 });
-	dash.PushBack({ 300,  30, 115, 30 });
-	dash.PushBack({ 300,  60, 115, 30 });
-	dash.PushBack({ 300,  90, 115, 30 });
-	dash.PushBack({ 300, 120, 115, 30 });
-	dash.PushBack({ 300, 150, 115, 30 });
-	dash.PushBack({ 300, 180, 115, 30 });
+	dash.PushBack({ 385,   0, 120, 30 });
+	dash.PushBack({ 385,  30, 120, 30 });
+	dash.PushBack({ 385,  60, 120, 30 });
+	dash.PushBack({ 385,  90, 120, 30 });
+	dash.PushBack({ 385, 120, 120, 30 });
+	dash.PushBack({ 385, 150, 120, 30 });
+	dash.PushBack({ 385, 180, 120, 30 });
 	dash.loop = false;
-	dash.speed = 0.1f;
+	dash.speed = 0.4f;
 
-	charge.PushBack({   0, 90, 50, 30 });
-	charge.PushBack({  50, 90, 50, 30 });
-	charge.PushBack({ 100, 90, 50, 30 });
-	charge.PushBack({ 150, 90, 50, 30 });
-	charge.speed = 0.1f;
+	charge.PushBack({   0, 90, 55, 30 });
+	charge.PushBack({  55, 90, 55, 30 });
+	charge.PushBack({ 110, 90, 55, 30 });
+	charge.PushBack({ 165, 90, 55, 30 });
+	charge.speed = 0.2f;
 	 
-	shoot.PushBack({   0, 120, 50, 30 });
-	shoot.PushBack({  50, 120, 50, 30 });
-	shoot.PushBack({ 100, 120, 50, 30 });
-	shoot.PushBack({ 150, 120, 50, 30 });
+	shoot.PushBack({   0, 120, 55, 30 });
+	shoot.PushBack({  55, 120, 55, 30 });
+	shoot.PushBack({ 110, 120, 55, 30 });
+	shoot.PushBack({ 165, 120, 55, 30 });
 	shoot.loop = false;
-	shoot.speed = 0.1f;
+	shoot.speed = 0.3f;
 
-	hit.PushBack({  0, 150, 50, 30 });
-	hit.PushBack({ 50, 150, 50, 30 });
+	hit.PushBack({  0, 150, 55, 30 });
+	hit.PushBack({ 55, 150, 55, 30 });
 	hit.loop = false;
-	hit.speed = 0.1f;
+	hit.speed = 0.2f;
 
-	death.PushBack({   0, 180, 50, 30 });
-	death.PushBack({  50, 180, 50, 30 });
-	death.PushBack({ 100, 180, 50, 30 });
-	death.PushBack({ 150, 180, 50, 30 });
-	death.PushBack({ 200, 180, 50, 30 });
-	death.PushBack({ 250, 180, 50, 30 });
+	death.PushBack({   0, 180, 55, 30 });
+	death.PushBack({  55, 180, 55, 30 });
+	death.PushBack({ 110, 180, 55, 30 });
+	death.PushBack({ 165, 180, 55, 30 });
+	death.PushBack({ 220, 180, 55, 30 });
+	death.PushBack({ 275, 180, 55, 30 });
 	death.loop = false;
-	death.speed = 0.1f;
+	death.speed = 0.2f;
 
 	currentAnim = &sleep;
 }
