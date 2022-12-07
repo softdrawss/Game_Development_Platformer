@@ -40,13 +40,14 @@ bool Scene::Start()
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
 
-	//PLAYER
-	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->parameters = config.child("player");
-
+	
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
 	enemyWalk->parameters = config.child("walk");
+
+	//PLAYER
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	player->parameters = config.child("player");
 
 	//Enables
 	app->map->Enable();
@@ -54,7 +55,7 @@ bool Scene::Start()
 	app->entityManager->Enable();
 	app->camera->Enable();
 	app->debug->Enable();
-
+	
 	// Iterate all objects in the scene -- Check https://pugixml.org/docs/quickstart.html#access	
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
