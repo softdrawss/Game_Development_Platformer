@@ -45,8 +45,7 @@ private:
 	const char* texturePath;
 
 	//Animation
-	Animation left, right, climb;	// jump?
-	Animation LRun, RRun, LJump, RJump;
+	Animation idle;	// jump?;
 	Animation death, iddledeathanim;
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;

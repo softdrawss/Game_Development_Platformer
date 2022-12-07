@@ -93,9 +93,9 @@ bool EnemyFly::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	//Animation
-	/*SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
-	currentAnim->Update();*/
+	currentAnim->Update();
 	return true;
 }
 
@@ -144,10 +144,10 @@ void EnemyFly::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyFly::LoadAnimations()
 {
-	//right.PushBack({ 0, 160, 32, 32 });
-	//right.PushBack({ 32, 160, 32, 32 });
-	//right.PushBack({ 64, 160, 32, 32 });
-	//right.PushBack({ 96, 160, 32, 32 });
+	idle.PushBack({ 0, 0, 64, 64 });
+	idle.PushBack({ 64, 160, 64, 64 });
+	idle.PushBack({ 128, 160, 64, 64 });
+	idle.PushBack({ 192, 160, 64, 64 });
 	//right.speed = 0.08f;
 
 	//left.PushBack({ 0, 416, 32, 32 });
@@ -215,7 +215,7 @@ void EnemyFly::LoadAnimations()
 	//death.loop = false;
 
 
-	//currentAnim = &right;
+	currentAnim = &idle;
 }
 
 void EnemyFly::SetPosition(int posX, int posY)
