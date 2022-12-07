@@ -45,7 +45,7 @@ bool EnemyWalk::Start()
 	isAsleep = true;
 
 	// L07 DONE 5: Add physics to the enemy - initialize physics body
-	pbody = app->physics->CreateRectangle(position.x, position.y, 11, 22, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 11, 18, bodyType::DYNAMIC);
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -127,7 +127,7 @@ bool EnemyWalk::Update()
 
 	//Set Enemy position
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 28;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 19;
 
 	//Animations
 	if (isShooting && shoot.GetCurrentFrameint() == 3)
