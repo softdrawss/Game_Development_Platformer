@@ -4,11 +4,8 @@
 #include "Animation.h"
 #include "Point.h"
 #include "Physics.h"
-
-
-struct Collider;
-
-struct Particles
+#include "Log.h"
+struct Particles : public Module
 {
 public:
 	// Constructor
@@ -20,15 +17,30 @@ public:
 	// Destructor
 	~Particles();
 
+	bool Start();
+
+	bool PreUpdate();
+
 	// Called in ModuleParticles' Update
 	// Handles the logic of the particle
 	// Returns false when the particle reaches its lifetime
 	bool Update();
 
+	bool PostUpdate();
+
+	bool CleanUp();
+	
 	// Sets flag for deletion and for the collider aswell
 	void SetToDelete();
+	void LoadAnimations();
+
+	void OnCollision(PhysBody* physA, PhysBody* physB) override;
+
+	//	Particle* AddParticle(const Particle& particle, int x, int y, Collider::Type colliderType = Collider::Type::NONE, uint delay = 0);
 
 public:
+	SDL_Texture* texture = nullptr;
+	
 	// Defines the position in the screen
 	b2Vec2 position;
 
@@ -50,7 +62,7 @@ public:
 	uint lifetime = 0;
 
 	// The particle's collider
-	Collider* collider = nullptr;
+	PhysBody* pbody;
 
 	// A flag for the particle removal. Important! We do not delete objects instantly
 	bool pendingToDelete = false;
