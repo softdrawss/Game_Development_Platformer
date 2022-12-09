@@ -34,6 +34,7 @@ enum class ColliderType {
 	WALL,
 	DEATH,
 	ENEMY,
+	NPC,
 	UNKNOWN
 	// ..
 };

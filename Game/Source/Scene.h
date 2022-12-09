@@ -6,6 +6,8 @@
 #include "Item.h"
 #include "EnemyWalk.h"
 #include "EnemyFly.h"
+#include "NPCChickBoy.h"
+
 
 struct SDL_Texture;
 
@@ -42,6 +44,7 @@ public:
 	Player* player;
 	EnemyFly* enemyFly;
 	EnemyWalk* enemyWalk;
+	NPCChickBoy* npcChickBoy;
 
 	int camSpeed;
 

@@ -45,6 +45,10 @@ bool Scene::Start()
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
 	enemyWalk->parameters = config.child("walk");
 
+	//NPC
+	npcChickBoy = (NPCChickBoy*)app->entityManager->CreateEntity(EntityType::NPC);
+	npcChickBoy->parameters = config.child("chickboy");
+
 	//PLAYER
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");

@@ -76,6 +76,9 @@
     <ClCompile Include="Source\Item.cpp">
       <Filter>Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NPCChickBoy.cpp">
+      <Filter>Modules\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -176,6 +179,9 @@
       <Filter>Modules\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Item.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NPCChickBoy.h">
       <Filter>Modules\Entities</Filter>
     </ClInclude>
   </ItemGroup>
