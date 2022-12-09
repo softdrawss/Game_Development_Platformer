@@ -156,7 +156,7 @@ bool EnemyWalk::PostUpdate()
 bool EnemyWalk::CleanUp()
 {
 	app->entityManager->DestroyEntity(this);
-	RELEASE(texture);
+	//RELEASE(texture);
 	return true;
 }
 
