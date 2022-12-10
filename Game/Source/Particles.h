@@ -78,7 +78,7 @@ struct Particles : public Module{
 	// Called at the middle of the application loop
 	// Iterates all the particles and calls its Update()
 	// Removes any "dead" particles
-	bool Update();
+	bool Update(float dt);
 
 	// Called at the end of the application loop
 	// Iterates all the particles and draws them

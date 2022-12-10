@@ -83,11 +83,11 @@ Particles::~Particles()
 bool Particles::Start()
 {
 	LOG("Loading particles");
-	textureShot = app->tex->Load("Assets/Textures/Characters/1_Pink_Monster/AnimationList.png");
+	textureShot = app->tex->Load("Assets/Textures/Characters/1_Pink_Monster/Rock1.png");
 	//LoadAnimations();
 
-	shot.anim.PushBack({ 32, 0, 32, 32 });
-	shot.anim.PushBack({ 64, 0, 32, 32 });
+	shot.anim.PushBack({ 0, 0, 32, 32 });
+	
 	shot.anim.speed = 0.08f;
 	shot.lifetime = 18;
 	shot.speed.x = 2;
@@ -109,7 +109,7 @@ bool Particles::PreUpdate()
 	return true;
 }
 
-bool Particles::Update()
+bool Particles::Update(float dt)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
