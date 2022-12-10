@@ -64,12 +64,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(endScreen);
 
 	AddModule(map);
+	AddModule(pathfinding);
 	AddModule(entityManager);
 	AddModule(camera);
 
 	AddModule(fade);
 	AddModule(debug);
-	AddModule(pathfinding);
+
 	// Render last to swap buffer
 	AddModule(render);
 }
