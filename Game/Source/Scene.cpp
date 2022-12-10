@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Debug.h"
 #include "FadeToBlack.h"
+#include "Particles.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -62,7 +63,8 @@ bool Scene::Start()
 	app->entityManager->Enable();
 	app->camera->Enable();
 	app->debug->Enable();
-	
+	app->particles->Enable();
+
 	// Iterate all objects in the scene -- Check https://pugixml.org/docs/quickstart.html#access	
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{

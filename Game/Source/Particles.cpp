@@ -83,8 +83,14 @@ Particles::~Particles()
 bool Particles::Start()
 {
 	LOG("Loading particles");
-	texture = app->tex->Load("Assets/Textures/Characters/1_Pink_Monster/AnimationList.png");
+	textureShot = app->tex->Load("Assets/Textures/Characters/1_Pink_Monster/AnimationList.png");
+	//LoadAnimations();
 
+	shot.anim.PushBack({ 32, 0, 32, 32 });
+	shot.anim.PushBack({ 64, 0, 32, 32 });
+	shot.anim.speed = 0.08f;
+	shot.lifetime = 18;
+	shot.speed.x = 2;
 	return true;
 }
 
@@ -133,7 +139,7 @@ bool Particles::PostUpdate()
 
 		if (particle != nullptr && particle->isAlive)
 		{
-			app->render->DrawTexture(texture, particle->position.x - 25, particle->position.y - 25, SDL_FLIP_NONE, &(particle->anim.GetCurrentFrame()));
+			app->render->DrawTexture(textureShot, particle->position.x - 25, particle->position.y - 25, SDL_FLIP_NONE, &(particle->anim.GetCurrentFrame()));
 		}
 	}
 
@@ -208,8 +214,11 @@ ParticleBody* Particles::AddParticle(const ParticleBody& particle, int x, int y,
 
 			//Adding the particle's collider
 			if (type != ColliderType::UNKNOWN) {
-				newParticle->pbody = app->physics->CreateCircle(newParticle->position.x, newParticle->position.y, 5, bodyType::DYNAMIC);
+				newParticle->pbody = app->physics->CreateCircle(newParticle->position.x+24, newParticle->position.y+12, 5, bodyType::DYNAMIC);
 				newParticle->pbody->ctype = ColliderType::SHOT;
+				//Update();
+				//app->render->DrawTexture(texture, newParticle->position.x - 25, newParticle->position.y - 25, SDL_FLIP_NONE, &(newParticle->anim.GetCurrentFrame()));
+
 			}
 			particles[i] = newParticle;
 			break;

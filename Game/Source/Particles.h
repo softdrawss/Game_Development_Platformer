@@ -40,7 +40,7 @@ public:
 
 	// Defines wether the particle is alive or not
 	// Particles will be set to not alive until "spawnTime" is reached
-	bool isAlive = false;
+	bool isAlive = true;
 
 	// Defines the amout of frames this particle has been active
 	// Negative values mean the particle is waiting to be activated
@@ -55,7 +55,7 @@ public:
 	// A flag for the particle removal. Important! We do not delete objects instantly
 	bool pendingToDelete = false;
 
-	bool hasExplosion;
+	bool hasExplosion = false;
 };
 
 
@@ -101,7 +101,7 @@ struct Particles : public Module{
 
 private:
 	// Particles spritesheet loaded into an SDL Texture
-	SDL_Texture* texture = nullptr;
+	SDL_Texture* textureShot = nullptr;
 
 	// An array to store and handle all the particles
 	ParticleBody* particles[MAX_ACTIVE_PARTICLES] = { nullptr };

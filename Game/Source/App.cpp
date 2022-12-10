@@ -35,7 +35,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fonts = new Fonts(true);
 	audio = new Audio(true);
 	physics = new Physics(true);
-	particles = new Particles(true);
+	
 
 	logo = new Logo(true);
 	titleScreen = new Title(false);
@@ -46,6 +46,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager(false);
 	pathfinding = new PathFinding(false);
 	camera = new Camera(true);
+	particles = new Particles(false);
 
 	fade = new FadeToBlack(true);
 	debug = new Debug(false);
@@ -59,7 +60,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(audio);
 	AddModule(physics);
-	AddModule(particles);
+	
 	AddModule(logo);
 	AddModule(titleScreen);
 	AddModule(scene);
@@ -68,7 +69,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(entityManager);
 	AddModule(camera);
-
+	AddModule(particles);
 	AddModule(fade);
 	AddModule(debug);
 	AddModule(pathfinding);
