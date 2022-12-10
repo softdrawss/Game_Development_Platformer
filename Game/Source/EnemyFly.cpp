@@ -47,7 +47,8 @@ bool EnemyFly::Start()
 	texture = app->tex->Load(texturePath);
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 12, bodyType::STATIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 15, 18, bodyType::STATIC);
+
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -64,6 +65,9 @@ bool EnemyFly::Start()
 bool EnemyFly::Update()
 {
 	b2Vec2 vel;
+	int speed = 4;
+
+	vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 	
 	if (!alive)
 	{
@@ -74,17 +78,27 @@ bool EnemyFly::Update()
 	else
 	{
 		isIdle = true;
-		if (!isGrounded) {
+		
 			//Code to see if the player has approached the enemy
 			/*if () {
 
 			}*/
-		}
+
+			//Left
+			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
+				vel.x = -speed;
+				flip = SDL_FLIP_HORIZONTAL;
+			}
+			//Right
+			else if (app->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
+				vel.x = speed;
+				flip = SDL_FLIP_NONE;
+			}
+			else
+				vel.x = 0;
+		
 	}
 
-	//Here just for debbugging, to see what velocity we like for enemies
-	vel.x = 0;
-	vel.y = 0;
 	//Set the velocity of the pbody of the enemy
 	pbody->body->SetLinearVelocity(vel);
 
@@ -93,9 +107,9 @@ bool EnemyFly::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	//Animation
-	/*SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
-	currentAnim->Update();*/
+	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x-15, position.y-20, flip, &rect2);
+	currentAnim->Update();
 	return true;
 }
 
@@ -109,7 +123,6 @@ bool EnemyFly::PostUpdate()
 bool EnemyFly::CleanUp()
 {
 	app->entityManager->DestroyEntity(this);
-	RELEASE(texture);
 	return true;
 }
 
@@ -127,7 +140,7 @@ void EnemyFly::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
-		app->audio->PlayFx(pickCoinFxId);
+		//app->audio->PlayFx(pickCoinFxId);
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
@@ -144,78 +157,13 @@ void EnemyFly::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyFly::LoadAnimations()
 {
-	//right.PushBack({ 0, 160, 32, 32 });
-	//right.PushBack({ 32, 160, 32, 32 });
-	//right.PushBack({ 64, 160, 32, 32 });
-	//right.PushBack({ 96, 160, 32, 32 });
-	//right.speed = 0.08f;
+	idle.PushBack({ 0, 0, 64, 64 });
+	idle.PushBack({ 64, 0, 64, 64 });
+	idle.PushBack({ 128, 0, 64, 64 });
+	idle.PushBack({ 192, 0, 64, 64 });
+	idle.speed = 0.08f;
 
-	//left.PushBack({ 0, 416, 32, 32 });
-	//left.PushBack({ 32, 416, 32, 32 });
-	//left.PushBack({ 64, 416, 32, 32 });
-	//left.PushBack({ 96, 416, 32, 32 });
-	//left.speed = 0.08f;
-
-	//// Run animation, there is also a walk animation
-	//// but as we are not using anything that changes the speed I'm going to stick to walk
-	//RRun.PushBack({ 0, 64, 32, 32 });
-	//RRun.PushBack({ 32, 64, 32, 32 });
-	//RRun.PushBack({ 64, 64, 32, 32 });
-	//RRun.PushBack({ 96, 64, 32, 32 });
-	//RRun.PushBack({ 128, 64, 32, 32 });
-	//RRun.PushBack({ 160, 64, 32, 32 });
-	//RRun.speed = 0.1f;
-
-	//LRun.PushBack({ 0, 320, 32, 32 });
-	//LRun.PushBack({ 32, 320, 32, 32 });
-	//LRun.PushBack({ 64, 320, 32, 32 });
-	//LRun.PushBack({ 96, 320, 32, 32 });
-	//LRun.PushBack({ 128, 320, 32, 32 });
-	//LRun.PushBack({ 160, 320, 32, 32 });
-	//LRun.speed = 0.1f;
-
-	//climb.PushBack({ 0, 128, 32, 32 });
-	//climb.PushBack({ 32, 128, 32, 32 });
-	//climb.PushBack({ 64, 128, 32, 32 });
-	//climb.PushBack({ 96, 128, 32, 32 });
-	//climb.speed = 0.1f;
-
-	//RJump.PushBack({ 224, 32, 32, 32 });
-	//RJump.PushBack({ 256, 32, 32, 32 });
-	//RJump.PushBack({ 288, 32, 32, 32 });
-	//RJump.PushBack({ 320, 32, 32, 32 });
-	//RJump.PushBack({ 352, 32, 32, 32 });
-	//RJump.PushBack({ 384, 32, 32, 32 });
-	//RJump.PushBack({ 416, 32, 32, 32 });
-	//RJump.PushBack({ 448, 32, 32, 32 });
-	//RJump.speed = 0.2f;
-	//RJump.loop;
-
-	//LJump.PushBack({ 224, 288, 32, 32 });
-	//LJump.PushBack({ 256, 288, 32, 32 });
-	//LJump.PushBack({ 288, 288, 32, 32 });
-	//LJump.PushBack({ 320, 288, 32, 32 });
-	//LJump.PushBack({ 352, 288, 32, 32 });
-	//LJump.PushBack({ 384, 288, 32, 32 });
-	//LJump.PushBack({ 416, 288, 32, 32 });
-	//LJump.PushBack({ 448, 288, 32, 32 });
-	//LJump.speed = 0.2f;
-	//LJump.loop;
-
-	//death.PushBack({ 224, 128, 32, 32 });
-	//death.PushBack({ 256, 128, 32, 32 });
-	//death.PushBack({ 288, 128, 32, 32 });
-	//death.PushBack({ 320, 128, 32, 32 });
-	//death.PushBack({ 352, 128, 32, 32 });
-	//death.PushBack({ 384, 128, 32, 32 });
-	//death.PushBack({ 416, 128, 32, 32 });
-	//death.PushBack({ 448, 128, 32, 32 });
-	//death.PushBack({ 480, 128, 32, 32 });
-	//death.speed = 0.1f;
-	//death.loop = false;
-
-
-	//currentAnim = &right;
+	currentAnim = &idle;
 }
 
 void EnemyFly::SetPosition(int posX, int posY)

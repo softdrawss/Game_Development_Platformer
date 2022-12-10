@@ -31,7 +31,7 @@
 	
   <scene>
     <player x="128" y="512" texturepath="Assets/Textures/Characters/1_Pink_Monster/AnimationList.png"/>
-    <fly x="570" y="610" texturepath="Assets/Textures/NOT_USED_ANIM/merchant/idle.png"/>
+    <fly x="570" y="410" texturepath="Assets/Textures/NOT_USED_ANIM/merchant/idle.png"/>
 	<walk x="570" y="545" texturepath="Assets/Textures/Characters/EnemyWalk/AnimationList_2.png"/>
 	<chickboy x="2186" y="385" texturepath="Assets/Textures/Characters/ChickBoy/AnimationList.png"/>
     <music audioPath="Assets/Audio/Music/platform.ogg"/>

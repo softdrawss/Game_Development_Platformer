@@ -52,9 +52,6 @@
     <ClCompile Include="Source\Physics.cpp">
       <Filter>Modules\Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
-      <Filter>Modules\Gameplay</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Debug.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
@@ -74,9 +71,6 @@
       <Filter>Modules\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\Item.cpp">
-      <Filter>Modules\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\NPCChickBoy.cpp">
       <Filter>Modules\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -108,7 +102,6 @@
     <ClInclude Include="Source\Queue.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\App.h">
       <Filter>Aplication</Filter>
     </ClInclude>
@@ -154,9 +147,6 @@
     <ClInclude Include="Source\Physics.h">
       <Filter>Modules\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Player.h">
-      <Filter>Modules\Gameplay</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Debug.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
@@ -180,6 +170,15 @@
     </ClInclude>
     <ClInclude Include="Source\Item.h">
       <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Particles.h">
+      <Filter>Modules\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="Source\NPCChickBoy.h">
       <Filter>Modules\Entities</Filter>
