@@ -73,6 +73,15 @@
     <ClCompile Include="Source\Item.cpp">
       <Filter>Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NPCChickBoy.cpp">
+      <Filter>Modules\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Modules\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Particles.cpp">
+      <Filter>Modules\Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">

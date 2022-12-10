@@ -79,23 +79,23 @@ bool EnemyFly::Update()
 	{
 		isIdle = true;
 		
-			//Code to see if the player has approached the enemy
-			/*if () {
+		//Code to see if the player has approached the enemy
+		/*if () {
 
-			}*/
+		}*/
 
-			//Left
-			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
-				vel.x = -speed;
-				flip = SDL_FLIP_HORIZONTAL;
-			}
-			//Right
-			else if (app->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
-				vel.x = speed;
-				flip = SDL_FLIP_NONE;
-			}
-			else
-				vel.x = 0;
+		//Left
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
+			vel.x = -speed;
+			flip = SDL_FLIP_HORIZONTAL;
+		}
+		//Right
+		else if (app->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
+			vel.x = speed;
+			flip = SDL_FLIP_NONE;
+		}
+		else
+			vel.x = 0;
 		
 	}
 
@@ -157,13 +157,26 @@ void EnemyFly::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyFly::LoadAnimations()
 {
-	idle.PushBack({ 0, 0, 64, 64 });
-	idle.PushBack({ 64, 0, 64, 64 });
-	idle.PushBack({ 128, 0, 64, 64 });
-	idle.PushBack({ 192, 0, 64, 64 });
-	idle.speed = 0.08f;
+	idle.PushBack({   0, 0, 64, 32 });
+	idle.PushBack({  64, 0, 64, 32 });
+	idle.PushBack({ 128, 0, 64, 32 });
+	idle.PushBack({ 192, 0, 64, 32 });
+	idle.speed = 0.2f;
 
-	currentAnim = &idle;
+	run.PushBack({   0, 32, 64, 32 });
+	run.PushBack({  64, 32, 64, 32 });
+	run.PushBack({ 128, 32, 64, 32 });
+	run.PushBack({ 192, 32, 64, 32 });
+	run.PushBack({ 224, 32, 64, 32 });
+	run.speed = 0.2f;
+
+	fly.PushBack({   0, 64, 64, 32 });
+	fly.PushBack({  64, 64, 64, 32 });
+	fly.PushBack({ 128, 64, 64, 32 });
+	fly.PushBack({ 192, 64, 64, 32 });
+	fly.speed = 0.2f;
+
+	currentAnim = &fly;
 }
 
 void EnemyFly::SetPosition(int posX, int posY)

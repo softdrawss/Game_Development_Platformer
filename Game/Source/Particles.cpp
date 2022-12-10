@@ -18,12 +18,16 @@ Particles::~Particles()
 	//	collider->pendingToDelete = true;
 }
 
-bool Particles::Start() {
-
+bool Particles::Start()
+{
+	bool ret = true;
+	return ret;
 }
 
-bool Particles::PreUpdate() {
-
+bool Particles::PreUpdate()
+{
+	bool ret = true;
+	return ret;
 }
 
 bool Particles::Update()
@@ -67,12 +71,16 @@ bool Particles::Update()
 	return ret;
 }
 
-bool Particles::PostUpdate() {
-
+bool Particles::PostUpdate()
+{
+	bool ret = true;
+	return ret;
 }
 
-bool Particles::CleanUp() {
-
+bool Particles::CleanUp()
+{
+	bool ret = true;
+	return ret;
 }
 
 void Particles::SetToDelete()
