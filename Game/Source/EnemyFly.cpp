@@ -103,12 +103,12 @@ bool EnemyFly::Update()
 	pbody->body->SetLinearVelocity(vel);
 
 	//Update player position in pixels
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 31;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 22;
 
 	//Animation
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x-15, position.y-20, flip, &rect2);
+	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
 	currentAnim->Update();
 	return true;
 }
