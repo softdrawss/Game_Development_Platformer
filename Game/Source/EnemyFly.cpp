@@ -161,7 +161,7 @@ void EnemyFly::LoadAnimations()
 	idle.PushBack({  64, 0, 64, 32 });
 	idle.PushBack({ 128, 0, 64, 32 });
 	idle.PushBack({ 192, 0, 64, 32 });
-	idle.speed = 0.2f;
+	idle.speed = 0.08f;
 
 	run.PushBack({   0, 32, 64, 32 });
 	run.PushBack({  64, 32, 64, 32 });

@@ -16,6 +16,7 @@ class Textures;
 class Fonts;
 class Audio;
 class Physics;
+class Particles;
 
 class Logo;
 class Title;
@@ -98,7 +99,8 @@ public:
 	Fonts* fonts;
 	Audio* audio;
 	Physics* physics;
-	
+	Particles* particles;
+
 	Logo* logo;
 	Title* titleScreen;
 	Scene* scene;

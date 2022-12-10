@@ -1,36 +1,27 @@
+#include "App.h"
 #include "Particles.h"
+#include "Textures.h"
+#include "Render.h"
 
-Particles::Particles(bool startEnabled):Module(startEnabled)
+ParticleBody::ParticleBody()
 {
-	//position.SetToZero();
+	position.x = 0;
+	position.y = 0;
 	speed.SetToZero();
 }
 
-Particles::Particles(const Particles& p) : anim(p.anim), position(p.position), speed(p.speed),
+ParticleBody::ParticleBody(const ParticleBody& p) : anim(p.anim), position(p.position), speed(p.speed),
 frameCount(p.frameCount), lifetime(p.lifetime), hasExplosion(p.hasExplosion)
 {
 
 }
 
-Particles::~Particles()
+ParticleBody::~ParticleBody()
 {
-	//if (collider != nullptr) {}
-	//	collider->pendingToDelete = true;
+	
 }
 
-bool Particles::Start()
-{
-	bool ret = true;
-	return ret;
-}
-
-bool Particles::PreUpdate()
-{
-	bool ret = true;
-	return ret;
-}
-
-bool Particles::Update()
+bool ParticleBody::Update()
 {
 	bool ret = true;
 	frameCount++;
@@ -71,47 +62,126 @@ bool Particles::Update()
 	return ret;
 }
 
+void ParticleBody::SetToDelete()
+{
+	//pendingToDelete = true;
+	if (pbody != nullptr)
+		RELEASE(pbody);
+}
+
+Particles::Particles(bool startEnabled) : Module(startEnabled)
+{
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+		particles[i] = nullptr;
+}
+
+Particles::~Particles()
+{
+
+}
+
+bool Particles::Start()
+{
+	LOG("Loading particles");
+	texture = app->tex->Load("Assets/Textures/Characters/1_Pink_Monster/AnimationList.png");
+
+	return true;
+}
+
+bool Particles::PreUpdate()
+{
+	// Remove all particles scheduled for deletion
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		if (particles[i] != nullptr && particles[i]->pendingToDelete)
+		{
+			delete particles[i];
+			particles[i] = nullptr;
+		}
+	}
+
+	return true;
+}
+
+bool Particles::Update()
+{
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		ParticleBody* particle = particles[i];
+
+		if (particle == nullptr) {
+			continue;
+		}
+
+		// Call particle Update. If it has reached its lifetime, destroy it
+		if (particle->Update() == false)
+		{
+			if (particle->hasExplosion == true) {
+			}
+			particles[i]->SetToDelete();
+		}
+	}
+	return true;
+}
+
 bool Particles::PostUpdate()
 {
-	bool ret = true;
-	return ret;
+	//Iterating all particle array and drawing any active particles
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		ParticleBody* particle = particles[i];
+
+		if (particle != nullptr && particle->isAlive)
+		{
+			app->render->DrawTexture(texture, particle->position.x - 25, particle->position.y - 25, SDL_FLIP_NONE, &(particle->anim.GetCurrentFrame()));
+		}
+	}
+
+	return true;
 }
 
 bool Particles::CleanUp()
 {
-	bool ret = true;
-	return ret;
-}
+	LOG("Unloading particles");
 
-void Particles::SetToDelete()
-{
-	pendingToDelete = true;
-	if (pbody != nullptr) {}
-		//collider->pendingToDelete = true;
-}
-
-void Particles::LoadAnimations() {
-
-}
-
-void Particles::OnCollision(PhysBody* physA, PhysBody* physB) {
-	switch (physB->ctype)
+	// Delete all remaining active particles on application exit 
+	for (int i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
-	case ColliderType::DEATH:
-		LOG("Collision DEATH");
-		//alive = false;
+		if (particles[i] != nullptr)
+		{
+			delete particles[i];
+			particles[i] = nullptr;
+		}
+	}
+
+	return true;
+}
+
+void Particles::OnCollision(PhysBody* c1, PhysBody* c2)
+{
+	//for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	//{
+	//	// Always destroy particles that collide
+	//	if (particles[i] != nullptr && particles[i]->collider == c1)
+	//	{
+	//		particles[i]->pendingToDelete = true;
+	//		particles[i]->collider->pendingToDelete = true;
+	//		break;
+	//	}
+	//}
+
+	switch (c2->ctype)
+	{
+	case ColliderType::ENEMY:
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
-		//isGrounded = true;
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
-		//app->audio->PlayFx(pickCoinFxId);
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-		//isGrounded = true;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
@@ -120,4 +190,39 @@ void Particles::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision UNKNOWN");
 		break;
 	}
+}
+
+ParticleBody* Particles::AddParticle(const ParticleBody& particle, int x, int y, ColliderType type, uint delay)
+{
+	ParticleBody* newParticle = nullptr;
+
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	{
+		//Finding an empty slot for a new particle
+		if (particles[i] == nullptr)
+		{
+			newParticle = new ParticleBody(particle);
+			newParticle->frameCount = -(int)delay;			// We start the frameCount as the negative delay
+			newParticle->position.x = x;						// so when frameCount reaches 0 the particle will be activated
+			newParticle->position.y = y;
+
+			//Adding the particle's collider
+			if (type != ColliderType::UNKNOWN) {
+				newParticle->pbody = app->physics->CreateCircle(newParticle->position.x, newParticle->position.y, 5, bodyType::DYNAMIC);
+				newParticle->pbody->ctype = ColliderType::SHOT;
+			}
+			particles[i] = newParticle;
+			break;
+		}
+	}
+
+	return newParticle;
+}
+
+void Particles::LoadAnimations() {
+	shot.anim.PushBack({ 32, 0, 32, 32 });
+	shot.anim.PushBack({ 64, 0, 32, 32 });
+	shot.anim.speed = 0.08f;
+	shot.lifetime = 18;
+	shot.speed.x = 2;
 }

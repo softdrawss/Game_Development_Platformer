@@ -5,42 +5,30 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Log.h"
-struct Particles : public Module
+
+#define MAX_ACTIVE_PARTICLES 5
+
+struct ParticleBody
 {
 public:
 	// Constructor
-	Particles(bool startEnabled);
+	ParticleBody();
 
 	// Copy constructor
-	Particles(const Particles& p);
+	ParticleBody(const ParticleBody& p);
 
 	// Destructor
-	~Particles();
-
-	bool Start();
-
-	bool PreUpdate();
+	~ParticleBody();
 
 	// Called in ModuleParticles' Update
 	// Handles the logic of the particle
 	// Returns false when the particle reaches its lifetime
 	bool Update();
-
-	bool PostUpdate();
-
-	bool CleanUp();
 	
 	// Sets flag for deletion and for the collider aswell
 	void SetToDelete();
-	void LoadAnimations();
 
-	void OnCollision(PhysBody* physA, PhysBody* physB) override;
-
-	//	Particle* AddParticle(const Particle& particle, int x, int y, Collider::Type colliderType = Collider::Type::NONE, uint delay = 0);
-
-public:
-	SDL_Texture* texture = nullptr;
-	
+public:	
 	// Defines the position in the screen
 	b2Vec2 position;
 
@@ -70,4 +58,57 @@ public:
 	bool hasExplosion;
 };
 
+
+struct Particles : public Module{
+	// Constructor
+	// Initializes all the particles in the array to nullptr
+	Particles(bool startEnabled);
+
+	//Destructor
+	~Particles();
+
+	// Called when the module is activated
+	// Loads the necessary textures for the particles
+	bool Start();
+
+	// Called at the beginning of the application loop
+	// Removes all particles pending to delete
+	bool PreUpdate();
+
+	// Called at the middle of the application loop
+	// Iterates all the particles and calls its Update()
+	// Removes any "dead" particles
+	bool Update();
+
+	// Called at the end of the application loop
+	// Iterates all the particles and draws them
+	bool PostUpdate();
+
+	// Called on application exit
+	// Destroys all active particles left in the array
+	bool CleanUp();
+
+	// Called when a particle collider hits another collider
+	void OnCollision(PhysBody* c1, PhysBody* c2) override;
+
+	// Creates a new particle and adds it to the array
+	// Param particle	- A template particle from which the new particle will be created
+	// Param x, y		- Position x,y in the screen (upper left axis)
+	// Param delay		- Delay time from the moment the function is called until the particle is displayed in screen
+	ParticleBody* AddParticle(const ParticleBody& particle, int x, int y, ColliderType type, uint delay = 0);
+	
+	void LoadAnimations();
+
+private:
+	// Particles spritesheet loaded into an SDL Texture
+	SDL_Texture* texture = nullptr;
+
+	// An array to store and handle all the particles
+	ParticleBody* particles[MAX_ACTIVE_PARTICLES] = { nullptr };
+
+public:
+	ParticleBody shot;
+	SDL_RendererFlip flip;
+
+};
 #endif //__PARTICLE_H__#pragma once

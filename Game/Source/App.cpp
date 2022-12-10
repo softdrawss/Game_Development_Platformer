@@ -16,6 +16,7 @@
 #include "Ending.h"
 #include "Camera.h"
 #include "Pathfinding.h"
+#include "Particles.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -34,6 +35,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	fonts = new Fonts(true);
 	audio = new Audio(true);
 	physics = new Physics(true);
+	particles = new Particles(true);
 
 	logo = new Logo(true);
 	titleScreen = new Title(false);
@@ -57,7 +59,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(audio);
 	AddModule(physics);
-
+	AddModule(particles);
 	AddModule(logo);
 	AddModule(titleScreen);
 	AddModule(scene);
