@@ -88,10 +88,7 @@ bool Particles::Start()
 {
 	LOG("Loading particles");
 	textureShot = app->tex->Load("Assets/Textures/Characters/1_Pink_Monster/AnimationList.png");
-	LoadAnimations();
-
-	//shot.anim.PushBack({ 0, 0, 32, 32 });
-	
+	LoadAnimations();	
 	
 	return true;
 }
@@ -103,8 +100,8 @@ bool Particles::PreUpdate()
 	{
 		if (particles[i] != nullptr && particles[i]->pendingToDelete)
 		{
-			particles[i]->pbody->body->SetActive(false);
-			particles[i]->pbody->body->SetType(b2_staticBody);
+			delete particles[i]->pbody;
+			particles[i]->pbody = nullptr;
 			delete particles[i];
 			particles[i] = nullptr;
 		}
@@ -165,6 +162,8 @@ bool Particles::CleanUp()
 	{
 		if (particles[i] != nullptr)
 		{
+			delete particles[i]->pbody;
+			particles[i]->pbody = nullptr;
 			delete particles[i];
 			particles[i] = nullptr;
 		}
@@ -173,26 +172,16 @@ bool Particles::CleanUp()
 	return true;
 }
 
-void Particles::OnCollision(PhysBody* c1, PhysBody* c2)
+void Particles::OnCollision(PhysBody* physA, PhysBody* physB)
 {
-	//for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
-	//{
-	//	// Always destroy particles that collide
-	//	if (particles[i] != nullptr && particles[i]->collider == c1)
-	//	{
-	//		particles[i]->pendingToDelete = true;
-	//		particles[i]->collider->pendingToDelete = true;
-	//		break;
-	//	}
-	//}
-
-	switch (c2->ctype)
+	switch (physB->ctype)
 	{
 	case ColliderType::ENEMY:
 		app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
+		app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
@@ -229,7 +218,10 @@ ParticleBody* Particles::AddParticle(const ParticleBody& particle, int x, int y,
 			if (type != ColliderType::UNKNOWN) {
 				newParticle->pbody = app->physics->CreateCircle(newParticle->position.x, newParticle->position.y-4, 5, bodyType::DYNAMIC);
 				newParticle->pbody->body->SetGravityScale(0);
-				newParticle->pbody->body->SetLinearVelocity((newParticle->speed));
+				b2Vec2 vel;
+				vel.x = 8;
+				vel.y = 0;
+				newParticle->pbody->body->SetLinearVelocity(vel);
 				newParticle->pbody->ctype = ColliderType::SHOT;
 				//Update();
 				//app->render->DrawTexture(texture, newParticle->position.x - 25, newParticle->position.y - 25, SDL_FLIP_NONE, &(newParticle->anim.GetCurrentFrame()));

@@ -59,7 +59,7 @@ public:
 };
 
 
-struct Particles : public Module{
+struct Particles : public Module {
 	// Constructor
 	// Initializes all the particles in the array to nullptr
 	Particles(bool startEnabled);
@@ -89,7 +89,7 @@ struct Particles : public Module{
 	bool CleanUp();
 
 	// Called when a particle collider hits another collider
-	void OnCollision(PhysBody* c1, PhysBody* c2) override;
+	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 	// Creates a new particle and adds it to the array
 	// Param particle	- A template particle from which the new particle will be created

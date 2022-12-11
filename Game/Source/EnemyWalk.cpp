@@ -187,6 +187,8 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::SHOT:
 		LOG("Collision SHOT");
 		alive = false;
+		//delete physB;
+		//physB = nullptr;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
