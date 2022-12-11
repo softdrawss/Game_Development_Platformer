@@ -78,12 +78,13 @@ void Map::Draw()
                     
                     switch (mapLayerItem->data->id)
                     {
-                    case 6: Parallax(tileset, pos, r, 0.1); break; //0.1
-                    case 5: Parallax(tileset, pos, r, 0.3); break; //0.3
-                    case 4: Parallax(tileset, pos, r, 0.4); break; //0.6
-                    case 3: Parallax(tileset, pos, r, 0.7); break; //0.7
-                    case 2: Parallax(tileset, pos, r, 0.9); break; //0.9
-                    default: Parallax(tileset, pos, r, 0);  break; //0
+                    case 6: Parallax(tileset, pos, r, 0);   break;  // ABS GB
+                    case 5: Parallax(tileset, pos, r, 0.3); break;  // BG
+                    case 4: Parallax(tileset, pos, r, 0);   break;  // PlayerPlane 2
+                    case 3: Parallax(tileset, pos, r, 0);   break;  // PlayerPlane
+                    case 2: Parallax(tileset, pos, r, 0);   break;  // Front
+                    case 1: Parallax(tileset, pos, r, 0);   break;  // visuals
+                    default: Parallax(tileset, pos, r, 0);  break;
                     }
                 }
             }
@@ -206,7 +207,8 @@ bool Map::Load()
     // Later you can create a function here to load and create the colliders from the map
     if (ret == true)
     {
-        ret = CreateColliders();
+        //ret = CreateColliders();
+        ret = true;
     }
 
 
@@ -365,6 +367,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
     return ret;
 }
 
+//Deprecated
 bool Map::CreateColliders()
 {
     bool ret = true;
@@ -374,7 +377,7 @@ bool Map::CreateColliders()
 
     while (mapLayerItem != NULL)
     {
-        if (mapLayerItem->data->name == "COLLIDERS")
+        if (mapLayerItem->data->name == "COLLIDERS2")
         {
             int halfTileHeight = mapData.tileHeight / 2;
             int halfTileWidth = mapData.tileWidth / 2;
@@ -404,6 +407,11 @@ bool Map::CreateColliders()
         mapLayerItem = mapLayerItem->next;
     }
     return ret;
+}
+
+bool Map::CreateColliders2()
+{
+    return true;
 }
 
 void Map::Parallax(TileSet* tileset, iPoint pos, SDL_Rect r, float x)

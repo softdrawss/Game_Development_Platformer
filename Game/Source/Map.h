@@ -142,6 +142,7 @@ private:
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadAllLayers(pugi::xml_node mapNode);
 	bool CreateColliders();
+	bool CreateColliders2();
 	void Parallax(TileSet* tileset, iPoint pos, SDL_Rect r, float x);
 
 	// L06: DONE 2
