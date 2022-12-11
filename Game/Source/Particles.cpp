@@ -19,7 +19,8 @@ frameCount(p.frameCount), lifetime(p.lifetime), hasExplosion(p.hasExplosion)
 
 ParticleBody::~ParticleBody()
 {
-	
+	if (pbody != nullptr)
+		pendingToDelete = true;
 }
 
 bool ParticleBody::Update()
@@ -66,8 +67,10 @@ bool ParticleBody::Update()
 void ParticleBody::SetToDelete()
 {
 	//pendingToDelete = true;
-	if (pbody != nullptr)
-		RELEASE(pbody);
+	if (pbody != nullptr) {
+		pendingToDelete = true;
+	}
+		
 }
 
 Particles::Particles(bool startEnabled) : Module(startEnabled)
@@ -89,9 +92,7 @@ bool Particles::Start()
 
 	//shot.anim.PushBack({ 0, 0, 32, 32 });
 	
-	shot.anim.speed = 0.05f;
-	shot.lifetime = 18;
-	shot.speed.x = 2;
+	
 	return true;
 }
 
@@ -102,6 +103,8 @@ bool Particles::PreUpdate()
 	{
 		if (particles[i] != nullptr && particles[i]->pendingToDelete)
 		{
+			particles[i]->pbody->body->SetActive(false);
+			particles[i]->pbody->body->SetType(b2_staticBody);
 			delete particles[i];
 			particles[i] = nullptr;
 		}
@@ -128,7 +131,7 @@ bool Particles::Update(float dt)
 			particles[i]->SetToDelete();
 		}
 		if (particle->isAlive == false) {
-			particle->SetToDelete();
+			particles[i]->SetToDelete();
 		}
 		else {
 			
@@ -224,9 +227,9 @@ ParticleBody* Particles::AddParticle(const ParticleBody& particle, int x, int y,
 
 			//Adding the particle's collider
 			if (type != ColliderType::UNKNOWN) {
-				newParticle->pbody = app->physics->CreateCircle(newParticle->position.x+24, newParticle->position.y+12, 5, bodyType::DYNAMIC);
+				newParticle->pbody = app->physics->CreateCircle(newParticle->position.x, newParticle->position.y-4, 5, bodyType::DYNAMIC);
 				newParticle->pbody->body->SetGravityScale(0);
-				newParticle->pbody->body->SetLinearVelocity(newParticle->speed);
+				newParticle->pbody->body->SetLinearVelocity((newParticle->speed));
 				newParticle->pbody->ctype = ColliderType::SHOT;
 				//Update();
 				//app->render->DrawTexture(texture, newParticle->position.x - 25, newParticle->position.y - 25, SDL_FLIP_NONE, &(newParticle->anim.GetCurrentFrame()));
@@ -244,7 +247,7 @@ void Particles::LoadAnimations() {
 	shot.anim.PushBack({ 32, 0, 32, 32 });
 	shot.anim.PushBack({ 64, 0, 32, 32 });
 	shot.anim.speed = 0.08f;
-	shot.lifetime = 18;
-	shot.speed.x = 2;
+	shot.lifetime = 50;
+	shot.speed.x = 5;
 	shot.anim.loop = false;
 }

@@ -301,5 +301,5 @@ void Player::Attack() {
 	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
 	//Specially if the player has to shoot to a flying enemy, and do the animations for that
 	//Jump onto them if not
-	app->particles->AddParticle(app->particles->shot, position.x + 24, position.y + 5, ColliderType::SHOT);
+	app->particles->AddParticle(app->particles->shot, position.x + 20, position.y+20, ColliderType::SHOT);
 }

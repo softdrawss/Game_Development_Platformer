@@ -6,7 +6,7 @@
 #include "Physics.h"
 #include "Log.h"
 
-#define MAX_ACTIVE_PARTICLES 5
+#define MAX_ACTIVE_PARTICLES 10
 
 struct ParticleBody
 {
