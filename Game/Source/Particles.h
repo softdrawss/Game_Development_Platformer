@@ -18,7 +18,7 @@ public:
 	ParticleBody(const ParticleBody& p);
 
 	// Destructor
-	~ParticleBody();
+	virtual ~ParticleBody();
 
 	// Called in ModuleParticles' Update
 	// Handles the logic of the particle

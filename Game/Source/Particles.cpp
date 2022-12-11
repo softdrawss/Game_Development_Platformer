@@ -9,13 +9,14 @@ ParticleBody::ParticleBody()
 	position.y = 0;
 	speed.x = 0;
 	speed.y = 0;
+	
 }
 
-ParticleBody::ParticleBody(const ParticleBody& p) : anim(p.anim), position(p.position), speed(p.speed),
-frameCount(p.frameCount), lifetime(p.lifetime), hasExplosion(p.hasExplosion)
-{
-
-}
+//ParticleBody::ParticleBody(const ParticleBody& p) : anim(p.anim), position(p.position), speed(p.speed),
+//frameCount(p.frameCount), lifetime(p.lifetime), hasExplosion(p.hasExplosion) 
+//{
+//
+//}
 
 ParticleBody::~ParticleBody()
 {
@@ -177,22 +178,23 @@ void Particles::OnCollision(PhysBody* physA, PhysBody* physB)
 	switch (physB->ctype)
 	{
 	case ColliderType::ENEMY:
+		shot.lifetime = 0;
 		app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
-		app->particles->shot.isAlive = false;
+		app->particles->shot.pendingToDelete = true;
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-		app->particles->shot.isAlive = false;
+		app->particles->shot.pendingToDelete = true;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
-		app->particles->shot.isAlive = false;
+		app->particles->shot.pendingToDelete = true;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
@@ -219,7 +221,7 @@ ParticleBody* Particles::AddParticle(const ParticleBody& particle, int x, int y,
 				newParticle->pbody = app->physics->CreateCircle(newParticle->position.x, newParticle->position.y-4, 5, bodyType::DYNAMIC);
 				newParticle->pbody->body->SetGravityScale(0);
 				b2Vec2 vel;
-				vel.x = 8;
+				vel.x = 9;
 				vel.y = 0;
 				newParticle->pbody->body->SetLinearVelocity(vel);
 				newParticle->pbody->ctype = ColliderType::SHOT;
@@ -237,7 +239,7 @@ ParticleBody* Particles::AddParticle(const ParticleBody& particle, int x, int y,
 
 void Particles::LoadAnimations() {
 	shot.anim.PushBack({ 32, 0, 32, 32 });
-	shot.anim.PushBack({ 64, 0, 32, 32 });
+	//shot.anim.PushBack({ 64, 0, 32, 32 });
 	shot.anim.speed = 0.08f;
 	shot.lifetime = 50;
 	shot.speed.x = 5;
