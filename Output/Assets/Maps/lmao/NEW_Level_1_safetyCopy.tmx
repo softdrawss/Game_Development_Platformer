@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="1">
  <tileset firstgid="1" name="industrial_v2" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
-  <image source="D:/UNI/CITM/2A/Development/DESENVOLUPAMENT/Industrial/industrial_v2_edit.png" width="512" height="512"/>
+  <image source="D:/UNI/CITM/2A/Development/DESENVOLUPAMENT/Industrial/industrial_v2.png" width="512" height="512"/>
  </tileset>
  <tileset firstgid="1025" name="MapMetadata" tilewidth="16" tileheight="16" tilecount="5" columns="5">
   <image source="MapMetadata.png" width="80" height="16"/>
@@ -51657,12 +51657,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="210"/>
+   <tile gid="236"/>
    <tile/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="147"/>
+   <tile gid="177"/>
    <tile/>
    <tile/>
    <tile gid="17"/>
@@ -55459,7 +55459,7 @@
    <tile gid="335"/>
    <tile gid="302"/>
    <tile gid="54"/>
-   <tile gid="236"/>
+   <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="237"/>
@@ -55469,7 +55469,7 @@
    <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="54"/>
-   <tile gid="236"/>
+   <tile gid="237"/>
    <tile gid="270"/>
    <tile/>
    <tile/>
@@ -56259,7 +56259,7 @@
    <tile gid="300"/>
    <tile gid="302"/>
    <tile gid="54"/>
-   <tile gid="236"/>
+   <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="272"/>
    <tile gid="237"/>
@@ -58249,7 +58249,7 @@
    <tile gid="116"/>
    <tile/>
    <tile/>
-   <tile gid="236"/>
+   <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="237"/>
@@ -58666,7 +58666,7 @@
    <tile/>
    <tile gid="367"/>
    <tile/>
-   <tile gid="236"/>
+   <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="270"/>
@@ -59076,9 +59076,9 @@
    <tile gid="54"/>
    <tile/>
    <tile/>
-   <tile gid="237"/>
-   <tile gid="302"/>
-   <tile gid="237"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -59262,7 +59262,7 @@
    <tile gid="367"/>
    <tile/>
    <tile/>
-   <tile gid="236"/>
+   <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="269"/>
    <tile gid="237"/>
@@ -59270,15 +59270,15 @@
    <tile gid="302"/>
    <tile/>
    <tile/>
-   <tile gid="236"/>
+   <tile gid="237"/>
    <tile gid="237"/>
    <tile gid="270"/>
    <tile gid="54"/>
    <tile/>
    <tile/>
-   <tile gid="237"/>
-   <tile gid="236"/>
-   <tile gid="237"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
