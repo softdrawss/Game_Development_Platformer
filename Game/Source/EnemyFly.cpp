@@ -146,6 +146,10 @@ void EnemyFly::OnCollision(PhysBody* physA, PhysBody* physB)
 		LOG("Collision PLATFORM");
 		//isGrounded = true;
 		break;
+	case ColliderType::SHOT:
+		LOG("Collision SHOT");
+		alive = false;
+		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
 		break;

@@ -33,7 +33,7 @@ public:
 	b2Vec2 position;
 
 	// Defines the speed at which the particle will move (pixels per second)
-	fPoint speed;
+	b2Vec2 speed;
 
 	// A set of rectangle sprites
 	Animation anim;

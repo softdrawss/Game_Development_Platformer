@@ -7,7 +7,8 @@ ParticleBody::ParticleBody()
 {
 	position.x = 0;
 	position.y = 0;
-	speed.SetToZero();
+	speed.x = 0;
+	speed.y = 0;
 }
 
 ParticleBody::ParticleBody(const ParticleBody& p) : anim(p.anim), position(p.position), speed(p.speed),
@@ -83,12 +84,12 @@ Particles::~Particles()
 bool Particles::Start()
 {
 	LOG("Loading particles");
-	textureShot = app->tex->Load("Assets/Textures/Characters/1_Pink_Monster/Rock1.png");
-	//LoadAnimations();
+	textureShot = app->tex->Load("Assets/Textures/Characters/1_Pink_Monster/AnimationList.png");
+	LoadAnimations();
 
-	shot.anim.PushBack({ 0, 0, 32, 32 });
+	//shot.anim.PushBack({ 0, 0, 32, 32 });
 	
-	shot.anim.speed = 0.08f;
+	shot.anim.speed = 0.05f;
 	shot.lifetime = 18;
 	shot.speed.x = 2;
 	return true;
@@ -125,6 +126,12 @@ bool Particles::Update(float dt)
 			if (particle->hasExplosion == true) {
 			}
 			particles[i]->SetToDelete();
+		}
+		if (particle->isAlive == false) {
+			particle->SetToDelete();
+		}
+		else {
+			
 		}
 	}
 	return true;
@@ -179,6 +186,7 @@ void Particles::OnCollision(PhysBody* c1, PhysBody* c2)
 	switch (c2->ctype)
 	{
 	case ColliderType::ENEMY:
+		app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
@@ -188,9 +196,11 @@ void Particles::OnCollision(PhysBody* c1, PhysBody* c2)
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
+		app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
+		app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
@@ -215,6 +225,8 @@ ParticleBody* Particles::AddParticle(const ParticleBody& particle, int x, int y,
 			//Adding the particle's collider
 			if (type != ColliderType::UNKNOWN) {
 				newParticle->pbody = app->physics->CreateCircle(newParticle->position.x+24, newParticle->position.y+12, 5, bodyType::DYNAMIC);
+				newParticle->pbody->body->SetGravityScale(0);
+				newParticle->pbody->body->SetLinearVelocity(newParticle->speed);
 				newParticle->pbody->ctype = ColliderType::SHOT;
 				//Update();
 				//app->render->DrawTexture(texture, newParticle->position.x - 25, newParticle->position.y - 25, SDL_FLIP_NONE, &(newParticle->anim.GetCurrentFrame()));
@@ -234,4 +246,5 @@ void Particles::LoadAnimations() {
 	shot.anim.speed = 0.08f;
 	shot.lifetime = 18;
 	shot.speed.x = 2;
+	shot.anim.loop = false;
 }
