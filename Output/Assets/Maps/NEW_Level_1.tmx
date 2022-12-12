@@ -70058,88 +70058,88 @@
    <tile/>
   </data>
  </layer>
- <objectgroup id="9" name="COLLIDERS" visible="0">
+ <objectgroup id="9" name="COLLIDERS">
   <properties>
    <property name="Draw" type="bool" value="false"/>
   </properties>
   <object id="5" x="0" y="112" width="64" height="8">
    <properties>
-    <property name="colliderType" value="platform"/>
+    <property name="colliderType" value="PLATFORM"/>
    </properties>
   </object>
   <object id="8" x="320" y="80" width="16" height="288">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="9" x="320" y="64" width="80" height="16">
    <properties>
-    <property name="colliderType" value="ground"/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
   <object id="11" x="96" y="400" width="176" height="16">
    <properties>
-    <property name="colliderType" value="ground"/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
   <object id="13" x="0" y="144" width="272" height="16">
    <properties>
-    <property name="colliderType" value="ground"/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
   <object id="15" x="264" y="152" width="8" height="168">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="17" x="0" y="288" width="264" height="16">
    <properties>
-    <property name="colliderType" value="ceiling"/>
+    <property name="colliderType" value="CEILING"/>
    </properties>
   </object>
   <object id="18" x="296" y="64" width="24" height="8">
    <properties>
-    <property name="colliderType" value="platform"/>
+    <property name="colliderType" value="PLATFORM"/>
    </properties>
   </object>
   <object id="19" x="272" y="144" width="16" height="8">
    <properties>
-    <property name="colliderType" value="platform"/>
+    <property name="colliderType" value="PLATFORM"/>
    </properties>
   </object>
   <object id="20" x="320" y="400" width="80" height="16">
    <properties>
-    <property name="colliderType" value="ground"/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
   <object id="21" x="96" y="416" width="16" height="112">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="22" x="0" y="488" width="16" height="88">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="23" x="0" y="480" width="48" height="8">
    <properties>
-    <property name="colliderType" value="platform"/>
+    <property name="colliderType" value="PLATFORM"/>
    </properties>
   </object>
   <object id="24" x="64" y="528" width="32" height="8">
    <properties>
-    <property name="colliderType" value="platform"/>
+    <property name="colliderType" value="PLATFORM"/>
    </properties>
   </object>
   <object id="25" x="64" y="432" width="32" height="8">
    <properties>
-    <property name="colliderType" value="platform"/>
+    <property name="colliderType" value="PLATFORM"/>
    </properties>
   </object>
   <object id="26" x="389" y="283" width="6" height="117">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="29" x="389" y="277" width="48" height="6">
@@ -70149,17 +70149,17 @@
   </object>
   <object id="31" x="437" y="229" width="6" height="54">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="33" x="336" y="229" width="101" height="6">
    <properties>
-    <property name="colliderType" value="ceiling"/>
+    <property name="colliderType" value="CEILING"/>
    </properties>
   </object>
   <object id="36" x="208" y="501" width="144" height="6">
    <properties>
-    <property name="colliderType" value="ceiling"/>
+    <property name="colliderType" value="CEILING"/>
    </properties>
   </object>
   <object id="37" x="112" y="533" width="32" height="6">
@@ -70169,82 +70169,82 @@
   </object>
   <object id="38" x="144" y="528" width="60" height="16">
    <properties>
-    <property name="colliderType" value="ceiling"/>
+    <property name="colliderType" value="CEILING"/>
    </properties>
   </object>
   <object id="39" x="192" y="496" width="16" height="44">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="40" x="352" y="496" width="16" height="48">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="42" x="96" y="528" width="16" height="16">
    <properties>
-    <property name="colliderType" value=""/>
+    <property name="colliderType" value="CEILING"/>
    </properties>
   </object>
   <object id="43" x="48" y="580" width="16" height="40">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="44" x="96" y="580" width="16" height="40">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="45" x="0" y="576" width="60" height="16">
    <properties>
-    <property name="colliderType" value="ground"/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
   <object id="46" x="100" y="576" width="352" height="16">
    <properties>
-    <property name="colliderType" value="ground"/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
   <object id="47" x="100" y="608" width="352" height="16">
    <properties>
-    <property name="colliderType" value="ceiling"/>
+    <property name="colliderType" value="CEILING"/>
    </properties>
   </object>
   <object id="48" x="0" y="608" width="60" height="16">
    <properties>
-    <property name="colliderType" value="ceiling"/>
+    <property name="colliderType" value="CEILING"/>
    </properties>
   </object>
   <object id="49" x="0" y="624" width="16" height="80">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="50" x="160" y="624" width="16" height="128">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="51" x="432" y="624" width="16" height="128">
    <properties>
-    <property name="colliderType" value="wall"/>
+    <property name="colliderType" value="WALL"/>
    </properties>
   </object>
   <object id="52" x="0" y="704" width="64" height="16">
    <properties>
-    <property name="colliderType" value=""/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
   <object id="53" x="0" y="768" width="480" height="16">
    <properties>
-    <property name="colliderType" value=""/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
   <object id="54" x="256" y="416" width="80" height="16">
    <properties>
-    <property name="colliderType" value="ground"/>
+    <property name="colliderType" value="GROUND"/>
    </properties>
   </object>
  </objectgroup>
