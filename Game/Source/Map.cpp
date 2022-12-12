@@ -78,12 +78,13 @@ void Map::Draw()
                     
                     switch (mapLayerItem->data->id)
                     {
-                    case 6: Parallax(tileset, pos, r, 0.1); break; //0.1
-                    case 5: Parallax(tileset, pos, r, 0.3); break; //0.3
-                    case 4: Parallax(tileset, pos, r, 0.4); break; //0.6
-                    case 3: Parallax(tileset, pos, r, 0.7); break; //0.7
-                    case 2: Parallax(tileset, pos, r, 0.9); break; //0.9
-                    default: Parallax(tileset, pos, r, 0);  break; //0
+                    case 6: Parallax(tileset, pos, r, 0);   break;  // ABS GB
+                    case 5: Parallax(tileset, pos, r, 0.3); break;  // BG
+                    case 4: Parallax(tileset, pos, r, 0);   break;  // PlayerPlane 2
+                    case 3: Parallax(tileset, pos, r, 0);   break;  // PlayerPlane
+                    case 2: Parallax(tileset, pos, r, 0);   break;  // Front
+                    case 1: Parallax(tileset, pos, r, 0);   break;  // visuals
+                    default: Parallax(tileset, pos, r, 0);  break;
                     }
                 }
             }
@@ -206,7 +207,7 @@ bool Map::Load()
     // Later you can create a function here to load and create the colliders from the map
     if (ret == true)
     {
-        ret = CreateColliders();
+        ret = CreateColliders(mapFileXML.child("map"));
     }
 
 
@@ -365,7 +366,8 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
     return ret;
 }
 
-bool Map::CreateColliders()
+//Deprecated
+bool Map::CreateCollidersOLD()
 {
     bool ret = true;
 
@@ -374,7 +376,7 @@ bool Map::CreateColliders()
 
     while (mapLayerItem != NULL)
     {
-        if (mapLayerItem->data->name == "COLLIDERS")
+        if (mapLayerItem->data->name == "COLLIDERS2")
         {
             int halfTileHeight = mapData.tileHeight / 2;
             int halfTileWidth = mapData.tileWidth / 2;
@@ -406,12 +408,38 @@ bool Map::CreateColliders()
     return ret;
 }
 
+bool Map::CreateColliders(pugi::xml_node mapFile)
+{
+    bool ret = true;
+
+    pugi::xml_node parent = mapFile.child("objectgroup");
+
+    if ((SString)parent.attribute("name").as_string() == "COLLIDERS")
+    {
+        for (pugi::xml_node collider = parent.child("object"); collider && ret; collider = collider.next_sibling("object"))
+        {
+            PhysBody* c1 = app->physics->CreateRectangle(
+                collider.attribute("x").as_int() + collider.attribute("width").as_int() / 2,
+                collider.attribute("y").as_int() + collider.attribute("height").as_int() / 2,
+                collider.attribute("width").as_int(),
+                collider.attribute("height").as_int(), STATIC);
+
+
+                 if ((SString)parent.attribute("name").value() == "GROUND")     { c1->ctype = ColliderType::GROUND; }
+            else if ((SString)parent.attribute("name").value() == "PLATFORM")   { c1->ctype = ColliderType::PLATFORM; }
+            else if ((SString)parent.attribute("name").value() == "WALL")       { c1->ctype = ColliderType::WALL; }
+        }
+    }
+
+    return ret;
+}
+
 void Map::Parallax(TileSet* tileset, iPoint pos, SDL_Rect r, float x)
 {
     app->render->DrawTexture(tileset->texture,
         pos.x - (app->render->camera.x * (x / app->win->GetScale())),
         pos.y,
-        SDL_FLIP_NONE, 
+        SDL_FLIP_NONE,
         &r);
 }
 

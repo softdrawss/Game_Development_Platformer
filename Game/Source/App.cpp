@@ -52,6 +52,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	debug = new Debug(false);
 	render = new Render(true);
 
+	if (DEBUG_MODE)
+	{
+		logo->active = false;
+		scene->active = true;
+	}
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -67,12 +73,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(endScreen);
 
 	AddModule(map);
+	AddModule(pathfinding);
 	AddModule(entityManager);
 	AddModule(camera);
 	AddModule(particles);
 	AddModule(fade);
 	AddModule(debug);
-	AddModule(pathfinding);
+
 	// Render last to swap buffer
 	AddModule(render);
 }

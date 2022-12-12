@@ -30,12 +30,12 @@
   </title>
 	
   <scene>
-    <player x="128" y="512" texturepath="Assets/Textures/Characters/1_Pink_Monster/AnimationList.png"/>
+    <player x="16" y="81" texturepath="Assets/Textures/Characters/1_Pink_Monster/AnimationList.png"/>
     <fly x="570" y="410" texturepath="Assets/Textures/Characters/merchant/AnimationList.png"/>
 	<walk x="570" y="545" texturepath="Assets/Textures/Characters/EnemyWalk/AnimationList_2.png"/>
 	<chickboy x="2186" y="385" texturepath="Assets/Textures/Characters/ChickBoy/AnimationList.png"/>
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
-	<fonts fontPath="Assets/Textures/Font/sprite_font_white.png"/>
+	<fonts fontPath="Assets/Textures/Fonts/sprite_font_white.png"/>
 	<camera speed="6" x="0" y="0"/>
   </scene>
 
@@ -45,7 +45,7 @@
 	
   <map>
     <mapfolder path="Assets/Maps/"/>
-    <mapfile path="Assets/Maps/Level_1.tmx"/>
+    <mapfile path="Assets/Maps/NEW_Level_1.tmx"/>
   </map>
   
 </config>

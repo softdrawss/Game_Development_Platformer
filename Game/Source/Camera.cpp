@@ -121,10 +121,10 @@ void Camera::CameraLimits()
 		app->render->camera.x = 0;
 	else if (app->render->camera.x < -3310)
 		app->render->camera.x = -3310;
-	if (app->render->camera.y > -352)
-		app->render->camera.y = -352;
-	else if (app->render->camera.y < -448)
-		app->render->camera.y = -448;
+	if (app->render->camera.y > 0)
+		app->render->camera.y = 0;
+	else if (app->render->camera.y < -768)
+		app->render->camera.y = -768;
 }
 
 void Camera::FreeCamera()

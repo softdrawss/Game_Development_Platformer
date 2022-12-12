@@ -177,7 +177,7 @@ void NPCChickBoy::LoadAnimations()
 	run.PushBack({ 228, 32, 32, 32 });
 	run.PushBack({ 260, 32, 32, 32 });
 	run.PushBack({ 292, 32, 32, 32 });
-	run.speed = 0.2f;
+	run.speed = 0.3f;
 
 	currentAnim = &idle;
 }

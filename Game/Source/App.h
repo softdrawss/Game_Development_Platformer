@@ -6,6 +6,7 @@
 
 #include "PugiXml/src/pugixml.hpp"
 
+#define DEBUG_MODE true
 #define CONFIG_FILENAME		"config.xml"
 #define SAVE_STATE_FILENAME "save_game.xml"
 
