@@ -70062,11 +70062,13 @@
   <properties>
    <property name="Draw" type="bool" value="false"/>
   </properties>
+	 
   <object id="5" x="0" y="112" width="64" height="8">
    <properties>
     <property name="colliderType" value="PLATFORM"/>
    </properties>
   </object>
+	 
   <object id="8" x="320" y="80" width="16" height="288">
    <properties>
     <property name="colliderType" value="WALL"/>

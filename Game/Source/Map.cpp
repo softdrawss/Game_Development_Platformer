@@ -207,7 +207,7 @@ bool Map::Load()
     // Later you can create a function here to load and create the colliders from the map
     if (ret == true)
     {
-        ret = CreateColliders(mapFileXML);
+        ret = CreateColliders(mapFileXML.child("map"));
     }
 
 
@@ -414,23 +414,21 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
 
     pugi::xml_node parent = mapFile.child("objectgroup");
 
-    for (pugi::xml_node parent = mapFile.child("objectgroup"); parent && ret; parent = parent.next_sibling("objectgroup"))
+    if ((SString)parent.attribute("name").as_string() == "COLLIDERS")
     {
-        if ((SString)parent.attribute("name").as_string() == "COLLIDERS")
+        for (pugi::xml_node collider = parent.child("object"); collider && ret; collider = collider.next_sibling("object"))
         {
-            for (pugi::xml_node collider = parent.child("object"); collider && ret; collider = collider.next_sibling("object"))
-            {
-                PhysBody* c1 = app->physics->CreateRectangle(collider.attribute("x").as_int(),
-                                                             collider.attribute("y").as_int(),
-                                                             collider.attribute("width").as_int(),
-                                                             collider.attribute("height").as_int(), STATIC);
-            
+            PhysBody* c1 = app->physics->CreateRectangle(
+                collider.attribute("x").as_int() + collider.attribute("width").as_int() / 2,
+                collider.attribute("y").as_int() + collider.attribute("height").as_int() / 2,
+                collider.attribute("width").as_int(),
+                collider.attribute("height").as_int(), STATIC);
 
-                if (parent.child("property").value() == "GROUND") { c1->ctype = ColliderType::GROUND; }
-                else if (parent.child("property").value() == "PLATFORM") { c1->ctype = ColliderType::PLATFORM; }
-                else if (parent.child("property").value() == "WALL") { c1->ctype = ColliderType::WALL; }
-            }
-        }       
+
+                 if ((SString)parent.attribute("name").value() == "GROUND")     { c1->ctype = ColliderType::GROUND; }
+            else if ((SString)parent.attribute("name").value() == "PLATFORM")   { c1->ctype = ColliderType::PLATFORM; }
+            else if ((SString)parent.attribute("name").value() == "WALL")       { c1->ctype = ColliderType::WALL; }
+        }
     }
 
     return ret;
@@ -441,7 +439,7 @@ void Map::Parallax(TileSet* tileset, iPoint pos, SDL_Rect r, float x)
     app->render->DrawTexture(tileset->texture,
         pos.x - (app->render->camera.x * (x / app->win->GetScale())),
         pos.y,
-        SDL_FLIP_NONE, 
+        SDL_FLIP_NONE,
         &r);
 }
 

@@ -35,7 +35,7 @@
 	<walk x="570" y="545" texturepath="Assets/Textures/Characters/EnemyWalk/AnimationList_2.png"/>
 	<chickboy x="2186" y="385" texturepath="Assets/Textures/Characters/ChickBoy/AnimationList.png"/>
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
-	<fonts fontPath="Assets/Textures/Font/sprite_font_white.png"/>
+	<fonts fontPath="Assets/Textures/Fonts/sprite_font_white.png"/>
 	<camera speed="6" x="0" y="0"/>
   </scene>
 
