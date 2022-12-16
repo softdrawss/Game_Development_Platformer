@@ -137,6 +137,24 @@ bool Player::Update()
 			isIdle = false;
 			isGrounded = false;
 		}
+		//WallJump
+		else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		{
+			if (wallJumpRight)
+			{
+				currentAnim = &jump;
+				remainingJumpSteps = 6;
+				isIdle = false;
+				isGrounded = false;
+			}
+			else if (wallJumpLeft)
+			{
+				currentAnim = &jump;
+				remainingJumpSteps = 6;
+				isIdle = false;
+				isGrounded = false;
+			}		
+		}
 
 		//Attack
 		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isAttackingRock) {
@@ -224,6 +242,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
+		//player has a wall on LEFT?
+		if (physA->body->GetTransform().p.x > physB->body->GetTransform().p.x)
+		{
+
+		}
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

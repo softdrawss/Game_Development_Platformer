@@ -39,6 +39,7 @@ private:
 	//Bools
 	bool isIdle;
 	bool isGrounded;
+	bool wallJumpRight, wallJumpLeft;
 	bool stairs;
 	int remainingJumpSteps;
 	bool isAttackingRock;
