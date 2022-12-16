@@ -30,7 +30,10 @@ bool Camera::Awake(pugi::xml_node& config)
 bool Camera::Start()
 {
 	camSpeed = 6 * app->win->GetScale();
-	cameraMode = CINEMATIC;
+	
+	if (DEBUG_MODE) { app->camera->cameraMode = PLAYER; }
+	else { cameraMode = CINEMATIC; }
+
 	SetPosition(0, 0);
 
     return true;

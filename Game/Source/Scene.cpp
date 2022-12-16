@@ -61,7 +61,6 @@ bool Scene::Start()
 	app->map->Enable();
 	app->physics->Enable();
 	app->entityManager->Enable();
-	app->camera->Enable();
 	app->debug->Enable();
 	app->particles->Enable();
 
