@@ -36,7 +36,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio(true);
 	physics = new Physics(true);
 	
-
 	logo = new Logo(true);
 	titleScreen = new Title(false);
 	scene = new Scene(false);
@@ -52,11 +51,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	debug = new Debug(false);
 	render = new Render(true);
 
-	if (DEBUG_MODE)
-	{
-		logo->active = false;
-		scene->active = true;
-	}
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -82,6 +76,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
+
+	if (DEBUG_MODE)
+	{
+		logo->active = false;
+		scene->active = true;
+	}
 }
 
 // Destructor

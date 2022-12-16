@@ -425,9 +425,11 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
                 collider.attribute("height").as_int(), STATIC);
 
 
-                 if ((SString)parent.attribute("name").value() == "GROUND")     { c1->ctype = ColliderType::GROUND; }
-            else if ((SString)parent.attribute("name").value() == "PLATFORM")   { c1->ctype = ColliderType::PLATFORM; }
-            else if ((SString)parent.attribute("name").value() == "WALL")       { c1->ctype = ColliderType::WALL; }
+
+            pugi::xml_node type = collider.child("properties").child("property");
+                 if ((SString)type.attribute("name").value() == "GROUND")   { c1->ctype = ColliderType::GROUND; }
+            else if ((SString)type.attribute("name").value() == "PLATFORM") { c1->ctype = ColliderType::PLATFORM; }
+            else if ((SString)type.attribute("name").value() == "WALL")     { c1->ctype = ColliderType::WALL; }
         }
     }
 

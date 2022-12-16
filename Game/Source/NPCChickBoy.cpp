@@ -47,7 +47,7 @@ bool NPCChickBoy::Start()
 	// L07 DONE 5: Add physics to the enemy - initialize physics body
 	pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
 
-	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
+	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
 	pbody->ctype = ColliderType::NPC;
 
