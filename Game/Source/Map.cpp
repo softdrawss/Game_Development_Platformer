@@ -341,7 +341,7 @@ bool Map::LoadAllLayers(pugi::xml_node mapNode) {
         //Load the layer
         MapLayer* mapLayer = new MapLayer();
         ret = LoadLayer(layerNode, mapLayer);
-
+        
         //add the layer to the map
         mapData.maplayers.Add(mapLayer);
     }
@@ -412,24 +412,24 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
 {
     bool ret = true;
 
-    pugi::xml_node parent = mapFile.child("objectgroup");
+    pugi::xml_node objectgroup = mapFile.child("objectgroup");
 
-    if ((SString)parent.attribute("name").as_string() == "COLLIDERS")
+    if ((SString)objectgroup.attribute("name").as_string() == "COLLIDERS")
     {
-        for (pugi::xml_node collider = parent.child("object"); collider && ret; collider = collider.next_sibling("object"))
+        for (pugi::xml_node object = objectgroup.child("object"); object && ret; object = object.next_sibling("object"))
         {
             PhysBody* c1 = app->physics->CreateRectangle(
-                collider.attribute("x").as_int() + collider.attribute("width").as_int() / 2,
-                collider.attribute("y").as_int() + collider.attribute("height").as_int() / 2,
-                collider.attribute("width").as_int(),
-                collider.attribute("height").as_int(), STATIC);
+                object.attribute("x").as_int() + object.attribute("width").as_int() / 2,
+                object.attribute("y").as_int() + object.attribute("height").as_int() / 2,
+                object.attribute("width").as_int(),
+                object.attribute("height").as_int(), STATIC);
 
 
+            pugi::xml_node type = object.child("properties").child("property");
 
-            pugi::xml_node type = collider.child("properties").child("property");
-                 if ((SString)type.attribute("name").value() == "GROUND")   { c1->ctype = ColliderType::GROUND; }
-            else if ((SString)type.attribute("name").value() == "PLATFORM") { c1->ctype = ColliderType::PLATFORM; }
-            else if ((SString)type.attribute("name").value() == "WALL")     { c1->ctype = ColliderType::WALL; }
+                 if ((SString)type.attribute("value").as_string() == "GROUND")   { c1->ctype = ColliderType::GROUND; }
+            else if ((SString)type.attribute("value").as_string() == "PLATFORM") { c1->ctype = ColliderType::PLATFORM; }
+            else if ((SString)type.attribute("value").as_string() == "WALL")     { c1->ctype = ColliderType::WALL; }
         }
     }
 
