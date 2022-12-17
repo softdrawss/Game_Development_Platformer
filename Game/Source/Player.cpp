@@ -51,7 +51,7 @@ bool Player::Start()
 	isIdle = true;
 	
 	// Pysics body
-	pbody = app->physics->CreateCircle(position.x, position.y, 12, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 8, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
@@ -196,7 +196,7 @@ bool Player::Update()
 	if (!isGrounded) { currentAnim = &jump; }
 	if (isAttackingRock) { currentAnim = &attackRock; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
+	app->render->DrawTexture(texture, position.x, position.y+11, flip, &rect2);
 	currentAnim->Update();
 
 	return true;
@@ -256,58 +256,65 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void Player::LoadAnimations()
 {
-	idle.PushBack({ 0, 160, 32, 32 });
-	idle.PushBack({ 32, 160, 32, 32 });
-	idle.PushBack({ 64, 160, 32, 32 });
-	idle.PushBack({ 96, 160, 32, 32 });
-	idle.speed = 0.08f;
+	idle.PushBack({ 0, 0, 15, 16 });
+	idle.PushBack({ 16, 0, 15, 16 });
+	idle.PushBack({ 32, 0, 15, 16 });
+	//idle.PushBack({ 48, 0, 15, 16 });
+	//idle.PushBack({ 64, 0, 15, 16 });
+	//idle.PushBack({ 80, 0, 15, 16 });
+	//idle.PushBack({ 96, 0, 15, 16 });
+	//idle.PushBack({ 112, 0, 15, 16 });
+	idle.speed = 0.03f;
 
 	// Run animation, there is also a walk animation
 	// but as we are not using anything that changes the speed I'm going to stick to walk
-	run.PushBack({ 0, 64, 32, 32 });
-	run.PushBack({ 32, 64, 32, 32 });
-	run.PushBack({ 64, 64, 32, 32 });
-	run.PushBack({ 96, 64, 32, 32 });
-	run.PushBack({ 128, 64, 32, 32 });
-	run.PushBack({ 160, 64, 32, 32 });
-	run.speed = 0.1f;
+	run.PushBack({ 0, 16, 15, 16 });
+	run.PushBack({ 16, 16, 15, 16 });
+	run.PushBack({ 32, 16, 15, 16 });
+	run.PushBack({ 48, 16, 15, 16 });
+	run.PushBack({ 64, 16, 15, 16 });
+	run.PushBack({ 80, 16, 15, 16 });
+	run.PushBack({ 96, 16, 15, 16 });
+	run.PushBack({ 112, 16, 15, 16 });
 
-	climb.PushBack({ 0, 128, 32, 32 });
-	climb.PushBack({ 32, 128, 32, 32 });
-	climb.PushBack({ 64, 128, 32, 32 });
-	climb.PushBack({ 96, 128, 32, 32 });
-	climb.speed = 0.1f;
+	run.speed = 0.01f;
 
-	jump.PushBack({ 224, 32, 32, 32 });
-	jump.PushBack({ 256, 32, 32, 32 });
-	jump.PushBack({ 288, 32, 32, 32 });
-	jump.PushBack({ 320, 32, 32, 32 });
-	jump.PushBack({ 352, 32, 32, 32 });
-	jump.PushBack({ 384, 32, 32, 32 });
-	jump.PushBack({ 416, 32, 32, 32 });
-	jump.PushBack({ 448, 32, 32, 32 });
-	jump.speed = 0.2f;
+	//climb.PushBack({ 0, 128, 32, 32 });
+	//climb.PushBack({ 32, 128, 32, 32 });
+	//climb.PushBack({ 64, 128, 32, 32 });
+	//climb.PushBack({ 96, 128, 32, 32 });
+	//climb.speed = 0.1f;
+	//
+	jump.PushBack({ 48, 0, 15, 16 });
+	jump.PushBack({ 64, 0, 15, 16 });
+	jump.PushBack({ 80, 0, 15, 16 });
+	jump.PushBack({ 96, 0, 15, 16 });
+	jump.PushBack({ 112, 0, 15, 16 });
+	//jump.PushBack({ 384, 32, 32, 32 });
+	//jump.PushBack({ 416, 32, 32, 32 });
+	//jump.PushBack({ 448, 32, 32, 32 });
+	jump.speed = 0.1f;
 	jump.loop;
-
-	death.PushBack({ 224, 128, 32, 32 });
-	death.PushBack({ 256, 128, 32, 32 });
-	death.PushBack({ 288, 128, 32, 32 });
-	death.PushBack({ 320, 128, 32, 32 });
-	death.PushBack({ 352, 128, 32, 32 });
-	death.PushBack({ 384, 128, 32, 32 });
-	death.PushBack({ 416, 128, 32, 32 });
-	death.PushBack({ 448, 128, 32, 32 });
-	death.PushBack({ 480, 128, 32, 32 });
-	death.speed = 0.1f;
-	death.loop = false;
-
-	attackRock.PushBack({ 224, 192, 32, 32 });
-	attackRock.PushBack({ 256, 192, 32, 32 });
-	attackRock.PushBack({ 288, 192, 32, 32 });
-	attackRock.PushBack({ 320, 192, 32, 32 });
-	attackRock.PushBack({ 352, 192, 32, 32 });
-	attackRock.speed = 0.3f;
-	attackRock.loop = false;
+	//
+	//death.PushBack({ 224, 128, 32, 32 });
+	//death.PushBack({ 256, 128, 32, 32 });
+	//death.PushBack({ 288, 128, 32, 32 });
+	//death.PushBack({ 320, 128, 32, 32 });
+	//death.PushBack({ 352, 128, 32, 32 });
+	//death.PushBack({ 384, 128, 32, 32 });
+	//death.PushBack({ 416, 128, 32, 32 });
+	//death.PushBack({ 448, 128, 32, 32 });
+	//death.PushBack({ 480, 128, 32, 32 });
+	//death.speed = 0.1f;
+	//death.loop = false;
+	//
+	//attackRock.PushBack({ 224, 192, 32, 32 });
+	//attackRock.PushBack({ 256, 192, 32, 32 });
+	//attackRock.PushBack({ 288, 192, 32, 32 });
+	//attackRock.PushBack({ 320, 192, 32, 32 });
+	//attackRock.PushBack({ 352, 192, 32, 32 });
+	//attackRock.speed = 0.3f;
+	//attackRock.loop = false;
 
 	currentAnim = &idle;
 }
