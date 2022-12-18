@@ -58,18 +58,21 @@ bool PlayerInteract::Update()
 		pbody->body->SetActive(false);
 	}
 
-	//Set position
-	b2Vec2 position;
-
-	position.x = METERS_TO_PIXELS(app->scene->player->pbody->body->GetTransform().p.x) + 10;
-	position.y = METERS_TO_PIXELS(app->scene->player->pbody->body->GetTransform().p.y);
-
-	if (!app->scene->player->LookingRight())
-		position.x -= 12;
+	if (pbody->body->IsActive() == true) {
+		//Set position
+		b2Vec2 position;
 	
-
-	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics. 
-	pbody->body->SetTransform(PIXEL_TO_METERS(position), 0);
+		position.x = METERS_TO_PIXELS(app->scene->player->pbody->body->GetTransform().p.x) + 10;
+		position.y = METERS_TO_PIXELS(app->scene->player->pbody->body->GetTransform().p.y);
+	
+		if (!app->scene->player->LookingRight())
+			position.x -= 12;
+		
+	
+		// L07 DONE 4: Add a physics to an item - update the position of the object from the physics. 
+		pbody->body->SetTransform(PIXEL_TO_METERS(position), 0);
+	}
+	
 	
 	
 	//app->render->DrawTexture(texture, position.x, position.y, SDL_FLIP_NONE);

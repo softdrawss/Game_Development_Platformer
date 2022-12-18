@@ -60,9 +60,10 @@ private:
 	Animation death;
 
 	//FX
-	int pickCoinFxIdaudio, jumpaudio, deathaudio;
+	int pickCoinFxIdaudio, jumpaudio, deathaudio, dashaudio;
 	const char* jumppath;
 	const char* deathpath;
+	const char* dashpath;
 };
 
 #endif // __PLAYER_H__

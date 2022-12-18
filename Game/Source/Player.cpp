@@ -52,6 +52,9 @@ bool Player::Start()
 	deathpath = parameters.attribute("death").as_string();
 	deathaudio = app->audio->LoadFx(deathpath);
 
+	dashpath = parameters.attribute("dash").as_string();
+	dashaudio = app->audio->LoadFx(dashpath);
+
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -192,7 +195,7 @@ bool Player::Update()
 
 		//Dash
 		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && dashCD == 0) {
-			//app->audio->PlayFx(sfx_dash);
+			app->audio->PlayFx(dashaudio);
 			remainingDash = 8;
 		}
 		else if (dashCD > 0){
