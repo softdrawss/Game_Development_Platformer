@@ -248,6 +248,24 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 
 		}
 		break;
+
+
+		//TRIGGERS (A - Action, R - Reaction)
+	case ColliderType::TRIG_1A:
+		LOG("Collision TRIG_1A");
+		break;
+	case ColliderType::TRIG_1R:
+		LOG("Collision TRIG_1R");
+		break;
+	case ColliderType::TRIG_2A:
+		LOG("Collision TRIG_2A");
+		break;
+	case ColliderType::TRIG_2R:
+		LOG("Collision TRIG_2R");
+		break;
+
+
+
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

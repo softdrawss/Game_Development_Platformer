@@ -469,6 +469,7 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
 
     pugi::xml_node objectgroup = mapFile.child("objectgroup");
 
+    // MAP COLLIDERS
     if ((SString)objectgroup.attribute("name").as_string() == "COLLIDERS")
     {
         for (pugi::xml_node object = objectgroup.child("object"); object && ret; object = object.next_sibling("object"))
@@ -479,13 +480,35 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
                 object.attribute("width").as_int(),
                 object.attribute("height").as_int(), STATIC);
 
-
             pugi::xml_node type = object.child("properties").child("property");
 
+            
                  if ((SString)type.attribute("value").as_string() == "GROUND")   { c1->ctype = ColliderType::GROUND; }
             else if ((SString)type.attribute("value").as_string() == "PLATFORM") { c1->ctype = ColliderType::PLATFORM; }
             else if ((SString)type.attribute("value").as_string() == "WALL")     { c1->ctype = ColliderType::WALL; }
             else if ((SString)type.attribute("value").as_string() == "CEILING")  { c1->ctype = ColliderType::CEILING; }
+        }
+    }
+
+    // TRIGGERS
+    if ((SString)objectgroup.attribute("name").as_string() == "TRIGGERS")
+    {
+        for (pugi::xml_node object = objectgroup.child("object"); object && ret; object = object.next_sibling("object"))
+        {
+            PhysBody* c1 = app->physics->CreateRectangleSensor(
+                object.attribute("x").as_int() + object.attribute("width").as_int() / 2,
+                object.attribute("y").as_int() + object.attribute("height").as_int() / 2,
+                object.attribute("width").as_int(),
+                object.attribute("height").as_int(), STATIC);
+
+            pugi::xml_node type = object.child("properties").child("property");
+
+            
+                 if ((SString)type.attribute("value").as_string() == "TRIG_1A") { c1->ctype = ColliderType::TRIG_1A; }
+            else if ((SString)type.attribute("value").as_string() == "TRIG_1R") { c1->ctype = ColliderType::TRIG_1R; }
+            else if ((SString)type.attribute("value").as_string() == "TRIG_2A") { c1->ctype = ColliderType::TRIG_2A; }
+            else if ((SString)type.attribute("value").as_string() == "TRIG_2R") { c1->ctype = ColliderType::TRIG_2R; }
+
         }
     }
 

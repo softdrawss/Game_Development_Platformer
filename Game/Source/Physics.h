@@ -26,19 +26,29 @@ enum bodyType {
 	KINEMATIC
 };
 
-enum class ColliderType {
+enum class ColliderType
+{
+	//ENTITIES
 	PLAYER,
+	NPC,
+	ENEMY,
 	ITEM,
+	SHOT,
+
+	//MAP
 	GROUND,
 	PLATFORM,
 	WALL,
 	CEILING,
 	DEATH,
-	ENEMY,
-	SHOT,
-	NPC,
+
+	//TRIGGERS
+	TRIG_1A,
+	TRIG_1R,
+	TRIG_2A,
+	TRIG_2R,
+
 	UNKNOWN
-	// ..
 };
 
 // Small class to return to other modules to track position and rotation of physics bodies
