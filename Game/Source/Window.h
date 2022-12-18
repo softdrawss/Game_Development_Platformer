@@ -30,6 +30,7 @@ public:
 	// Retrieve window scale
 	uint GetScale() const;
 
+
 public:
 	// The window we'll be rendering to
 	SDL_Window* window;
@@ -40,6 +41,7 @@ public:
 	uint width;
 	uint height;
 	uint scale;
+	uint gamescale;
 
 private:
 	
