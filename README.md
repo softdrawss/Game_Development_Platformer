@@ -20,7 +20,7 @@ Because of the aesthetics of the game, we also changed the name from "Pink Guy" 
 ## Key Features
 
  - GOD MODE: Inmortal, move freely, turns off gravity
- - DASH
+ - DASH: With cooldown
  
 ## Controls
 
