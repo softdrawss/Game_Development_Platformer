@@ -42,7 +42,10 @@ private:
 	bool isGrounded;
 	bool wallJumpRight, wallJumpLeft;
 	bool stairs;
+
 	int remainingJumpSteps;
+	int remainingDash;
+	int dashCD;
 	bool isAttackingRock;
 
 	//Texture

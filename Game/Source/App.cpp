@@ -29,6 +29,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
 
+	
 	input = new Input(true);
 	win = new Window(true);
 	tex = new Textures(true);
@@ -36,9 +37,11 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio(true);
 	physics = new Physics(true);
 	
-	logo = new Logo(true);
+	if (DEBUG_MODE) { logo = new Logo(false); }		
+	else { logo = new Logo(true); }		
 	titleScreen = new Title(false);
-	scene = new Scene(false);
+	if (DEBUG_MODE) { scene = new Scene(true); }
+	else { scene = new Scene(false); }
 	endScreen = new Ending(false);
 
 	map = new Map(false);
@@ -77,11 +80,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	// Render last to swap buffer
 	AddModule(render);
 
-	if (DEBUG_MODE)
-	{
-		logo->active = false;
-		scene->active = true;
-	}
+	
 }
 
 // Destructor

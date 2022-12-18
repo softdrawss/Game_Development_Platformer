@@ -47,9 +47,12 @@ bool Player::Start()
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
+	//Set bools
 	remainingJumpSteps = 0;
 	isIdle = true;
-	
+	remainingDash = 0;
+	dashCD = 0;
+
 	// Pysics body
 	pbody = app->physics->CreateCircle(position.x, position.y, 7, bodyType::DYNAMIC);
 	pbody->listener = this;
@@ -99,13 +102,13 @@ bool Player::Update()
 		{
 			//Up
 			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-				currentAnim = &climb;
+				currentAnim = &idle;
 				vel = b2Vec2(0, -speed);
 				isIdle = false;
 			}
 			//Down
 			else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-				currentAnim = &climb;
+				currentAnim = &idle;
 				vel = b2Vec2(0, speed);
 				isIdle = false;
 			}
@@ -156,6 +159,15 @@ bool Player::Update()
 			}		
 		}
 
+		//Dash
+		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && dashCD == 0) {
+			//app->audio->PlayFx(sfx_dash);
+			remainingDash = 10;
+		}
+		else if (dashCD > 0){
+			dashCD--;
+		}
+
 		//Attack
 		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isAttackingRock) {
 			Attack();
@@ -169,9 +181,7 @@ bool Player::Update()
 	if (app->debug->moveRight)
 		vel.x = speed;
 
-	//Set the velocity of the pbody of the player
-	pbody->body->SetLinearVelocity(vel);
-
+	
 	//Apply Jump Force
 	if (remainingJumpSteps > 0)
 	{
@@ -180,6 +190,24 @@ bool Player::Update()
 		pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
 		remainingJumpSteps--;	
 	}
+
+	//Dash end
+	if (remainingDash > 0) {
+		vel = b2Vec2(20, 0);
+		vel.x *= flip == SDL_FLIP_NONE ? 1 : -1;
+		pbody->body->SetGravityScale(0);
+		remainingDash--;
+
+		if (remainingDash == 0)
+		{
+			vel = b2Vec2(0, 0);
+			pbody->body->SetGravityScale(1);
+			dashCD = 180;
+		}
+	}
+
+	//Set the velocity of the pbody of the player
+	pbody->body->SetLinearVelocity(vel);
 
 	//Player position
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 9;
