@@ -215,7 +215,7 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::PLAYER:
 		LOG("Collision PLATFORM");
-		alive = false;
+		//alive = false;
 		break;
 	case ColliderType::SHOT:
 		LOG("Collision SHOT");

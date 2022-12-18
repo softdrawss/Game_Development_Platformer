@@ -34,7 +34,7 @@ public:
 	b2Vec2 initPosition;
 	//Physics
 	PhysBody* pbody;
-
+	PhysBody* hitbox;
 private:
 	
 	//Bools
