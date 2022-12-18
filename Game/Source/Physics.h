@@ -43,6 +43,7 @@ enum class ColliderType
 	DEATH,
 
 	//TRIGGERS
+	INTERACT,
 	TRIG_1A,
 	TRIG_1R,
 	TRIG_2A,

@@ -23,9 +23,10 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
-	void LoadAnimations();
 	void SetPosition(int posX, int posY);
 	void Attack();
+	bool LookingRight();
+	void LoadAnimations();
 
 public:
 

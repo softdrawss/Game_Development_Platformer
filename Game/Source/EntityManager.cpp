@@ -1,5 +1,6 @@
 #include "EntityManager.h"
 #include "Player.h"
+#include "PlayerInteract.h"
 #include "Item.h"
 #include "NPCChickBoy.h"
 #include "EnemyFly.h"
@@ -90,6 +91,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 	case EntityType::PLAYER:
 		entity = new Player();
+		break;
+
+	case EntityType::INTERACT:
+		entity = new PlayerInteract();
 		break;
 
 	case EntityType::ITEM:

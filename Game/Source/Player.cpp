@@ -249,30 +249,30 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		}
 		break;
 
-
-		//TRIGGERS (A - Action, R - Reaction)
-	case ColliderType::TRIG_1A:
-		LOG("Collision TRIG_1A");
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-			LOG("Activated TRIG_1A");
-		}
-		break;
-	case ColliderType::TRIG_1R:
-		LOG("Collision TRIG_1R");
-		break;
-	case ColliderType::TRIG_2A:
-		LOG("Collision TRIG_2A");
-		break;
-	case ColliderType::TRIG_2R:
-		LOG("Collision TRIG_2R");
-		break;
-
-
-
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;
 	}
+}
+
+void Player::SetPosition(int posX, int posY)
+{
+	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
+	pbody->body->SetTransform(position, 0);
+}
+
+void Player::Attack() {
+
+	//IDEAS
+	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
+	//Specially if the player has to shoot to a flying enemy, and do the animations for that
+	//Jump onto them if not
+	//app->particles->AddParticle(app->particles->shot, position.x + 20, position.y+20, ColliderType::SHOT);
+}
+
+bool Player::LookingRight()
+{
+	return app->scene->player->flip == SDL_FLIP_NONE ? true : false;;
 }
 
 void Player::LoadAnimations()
@@ -333,17 +333,3 @@ void Player::LoadAnimations()
 	currentAnim = &idle;
 }
 
-void Player::SetPosition(int posX, int posY)
-{
-	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
-	pbody->body->SetTransform(position, 0);
-}
-
-void Player::Attack() {
-
-	//IDEAS
-	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
-	//Specially if the player has to shoot to a flying enemy, and do the animations for that
-	//Jump onto them if not
-	//app->particles->AddParticle(app->particles->shot, position.x + 20, position.y+20, ColliderType::SHOT);
-}

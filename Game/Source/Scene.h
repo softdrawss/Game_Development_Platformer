@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Player.h"
+#include "PlayerInteract.h"
 #include "Item.h"
 #include "EnemyWalk.h"
 #include "EnemyFly.h"
@@ -42,6 +43,7 @@ public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+	PlayerInteract* playerInteract;
 	EnemyFly* enemyFly;
 	EnemyWalk* enemyWalk;
 	NPCChickBoy* npcChickBoy;
