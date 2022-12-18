@@ -11,6 +11,8 @@
 #include "Debug.h"
 #include "FadeToBlack.h"
 #include "Particles.h"
+#include "PlayerInteract.h"
+#include "EntityManager.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -43,7 +45,13 @@ bool Player::Start()
 	initPosition.y = position.y;
 
 	texturePath = parameters.attribute("texturepath").as_string();
+	jumppath = parameters.attribute("jump").as_string();
+	jumpaudio = app->audio->LoadFx(jumppath);
 	
+	
+	deathpath = parameters.attribute("death").as_string();
+	deathaudio = app->audio->LoadFx(deathpath);
+
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 
@@ -68,7 +76,7 @@ bool Player::Start()
 bool Player::Update()
 {
 	b2Vec2 vel;
-	int speed = 4;
+	int speed = 2;
 
 	//God Mode
 	if (app->debug->godMode)
@@ -89,6 +97,7 @@ bool Player::Update()
 		pbody->body->SetType(b2_staticBody);
 		isIdle = false;
 		currentAnim = &death;
+		//app->audio->PlayFx(deathaudio);
 	}
 	else
 	{
@@ -135,7 +144,9 @@ bool Player::Update()
 			currentAnim = &jump;
 			remainingJumpSteps = 6;
 			isIdle = false;
-			isGrounded = false;
+			isGrounded = false;			
+			app->audio->PlayFx(jumpaudio);
+
 		}
 		//WallJump
 		else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
@@ -143,6 +154,7 @@ bool Player::Update()
 			if (wallJumpRight)
 			{
 				currentAnim = &jump;
+				app->audio->PlayFx(jumpaudio);
 				remainingJumpSteps = 6;
 				isIdle = false;
 				isGrounded = false;
@@ -150,6 +162,8 @@ bool Player::Update()
 			else if (wallJumpLeft)
 			{
 				currentAnim = &jump;
+				app->audio->PlayFx(jumpaudio);
+
 				remainingJumpSteps = 6;
 				isIdle = false;
 				isGrounded = false;
@@ -157,10 +171,10 @@ bool Player::Update()
 		}
 
 		//Attack
-		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isAttackingRock) {
-			Attack();
-			isAttackingRock = true;
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isAttacking) {
+			isAttacking = true;
 			currentAnim = &attackNormal;
+			//Attack();
 			isIdle = false;
 		}	
 	}
@@ -186,15 +200,15 @@ bool Player::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	//Animations
-	if (isAttackingRock && attackNormal.GetCurrentFrameint() == 4)
+	if (isAttacking && attackNormal.GetCurrentFrameint() == 3)
 	{
 		attackNormal.Reset();
-		isAttackingRock = false;
+		isAttacking = false;
 	}
 
-	if (isIdle && !isAttackingRock) { currentAnim = &idle; }
+	if (isIdle && !isAttacking) { currentAnim = &idle; }
 	if (!isGrounded) { currentAnim = &jump; }
-	if (isAttackingRock) { currentAnim = &attackNormal; }
+	if (isAttacking) { currentAnim = &attackNormal; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x+4, position.y+11, flip, &rect2);
 	currentAnim->Update();
@@ -211,7 +225,7 @@ bool Player::PostUpdate()
 
 bool Player::CleanUp()
 {
-	app->tex->UnLoad(texture);
+	app->entityManager->DestroyEntity(this);
 	return true;
 }
 
@@ -234,7 +248,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
-		app->audio->PlayFx(pickCoinFxId);
+		//app->audio->PlayFx(pickCoinFxId);
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
@@ -262,13 +276,12 @@ void Player::SetPosition(int posX, int posY)
 }
 
 void Player::Attack() {
-	hitbox = app->physics->CreateRectangleSensor(position.x, position.y, 16, 16, bodyType::STATIC);
-	hitbox->ctype = ColliderType::SHOT;
+	
 	//IDEAS
 	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
 	//Specially if the player has to shoot to a flying enemy, and do the animations for that
 	//Jump onto them if not
-	//app->particles->AddParticle(app->particles->shot, position.x + 20, position.y+20, ColliderType::SHOT);
+	//pbody->body->SetActive(true);
 }
 
 bool Player::LookingRight()

@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "EntityManager.h"
 
 PlayerInteract::PlayerInteract() : Entity(EntityType::INTERACT)
 {
@@ -35,7 +36,7 @@ bool PlayerInteract::Start()
 	pbody->ctype = ColliderType::INTERACT;
 	pbody->body->SetActive(false);
 	pbody->listener = this;
-
+	active = 0;
 	return true;
 }
 
@@ -44,8 +45,17 @@ bool PlayerInteract::Update()
 	// Set active?
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		pbody->body->SetActive(true);
-	else
+
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && active<3) {
+		active = 3;
+	}
+	if (active > 0) {
+		pbody->body->SetActive(true);
+		active--;
+	}
+	else {
 		pbody->body->SetActive(false);
+	}
 
 	//Set position
 	b2Vec2 position;
@@ -68,6 +78,8 @@ bool PlayerInteract::Update()
 
 bool PlayerInteract::CleanUp()
 {
+	
+	app->entityManager->DestroyEntity(this);
 	return true;
 }
 
@@ -81,6 +93,9 @@ void PlayerInteract::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::TRIG_2A:
 		LOG("Collision TRIG_2A");
+		break;
+	case ColliderType::ENEMY:
+		LOG("Collision ENEMY");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

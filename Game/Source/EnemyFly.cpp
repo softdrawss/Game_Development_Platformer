@@ -43,6 +43,8 @@ bool EnemyFly::Start()
 	initPosition.y = position.y;
 
 	texturePath = parameters.attribute("texturepath").as_string();
+	audiopath = parameters.attribute("audioPath").as_string();
+	audio = app->audio->LoadFx(audiopath);
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
@@ -187,6 +189,12 @@ void EnemyFly::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
 		//isGrounded = true;
+		break;
+	case ColliderType::INTERACT:
+		LOG("Collision INTERACT");
+		alive = false;
+		app->audio->PlayFx(audio);
+
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
