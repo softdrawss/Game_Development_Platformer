@@ -31,8 +31,8 @@
 	
   <scene>
     <player x="16" y="81" texturepath="Assets/Textures/Characters/NewPlayer/player.png"/>
-    <fly x="100" y="81" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png"/>
-	<walk x="40" y="81" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png"/>
+    <fly x="200" y="118" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png"/>
+	<walk x="100" y="118" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png"/>
     
 	<chickboy x="2186" y="385" texturepath="Assets/Textures/Characters/ChickBoy/AnimationList.png"/>
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
