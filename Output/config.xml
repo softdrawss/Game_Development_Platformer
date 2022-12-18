@@ -30,7 +30,7 @@
   </title>
 	
   <scene>
-    <player x="16" y="81" texturepath="Assets/Textures/Characters/NewPlayer/player.png" jump="Assets/Audio/Fx/jump.wav" death="Assets/Audio/Fx/death.wav"/>
+    <player x="16" y="81" texturepath="Assets/Textures/Characters/NewPlayer/player.png" jump="Assets/Audio/Fx/jump.wav" death="Assets/Audio/Fx/death.wav" dash="Assets/Audio/Fx/dash.wav"/>
     <fly x="300" y="118" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png" audioPath="Assets/Audio/Fx/attack.wav"/>
 	<walk x="100" y="118" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png" audioPath="Assets/Audio/Fx/attack.wav"/>
 	<interact audioPath="Assets/Audio/Fx/attack.wav"/>
