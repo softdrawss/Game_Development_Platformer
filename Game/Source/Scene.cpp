@@ -89,7 +89,7 @@ bool Scene::Start()
 
 	//MUSIC
 	musicPath = (char*)config.child("music").attribute("audioPath").as_string();
-	//app->audio->PlayMusic(musicPath, 1.0F);
+	app->audio->PlayMusic(musicPath, 1.0F);
 	
 	//FONTS
 	fontPath = (char*)config.child("fonts").attribute("fontPath").as_string();

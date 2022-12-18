@@ -262,7 +262,8 @@ void Player::SetPosition(int posX, int posY)
 }
 
 void Player::Attack() {
-
+	hitbox = app->physics->CreateRectangleSensor(position.x, position.y, 16, 16, bodyType::STATIC);
+	hitbox->ctype = ColliderType::SHOT;
 	//IDEAS
 	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
 	//Specially if the player has to shoot to a flying enemy, and do the animations for that

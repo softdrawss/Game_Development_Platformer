@@ -66,7 +66,8 @@ bool EnemyFly::Start()
 bool EnemyFly::Update()
 {
 	b2Vec2 vel;
-	int speed = 2;
+
+	int speed = 1;
 	vel.y = 0;
 	//vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 	
@@ -215,19 +216,6 @@ void EnemyFly::LoadAnimations()
 	idle.PushBack({ 32, 80, 16, 16 });
 	idle.PushBack({ 48, 80, 16, 16 });
 	idle.speed = 0.08f;
-
-	//run.PushBack({   0, 32, 64, 32 });
-	//run.PushBack({  64, 32, 64, 32 });
-	//run.PushBack({ 128, 32, 64, 32 });
-	//run.PushBack({ 192, 32, 64, 32 });
-	//run.PushBack({ 224, 32, 64, 32 });
-	//run.speed = 0.2f;
-	//
-	//fly.PushBack({   0, 64, 64, 32 });
-	//fly.PushBack({  64, 64, 64, 32 });
-	//fly.PushBack({ 128, 64, 64, 32 });
-	//fly.PushBack({ 192, 64, 64, 32 });
-	//fly.speed = 0.2f;
 
 	currentAnim = &idle;
 }

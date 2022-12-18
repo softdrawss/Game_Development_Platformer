@@ -177,22 +177,22 @@ void Particles::OnCollision(PhysBody* physA, PhysBody* physB)
 	switch (physB->ctype)
 	{
 	case ColliderType::ENEMY:
-		app->particles->shot.isAlive = false;
+		//app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
-		app->particles->shot.isAlive = false;
+		//app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		break;
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
-		app->particles->shot.isAlive = false;
+		//app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");
-		app->particles->shot.isAlive = false;
+		//app->particles->shot.isAlive = false;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
