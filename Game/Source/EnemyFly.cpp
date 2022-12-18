@@ -48,7 +48,7 @@ bool EnemyFly::Start()
 	texture = app->tex->Load(texturePath);
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	pbody = app->physics->CreateRectangle(position.x, position.y, 15, 18, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircleSensor(position.x, position.y, 8, bodyType::DYNAMIC);
 
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
@@ -66,7 +66,7 @@ bool EnemyFly::Start()
 bool EnemyFly::Update()
 {
 	b2Vec2 vel;
-	int speed = 4;
+	int speed = 2;
 	vel.y = 0;
 	//vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 	
@@ -130,8 +130,7 @@ bool EnemyFly::Update()
 				vel.x = speed;
 				flip = SDL_FLIP_NONE;
 			}
-			else
-				vel.x = 0;
+			
 
 			//Up
 			if (dir.y < 0) {
@@ -143,8 +142,6 @@ bool EnemyFly::Update()
 				vel.y = speed;
 				flip = SDL_FLIP_NONE;
 			}
-			else
-				vel.y = 0;
 		}
 		
 		

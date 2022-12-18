@@ -80092,7 +80092,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="COLLIDERS" visible="0">
+ <objectgroup id="9" name="COLLIDERS">
   <properties>
    <property name="Draw" type="bool" value="false"/>
   </properties>
