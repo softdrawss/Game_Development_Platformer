@@ -46,7 +46,7 @@ private:
 	int remainingJumpSteps;
 	int remainingDash;
 	int dashCD;
-	bool isAttackingRock;
+	bool isAttacking;
 
 	//Texture
 	SDL_Texture* texture;
