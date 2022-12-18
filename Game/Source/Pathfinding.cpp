@@ -125,28 +125,55 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // ----------------------------------------------------------------------------------
 uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
 {
+
+	//	 NW | N | NE
+	//	 ---|---|---
+	//	  W | X | E
+	//	 ---|---|---
+	//   SW | S | SE
+
 	iPoint cell;
 	uint before = listToFill.list.Count();
 
-	// north
-	cell.Create(pos.x, pos.y + 1);
-	if(app->pathfinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(-1, -1, cell, this));
-
-	// south
+	// N
 	cell.Create(pos.x, pos.y - 1);
-	if(app->pathfinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(-1, -1, cell, this));
+	if(app->pathFinding->IsWalkable(cell))
+		listToFill.list.Add(PathNode(10 + closeToWall, 10, cell, this));
 
-	// east
+	// NE
+	cell.Create(pos.x + 1, pos.y - 1);
+	if (app->pathFinding->IsWalkable(cell))
+		listToFill.list.Add(PathNode(14 + closeToWall, 14, cell, this));
+
+	// E
 	cell.Create(pos.x + 1, pos.y);
-	if(app->pathfinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(-1, -1, cell, this));
+	if (app->pathFinding->IsWalkable(cell))
+		listToFill.list.Add(PathNode(10 + closeToWall, 10, cell, this));
 
-	// west
+	// SE
+	cell.Create(pos.x + 1, pos.y + 1);
+	if (app->pathFinding->IsWalkable(cell))
+		listToFill.list.Add(PathNode(14 + closeToWall, 14, cell, this));
+
+	// S
+	cell.Create(pos.x, pos.y + 1);
+	if(app->pathFinding->IsWalkable(cell))
+		listToFill.list.Add(PathNode(10 + closeToWall, 10, cell, this));
+
+	// SW
+	cell.Create(pos.x - 1, pos.y + 1);
+	if (app->pathFinding->IsWalkable(cell))
+		listToFill.list.Add(PathNode(14 + closeToWall, 14, cell, this));
+
+	// W
 	cell.Create(pos.x - 1, pos.y);
-	if(app->pathfinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(-1, -1, cell, this));
+	if(app->pathFinding->IsWalkable(cell))
+		listToFill.list.Add(PathNode(10 + closeToWall, 10, cell, this));
+
+	// NW
+	cell.Create(pos.x - 1, pos.y - 1);
+	if (app->pathFinding->IsWalkable(cell))
+		listToFill.list.Add(PathNode(14 + closeToWall, 14, cell, this));
 
 	return listToFill.list.Count();
 }
@@ -164,7 +191,8 @@ int PathNode::Score() const
 // ----------------------------------------------------------------------------------
 int PathNode::CalculateF(const iPoint& destination)
 {
-	g = parent->g + 1;
+	g = parent->g + g;
+
 	h = pos.DistanceTo(destination);
 
 	return g + h;
@@ -240,7 +268,7 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 				else
 				{
 					// If it is already in the open list, check if it is a better path (compare G)
-					if (adjacentInOpen->data.g > item->data.g + 1)
+					if (adjacentInOpen->data.g <= item->data.g)
 					{
 						adjacentInOpen->data.parent = item->data.parent;
 						adjacentInOpen->data.CalculateF(destination);

@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Debug.h"
+#include "Map.h"
 #include "FadeToBlack.h"
 #include "Pathfinding.h"
 #include "EntityManager.h"
@@ -47,7 +48,7 @@ bool EnemyFly::Start()
 	texture = app->tex->Load(texturePath);
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	pbody = app->physics->CreateRectangle(position.x, position.y, 15, 18, bodyType::STATIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 15, 18, bodyType::DYNAMIC);
 
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
@@ -67,7 +68,7 @@ bool EnemyFly::Update()
 	b2Vec2 vel;
 	int speed = 4;
 
-	vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
+	//vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 	
 	if (!alive)
 	{
@@ -79,23 +80,75 @@ bool EnemyFly::Update()
 	{
 		isIdle = true;
 		
-		//Code to see if the player has approached the enemy
-		/*if () {
+		//if NO PATH, player changes pos
 
-		}*/
 
-		//Left
-		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
-			vel.x = -speed;
-			flip = SDL_FLIP_HORIZONTAL;
+		// PATHFINDING
+		iPoint enemyTile = app->map->WorldToMap(
+			METERS_TO_PIXELS(this->pbody->body->GetPosition().x),
+			METERS_TO_PIXELS(this->pbody->body->GetPosition().y));
+
+		iPoint playerTile = app->map->WorldToMap(
+			METERS_TO_PIXELS(app->scene->player->pbody->body->GetPosition().x),
+			METERS_TO_PIXELS(app->scene->player->pbody->body->GetPosition().y));
+
+		if (lastEnemyTile != enemyTile || *(path.At(path.Count() - 1)) != playerTile)
+		{
+			path.Clear();
+			app->pathFinding->CreatePath(enemyTile, playerTile);
+
+			//Save path
+			const DynArray<iPoint>* lastPath = app->pathFinding->GetLastPath();
+			for (uint i = 0; i < lastPath->Count(); i++)
+			{
+				path.PushBack(iPoint(lastPath->At(i)->x, lastPath->At(i)->y));
+			}
 		}
-		//Right
-		else if (app->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT) {
-			vel.x = speed;
-			flip = SDL_FLIP_NONE;
+		
+
+		//Draw path
+		for (uint i = 0; i < path.Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+			SDL_Rect pathTile{ pos.x, pos.y, 16, 16 };
+			app->render->DrawRectangle(pathTile, 255, 255, 255, 64);
 		}
-		else
-			vel.x = 0;
+
+		// MOVEMENT
+		
+		if (path.Count() > 1)
+		{
+			iPoint dir;
+			dir.Create(path.At(1)->x - path.At(0)->x, path.At(1)->y - path.At(0)->y);
+			
+
+			//Left
+			if (dir.x < 0) {
+				vel.x = -speed;
+				flip = SDL_FLIP_HORIZONTAL;
+			}
+			//Right
+			else if (dir.x > 0) {
+				vel.x = speed;
+				flip = SDL_FLIP_NONE;
+			}
+			else
+				vel.x = 0;
+
+			//Up
+			if (dir.y < 0) {
+				vel.y = -speed;
+				flip = SDL_FLIP_HORIZONTAL;
+			}
+			//Down
+			else if (dir.y > 0) {
+				vel.y = speed;
+				flip = SDL_FLIP_NONE;
+			}
+			else
+				vel.y = 0;
+		}
+		
 		
 	}
 

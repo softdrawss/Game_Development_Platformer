@@ -105,8 +105,8 @@ public:
 	// Distances ---------------------------------------------
 	TYPE DistanceTo(const Point& v) const
 	{
-		TYPE fx = x - v.x;
-		TYPE fy = y - v.y;
+		TYPE fx = 8*(x - v.x);
+		TYPE fy = 8*(y - v.y);
 
 		return sqrtf((fx*fx) + (fy*fy));
 	}

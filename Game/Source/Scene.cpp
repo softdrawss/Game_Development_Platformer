@@ -6,6 +6,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "Scene.h"
+#include "PathFinding.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Camera.h"
@@ -43,8 +44,8 @@ bool Scene::Start()
 
 	
 	//ENEMIES
-	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
-	enemyWalk->parameters = config.child("walk");
+	/*enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
+	enemyWalk->parameters = config.child("walk");*/
 
 	enemyFly = (EnemyFly*)app->entityManager->CreateEntity(EntityType::FLY);
 	enemyFly->parameters = config.child("fly");
@@ -60,6 +61,7 @@ bool Scene::Start()
 	//Enables
 	app->map->Enable();
 	app->physics->Enable();
+	app->pathFinding->Enable();
 	app->entityManager->Enable();
 	app->debug->Enable();
 	app->particles->Enable();
@@ -72,7 +74,16 @@ bool Scene::Start()
 	}
 
 	//MAP
-	app->map->Load();
+	if (app->map->Load())
+	{
+		int w, h;
+		uchar* buffer = NULL;
+
+		if (app->map->CreateWalkabilityMap(w, h, &buffer))
+			app->pathFinding->SetMap(w, h, buffer);
+
+		RELEASE_ARRAY(buffer);
+	}
 
 	//MUSIC
 	musicPath = (char*)config.child("music").attribute("audioPath").as_string();

@@ -32,7 +32,7 @@
   <scene>
     <player x="16" y="81" texturepath="Assets/Textures/Characters/1_Pink_Monster/AnimationList.png"/>
     <fly x="570" y="410" texturepath="Assets/Textures/Characters/merchant/AnimationList.png"/>
-	<walk x="570" y="545" texturepath="Assets/Textures/Characters/EnemyWalk/AnimationList_2.png"/>
+	<walk x="290" y="545" texturepath="Assets/Textures/Characters/EnemyWalk/AnimationList_2.png"/>
 	<chickboy x="2186" y="385" texturepath="Assets/Textures/Characters/ChickBoy/AnimationList.png"/>
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
 	<fonts fontPath="Assets/Textures/Fonts/sprite_font_white.png"/>

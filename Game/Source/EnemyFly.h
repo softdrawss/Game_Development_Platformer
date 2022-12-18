@@ -6,6 +6,7 @@
 #include "Physics.h"
 #include "SDL/include/SDL.h"
 #include "Animation.h"
+#include "PathFinding.h"
 
 struct SDL_Texture;
 
@@ -45,12 +46,17 @@ private:
 	const char* texturePath;
 
 	//Animation
-	Animation idle, run, fly;	// jump?;
+	Animation idle, run, fly;
 	Animation death, iddledeathanim;
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;
+
 	//FX
 	int pickCoinFxId;
+
+	//PATHFINDING
+	DynArray<iPoint> path;
+	iPoint lastEnemyTile;
 
 };
 
