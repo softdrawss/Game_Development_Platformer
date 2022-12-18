@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="28" nextobjectid="85">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="29" nextobjectid="85">
  <tileset firstgid="1" name="industrial_v2" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
   <image source="Industrial/industrial_v2_edit.png" width="512" height="512"/>
  </tileset>
@@ -80065,6 +80065,21 @@
    <tile/>
   </data>
  </layer>
+ <objectgroup id="28" name="TRIGGERS">
+  <properties>
+   <property name="Draw" type="bool" value="false"/>
+  </properties>
+  <object id="78" x="165" y="368" width="6" height="32">
+   <properties>
+    <property name="colliderType" value="TRIG_1R"/>
+   </properties>
+  </object>
+  <object id="77" x="459.25" y="258" width="24.5" height="18.75">
+   <properties>
+    <property name="colliderType" value="TRIG_1A"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="9" name="COLLIDERS">
   <properties>
    <property name="Draw" type="bool" value="false"/>
@@ -80274,11 +80289,6 @@
     <property name="colliderType" value="WALL"/>
    </properties>
   </object>
-  <object id="78" x="165" y="368" width="6" height="32">
-   <properties>
-    <property name="colliderType" value="TRIG_1R"/>
-   </properties>
-  </object>
   <object id="56" x="0" y="744" width="117" height="3">
    <properties>
     <property name="colliderType" value="CEILING"/>
@@ -80357,11 +80367,6 @@
   <object id="84" x="373" y="667" width="6" height="26">
    <properties>
     <property name="colliderType" value="WALL"/>
-   </properties>
-  </object>
-  <object id="77" x="459.25" y="258" width="24.5" height="18.75">
-   <properties>
-    <property name="colliderType" value="TRIG_1A"/>
    </properties>
   </object>
   <object id="82" x="325" y="368" width="6" height="9">

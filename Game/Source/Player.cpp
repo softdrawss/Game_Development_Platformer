@@ -253,6 +253,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		//TRIGGERS (A - Action, R - Reaction)
 	case ColliderType::TRIG_1A:
 		LOG("Collision TRIG_1A");
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+			LOG("Activated TRIG_1A");
+		}
 		break;
 	case ColliderType::TRIG_1R:
 		LOG("Collision TRIG_1R");
