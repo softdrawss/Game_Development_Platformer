@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "App.h"
+#include "Scene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -43,7 +44,8 @@ bool Window::Awake(pugi::xml_node& config)
 
 		width = config.child("resolution").attribute("width").as_int(); //get from config 
 		height = config.child("resolution").attribute("height").as_int();; //get from config 
-		scale = config.child("resolution").attribute("scale").as_int();; //get from config 
+		scale = config.child("resolution").attribute("scale").as_int();; //get from config
+		gamescale = config.child("resolution").attribute("gamescale").as_int();; //get from config
 
 		if (fullscreen == true) flags |= SDL_WINDOW_FULLSCREEN;
 		if (borderless == true) flags |= SDL_WINDOW_BORDERLESS;
@@ -98,5 +100,8 @@ void Window::GetWindowSize(uint& width, uint& height) const
 
 uint Window::GetScale() const
 {
+	if (app->scene->active)
+		return scale + 1;
+
 	return scale;
 }
