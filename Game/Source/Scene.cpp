@@ -57,6 +57,8 @@ bool Scene::Start()
 	//PLAYER
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
+	
+	//PLAYER INTERACT
 	playerInteract = (PlayerInteract*)app->entityManager->CreateEntity(EntityType::INTERACT);
 	playerInteract->parameters = config.child("interact");
 
@@ -89,7 +91,7 @@ bool Scene::Start()
 
 	//MUSIC
 	musicPath = (char*)config.child("music").attribute("audioPath").as_string();
-	app->audio->PlayMusic(musicPath, 1.0F);
+	//app->audio->PlayMusic(musicPath, 1.0F);
 	
 	//FONTS
 	fontPath = (char*)config.child("fonts").attribute("fontPath").as_string();

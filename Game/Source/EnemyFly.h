@@ -53,7 +53,8 @@ private:
 	SDL_RendererFlip flip;
 
 	//FX
-	int pickCoinFxId;
+	int pickCoinFxId, audio;
+	const char* audiopath;
 
 	//PATHFINDING
 	DynArray<iPoint> path;

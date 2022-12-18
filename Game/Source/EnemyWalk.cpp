@@ -43,6 +43,8 @@ bool EnemyWalk::Start()
 	//initilize textures
 	texturePath = parameters.attribute("texturepath").as_string();
 	texture = app->tex->Load(texturePath);
+	audiopath = parameters.attribute("audioPath").as_string();
+	audio = app->audio->LoadFx(audiopath);
 
 	isAsleep = true;
 
@@ -187,8 +189,7 @@ bool EnemyWalk::PostUpdate()
 
 bool EnemyWalk::CleanUp()
 {
-	app->tex->UnLoad(texture);
-	//app->entityManager->DestroyEntity(this);
+	app->entityManager->DestroyEntity(this);
 	//RELEASE(texture);
 	return true;
 }
@@ -205,6 +206,11 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 		LOG("Collision GROUND");
 		isGrounded = true;
 		break;
+	case ColliderType::INTERACT:
+		LOG("Collision INTERACT");
+		alive = false;
+		app->audio->PlayFx(audio);
+		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
 		app->audio->PlayFx(pickCoinFxId);
@@ -216,12 +222,6 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::PLAYER:
 		LOG("Collision PLATFORM");
 		//alive = false;
-		break;
-	case ColliderType::SHOT:
-		LOG("Collision SHOT");
-		alive = false;
-		//delete physB;
-		//physB = nullptr;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");

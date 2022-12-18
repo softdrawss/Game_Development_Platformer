@@ -33,6 +33,7 @@ public:
 private:
 
 	PhysBody* pbody;
+	int active;
 };
 
 #endif // __PLAYERINTERACT_H__

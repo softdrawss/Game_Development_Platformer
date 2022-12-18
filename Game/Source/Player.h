@@ -34,7 +34,7 @@ public:
 	b2Vec2 initPosition;
 	//Physics
 	PhysBody* pbody;
-	PhysBody* hitbox;
+
 private:
 	
 	//Bools
@@ -60,7 +60,9 @@ private:
 	Animation death;
 
 	//FX
-	int pickCoinFxId;
+	int pickCoinFxIdaudio, jumpaudio, deathaudio;
+	const char* jumppath;
+	const char* deathpath;
 };
 
 #endif // __PLAYER_H__
