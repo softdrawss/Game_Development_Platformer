@@ -8,7 +8,7 @@ The Pipe Maze is a 2D Platformer developed by Kobayashi Studios, founded by Héc
 
 Link to the Alpha release: [https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Alpha] (https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Alpha)
 
-Link to the Beta release: 
+Link to the Beta release: [https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Beta] (https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Beta)
 
 ### NOTE ON THIS VERSION!
 
