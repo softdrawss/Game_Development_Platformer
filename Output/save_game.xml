@@ -9,8 +9,9 @@
 	<logo />
 	<title />
 	<scene>
-		<player x="23" y="76" />
-		<walk x="88" y="108" />
+		<player x="18" y="76" />
+		<walk x="76" y="108" alive="true" />
+		<fly x="-2" y="56" alive="true" />
 	</scene>
 	<ending />
 	<map />

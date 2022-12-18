@@ -76,6 +76,7 @@ bool EnemyWalk::Update()
 		isAsleep = true;
 		vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 
+
 		if (PlayerInRange(160))
 		{
 			// PATHFINDING
@@ -271,6 +272,8 @@ void EnemyWalk::SetPosition(int posX, int posY)
 {
 	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
 	pbody->body->SetTransform(position, 0);
+	pbody->body->SetType(b2_dynamicBody);
+
 }
 
 bool EnemyWalk::PlayerInRange(double range)
