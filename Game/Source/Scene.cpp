@@ -47,8 +47,8 @@ bool Scene::Start()
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
 	enemyWalk->parameters = config.child("walk");
 
-	enemyFly = (EnemyFly*)app->entityManager->CreateEntity(EntityType::FLY);
-	enemyFly->parameters = config.child("fly");
+	//enemyFly = (EnemyFly*)app->entityManager->CreateEntity(EntityType::FLY);
+	//enemyFly->parameters = config.child("fly");
 
 	//NPC
 	npcChickBoy = (NPCChickBoy*)app->entityManager->CreateEntity(EntityType::NPC);
@@ -158,6 +158,8 @@ bool Scene::CleanUp()
 bool Scene::LoadState(pugi::xml_node& data)
 {
 	player->SetPosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
+	enemyWalk->SetPosition(data.child("walk").attribute("x").as_int(), data.child("walk").attribute("y").as_int());
+	//enemyFly->SetPosition(data.child("player").attribute("x").as_int(), data.child("player").attribute("y").as_int());
 
 	return true;
 }
@@ -171,6 +173,13 @@ bool Scene::SaveState(pugi::xml_node& data)
 	play.append_attribute("x") = player->position.x + 16;
 	play.append_attribute("y") = player->position.y - 10;
 
+	pugi::xml_node walk = data.append_child("walk");
+	walk.append_attribute("x") = enemyWalk->position.x + 16;
+	walk.append_attribute("y") = enemyWalk->position.y - 10;
+
+	//pugi::xml_node fly = data.append_child("fly");
+	//fly.append_attribute("x") = enemyFly->position.x + 16;
+	//fly.append_attribute("y") = enemyFly->position.y - 10;
 
 	return true;
 }

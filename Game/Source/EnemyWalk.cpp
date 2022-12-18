@@ -63,9 +63,6 @@ bool EnemyWalk::Update()
 	b2Vec2 vel;
 	int speed = 4;
 
-	vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
-
-
 	//Death
 	if (!alive)
 	{
@@ -77,6 +74,7 @@ bool EnemyWalk::Update()
 	else
 	{
 		isAsleep = true;
+		vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 
 		if (PlayerInRange(160))
 		{
@@ -188,7 +186,8 @@ bool EnemyWalk::PostUpdate()
 
 bool EnemyWalk::CleanUp()
 {
-	app->entityManager->DestroyEntity(this);
+	app->tex->UnLoad(texture);
+	//app->entityManager->DestroyEntity(this);
 	//RELEASE(texture);
 	return true;
 }

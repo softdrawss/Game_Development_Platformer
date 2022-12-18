@@ -272,7 +272,6 @@ void Player::LoadAnimations()
 	run.PushBack({ 80, 16, 15, 16 });
 	run.PushBack({ 96, 16, 15, 16 });
 	run.PushBack({ 112, 16, 15, 16 });
-	run.speed = 0.1f;
 	run.speed = 0.15f;
 
 	//climb.PushBack({ 0, 128, 32, 32 });
