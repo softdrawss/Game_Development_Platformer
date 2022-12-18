@@ -79,8 +79,6 @@ bool EnemyFly::Update()
 	else
 	{
 		isIdle = true;
-		
-		//if NO PATH, player changes pos
 
 
 		// PATHFINDING

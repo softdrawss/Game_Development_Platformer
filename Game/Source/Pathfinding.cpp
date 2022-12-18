@@ -135,45 +135,46 @@ uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
 	iPoint cell;
 	uint before = listToFill.list.Count();
 
+	
 	// N
 	cell.Create(pos.x, pos.y - 1);
 	if(app->pathFinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(10 + closeToWall, 10, cell, this));
+		listToFill.list.Add(PathNode(10 + app->pathFinding->GetTileAt(cell), 10, cell, this));
 
 	// NE
 	cell.Create(pos.x + 1, pos.y - 1);
 	if (app->pathFinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(14 + closeToWall, 14, cell, this));
+		listToFill.list.Add(PathNode(14 + app->pathFinding->GetTileAt(cell), 14, cell, this));
 
 	// E
 	cell.Create(pos.x + 1, pos.y);
 	if (app->pathFinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(10 + closeToWall, 10, cell, this));
+		listToFill.list.Add(PathNode(10 + app->pathFinding->GetTileAt(cell), 10, cell, this));
 
 	// SE
 	cell.Create(pos.x + 1, pos.y + 1);
 	if (app->pathFinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(14 + closeToWall, 14, cell, this));
+		listToFill.list.Add(PathNode(14 + app->pathFinding->GetTileAt(cell), 14, cell, this));
 
 	// S
 	cell.Create(pos.x, pos.y + 1);
 	if(app->pathFinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(10 + closeToWall, 10, cell, this));
+		listToFill.list.Add(PathNode(10 + app->pathFinding->GetTileAt(cell), 10, cell, this));
 
 	// SW
 	cell.Create(pos.x - 1, pos.y + 1);
 	if (app->pathFinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(14 + closeToWall, 14, cell, this));
+		listToFill.list.Add(PathNode(14 + app->pathFinding->GetTileAt(cell), 14, cell, this));
 
 	// W
 	cell.Create(pos.x - 1, pos.y);
 	if(app->pathFinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(10 + closeToWall, 10, cell, this));
+		listToFill.list.Add(PathNode(10 + app->pathFinding->GetTileAt(cell), 10, cell, this));
 
 	// NW
 	cell.Create(pos.x - 1, pos.y - 1);
 	if (app->pathFinding->IsWalkable(cell))
-		listToFill.list.Add(PathNode(14 + closeToWall, 14, cell, this));
+		listToFill.list.Add(PathNode(14 + app->pathFinding->GetTileAt(cell), 14, cell, this));
 
 	return listToFill.list.Count();
 }

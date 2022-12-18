@@ -142,7 +142,8 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
                 if (tileset != NULL)
                 {
-                    map[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
+                    map[i] = tileId == 1027 ? 1 : 0;    // RED - no walk
+                    map[i] = tileId == 1026 ? 10 : 0;    // YELLOW - high G cost
                 }
             }
         }
@@ -484,6 +485,7 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
                  if ((SString)type.attribute("value").as_string() == "GROUND")   { c1->ctype = ColliderType::GROUND; }
             else if ((SString)type.attribute("value").as_string() == "PLATFORM") { c1->ctype = ColliderType::PLATFORM; }
             else if ((SString)type.attribute("value").as_string() == "WALL")     { c1->ctype = ColliderType::WALL; }
+            else if ((SString)type.attribute("value").as_string() == "CEILING")  { c1->ctype = ColliderType::CEILING; }
         }
     }
 
