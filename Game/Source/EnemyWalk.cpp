@@ -64,7 +64,7 @@ bool EnemyWalk::Update()
 {
 	b2Vec2 vel;
 	int speed = 4;
-
+	
 	//Death
 	if (!alive)
 	{

@@ -151,23 +151,40 @@ bool Player::Update()
 			app->audio->PlayFx(jumpaudio);
 
 		}
-		//WallJump
-		else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		//WallSlide - WallJump
+		else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isGrounded)
 		{
-			if (wallJumpRight)
+			//Wall Slide
+			if (wallSlideRight && app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			{
+				vel.y += 4;
+				//app->audio->PlayFx(slide);
+				isIdle = true;
+				isGrounded = false;
+			}
+			else if (wallSlideLeft && app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			{
+				vel.y += 4;
+				//app->audio->PlayFx(slide);
+				isIdle = true;
+				isGrounded = false;
+			}
+
+			//Wall Jump
+			if (wallSlideRight && app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			{
 				currentAnim = &jump;
 				app->audio->PlayFx(jumpaudio);
-				remainingJumpSteps = 6;
+				remainingJumpSteps = 5;
 				isIdle = false;
 				isGrounded = false;
 			}
-			else if (wallJumpLeft)
+			else if (wallSlideLeft && app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
 				currentAnim = &jump;
 				app->audio->PlayFx(jumpaudio);
 
-				remainingJumpSteps = 6;
+				remainingJumpSteps = 5;
 				isIdle = false;
 				isGrounded = false;
 			}		
@@ -286,9 +303,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		LOG("Collision WALL");
 		//player has a wall on LEFT?
 		if (physA->body->GetTransform().p.x > physB->body->GetTransform().p.x)
-		{
-
-		}
+			wallSlideLeft = true;
+		else
+			wallSlideRight = true;
 		break;
 
 	case ColliderType::UNKNOWN:

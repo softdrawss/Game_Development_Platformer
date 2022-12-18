@@ -154,6 +154,9 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	app->map->Disable();
+	app->entityManager->Disable();
+	app->physics->Disable();
 
 	return true;
 }

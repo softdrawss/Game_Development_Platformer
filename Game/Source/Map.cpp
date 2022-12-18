@@ -485,7 +485,7 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
                 pugi::xml_node type = object.child("properties").child("property");
 
 
-                if ((SString)type.attribute("value").as_string() == "TRIG_1A") { c1->ctype = ColliderType::TRIG_1A; }
+                if ((SString)type.attribute("value").as_string() == "TRIG_1A")      { c1->ctype = ColliderType::TRIG_1A; }
                 else if ((SString)type.attribute("value").as_string() == "TRIG_1R") { c1->ctype = ColliderType::TRIG_1R; }
                 else if ((SString)type.attribute("value").as_string() == "TRIG_2A") { c1->ctype = ColliderType::TRIG_2A; }
                 else if ((SString)type.attribute("value").as_string() == "TRIG_2R") { c1->ctype = ColliderType::TRIG_2R; }
@@ -507,10 +507,11 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
                 pugi::xml_node type = object.child("properties").child("property");
 
 
-                if ((SString)type.attribute("value").as_string() == "GROUND") { c1->ctype = ColliderType::GROUND; }
+                     if ((SString)type.attribute("value").as_string() == "GROUND")   { c1->ctype = ColliderType::GROUND; }
                 else if ((SString)type.attribute("value").as_string() == "PLATFORM") { c1->ctype = ColliderType::PLATFORM; }
-                else if ((SString)type.attribute("value").as_string() == "WALL") { c1->ctype = ColliderType::WALL; }
-                else if ((SString)type.attribute("value").as_string() == "CEILING") { c1->ctype = ColliderType::CEILING; }
+                else if ((SString)type.attribute("value").as_string() == "WALL")     { c1->ctype = ColliderType::WALL; }
+                else if ((SString)type.attribute("value").as_string() == "CEILING")  { c1->ctype = ColliderType::CEILING; }
+                else if ((SString)type.attribute("value").as_string() == "DEATH")    { c1->ctype = ColliderType::DEATH; }
             }
         }
     }

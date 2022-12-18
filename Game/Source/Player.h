@@ -40,7 +40,7 @@ private:
 	//Bools
 	bool isIdle;
 	bool isGrounded;
-	bool wallJumpRight, wallJumpLeft;
+	bool wallSlideRight, wallSlideLeft;
 	bool stairs;
 
 	int remainingJumpSteps;
