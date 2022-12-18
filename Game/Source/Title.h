@@ -38,8 +38,13 @@ public:
 
 private:
 	SDL_Texture* img;
+	SDL_Texture* animImg;
+	Animation anim, run;
+	Animation* currentAnim = nullptr;
+
 	char* titlepath;
-	int x, y;
+	char* animpath;
+	int x, y, xA, yA;
 };
 
 #endif // __TITLE_H__
