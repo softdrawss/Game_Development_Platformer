@@ -128,8 +128,6 @@ void Camera::CameraLimits()
 		app->render->camera.y = 0;
 	else if (app->render->camera.y < -1560)
 		app->render->camera.y = -1560;
-
-	//162, 1560
 }
 
 void Camera::FreeCamera()
