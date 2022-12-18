@@ -46,7 +46,8 @@ bool PlayerInteract::Update()
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		pbody->body->SetActive(true);
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && active<3) {
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && active < 3)
+	{
 		active = 3;
 	}
 	if (active > 0) {

@@ -176,7 +176,7 @@ bool Player::Update()
 		//Dash
 		if (app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_DOWN && dashCD == 0) {
 			//app->audio->PlayFx(sfx_dash);
-			remainingDash = 10;
+			remainingDash = 8;
 		}
 		else if (dashCD > 0){
 			dashCD--;
@@ -207,7 +207,7 @@ bool Player::Update()
 
 	//Dash end
 	if (remainingDash > 0) {
-		vel = b2Vec2(20, 0);
+		vel = b2Vec2(14 + remainingDash, 0);
 		vel.x *= flip == SDL_FLIP_NONE ? 1 : -1;
 		pbody->body->SetGravityScale(0);
 		remainingDash--;
