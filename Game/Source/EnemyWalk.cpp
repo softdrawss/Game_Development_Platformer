@@ -6,6 +6,8 @@
 #include "Render.h"
 #include "Scene.h"
 #include "Log.h"
+#include "PathFinding.h"
+#include "Map.h"
 #include "Point.h"
 #include "Physics.h"
 #include "Debug.h"
@@ -76,6 +78,36 @@ bool EnemyWalk::Update()
 	{
 		isAsleep = true;
 
+
+		// PATHFINDING
+		iPoint enemyTile = app->map->WorldToMap(
+			METERS_TO_PIXELS(this->pbody->body->GetPosition().x), 
+			METERS_TO_PIXELS(this->pbody->body->GetPosition().y));
+
+		iPoint playerTile = app->map->WorldToMap(
+			METERS_TO_PIXELS(app->scene->player->pbody->body->GetPosition().x), 
+			METERS_TO_PIXELS(app->scene->player->pbody->body->GetPosition().y));
+
+		app->pathFinding->CreatePath(enemyTile, playerTile);
+		path.Clear();
+
+		//Save path
+		const DynArray<iPoint>* lastPath = app->pathFinding->GetLastPath();
+		for (uint i = 0; i < lastPath->Count(); i++)
+		{
+			path.PushBack(iPoint(lastPath->At(i)->x, lastPath->At(i)->y));
+		}
+		
+		//Draw path
+		for (uint i = 0; i < path.Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+			SDL_Rect pathTile {pos.x, pos.y, 16, 16};
+			app->render->DrawRectangle(pathTile, 255, 255, 255, 64);
+		}
+
+
+		// MOVEMENT
 		//Left
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
 			currentAnim = &move;

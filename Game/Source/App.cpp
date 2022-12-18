@@ -43,7 +43,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	map = new Map(false);
 	entityManager = new EntityManager(false);
-	pathfinding = new PathFinding(false);
+	pathFinding = new PathFinding(false);
 	camera = new Camera(true);
 	particles = new Particles(false);
 
@@ -67,7 +67,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(endScreen);
 
 	AddModule(map);
-	AddModule(pathfinding);
+	AddModule(pathFinding);
 	AddModule(entityManager);
 	AddModule(camera);
 	AddModule(particles);

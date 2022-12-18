@@ -6,6 +6,7 @@
 #include "Physics.h"
 #include "SDL/include/SDL.h"
 #include "Animation.h"
+#include "PathFinding.h"
 
 struct SDL_Texture;
 
@@ -54,6 +55,9 @@ private:
 	
 	//FX
 	int pickCoinFxId;
+
+	//PATHFINDING
+	DynArray<iPoint> path;
 
 };
 
