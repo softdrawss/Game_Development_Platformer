@@ -67,7 +67,7 @@ bool EnemyFly::Update()
 {
 	b2Vec2 vel;
 	int speed = 4;
-
+	vel.y = 0;
 	//vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 	
 	if (!alive)
@@ -151,6 +151,7 @@ bool EnemyFly::Update()
 	}
 
 	//Set the velocity of the pbody of the enemy
+	pbody->body->SetGravityScale(0);
 	pbody->body->SetLinearVelocity(vel);
 
 	//Update player position in pixels
@@ -159,7 +160,7 @@ bool EnemyFly::Update()
 
 	//Animation
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
+	app->render->DrawTexture(texture, position.x+20, position.y+16, flip, &rect2);
 	currentAnim->Update();
 	return true;
 }
@@ -212,26 +213,26 @@ void EnemyFly::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyFly::LoadAnimations()
 {
-	idle.PushBack({   0, 0, 64, 32 });
-	idle.PushBack({  64, 0, 64, 32 });
-	idle.PushBack({ 128, 0, 64, 32 });
-	idle.PushBack({ 192, 0, 64, 32 });
+	idle.PushBack({  0, 80, 16, 16 });
+	idle.PushBack({ 16, 80, 16, 16 });
+	idle.PushBack({ 32, 80, 16, 16 });
+	idle.PushBack({ 48, 80, 16, 16 });
 	idle.speed = 0.08f;
 
-	run.PushBack({   0, 32, 64, 32 });
-	run.PushBack({  64, 32, 64, 32 });
-	run.PushBack({ 128, 32, 64, 32 });
-	run.PushBack({ 192, 32, 64, 32 });
-	run.PushBack({ 224, 32, 64, 32 });
-	run.speed = 0.2f;
+	//run.PushBack({   0, 32, 64, 32 });
+	//run.PushBack({  64, 32, 64, 32 });
+	//run.PushBack({ 128, 32, 64, 32 });
+	//run.PushBack({ 192, 32, 64, 32 });
+	//run.PushBack({ 224, 32, 64, 32 });
+	//run.speed = 0.2f;
+	//
+	//fly.PushBack({   0, 64, 64, 32 });
+	//fly.PushBack({  64, 64, 64, 32 });
+	//fly.PushBack({ 128, 64, 64, 32 });
+	//fly.PushBack({ 192, 64, 64, 32 });
+	//fly.speed = 0.2f;
 
-	fly.PushBack({   0, 64, 64, 32 });
-	fly.PushBack({  64, 64, 64, 32 });
-	fly.PushBack({ 128, 64, 64, 32 });
-	fly.PushBack({ 192, 64, 64, 32 });
-	fly.speed = 0.2f;
-
-	currentAnim = &fly;
+	currentAnim = &idle;
 }
 
 void EnemyFly::SetPosition(int posX, int posY)

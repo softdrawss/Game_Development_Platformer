@@ -52,7 +52,7 @@ private:
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;
 	Animation idle, run, jump, climb;
-	Animation attackRock;
+	Animation attackNormal;
 	Animation death;
 
 	//FX

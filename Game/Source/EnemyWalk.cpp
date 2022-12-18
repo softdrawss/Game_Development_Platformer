@@ -47,7 +47,7 @@ bool EnemyWalk::Start()
 	isAsleep = true;
 
 	// L07 DONE 5: Add physics to the enemy - initialize physics body
-	pbody = app->physics->CreateRectangle(position.x, position.y, 11, 18, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, 13, 13, bodyType::DYNAMIC);
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -126,13 +126,13 @@ bool EnemyWalk::Update()
 		else
 			vel.x = 0;
 
-		//Start charge
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT && isCharging == 0 && !isShooting)
-		{
-			isCharging = 120;
-			currentAnim = &shoot;
-			isAsleep = false;
-		}
+		////Start charge
+		//if (app->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT && isCharging == 0 && !isShooting)
+		//{
+		//	isCharging = 120;
+		//	currentAnim = &shoot;
+		//	isAsleep = false;
+		//}
 
 		//Charging
 		if (isCharging == 1)
@@ -163,17 +163,17 @@ bool EnemyWalk::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 19;
 
 	//Animations
-	if (isShooting && shoot.GetCurrentFrameint() == 3)
-	{
-		shoot.Reset();
-		isShooting = false;
-	}
+	//if (isShooting && shoot.GetCurrentFrameint() == 3)
+	//{
+	//	shoot.Reset();
+	//	isShooting = false;
+	//}
 
-	if (isAsleep) { currentAnim = &sleep; }
-	if (isCharging != 0) { currentAnim = &charge; }
-	if (isShooting) { currentAnim = &shoot; }
+	if (isAsleep) { currentAnim = &idle; }
+	//if (isCharging != 0) { currentAnim = &charge; }
+	//if (isShooting) { currentAnim = &shoot; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
+	app->render->DrawTexture(texture, position.x+20, position.y+11, flip, &rect2);
 	currentAnim->Update();
 
 	return true;
@@ -234,64 +234,38 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 
 void EnemyWalk::LoadAnimations()
 {
-	sleep.PushBack({ 0, 0, 55, 30 });
 
-	wake.PushBack({   0, 30, 55, 30 });
-	wake.PushBack({  55, 30, 55, 30 });
-	wake.PushBack({ 110, 30, 55, 30 });
-	wake.PushBack({ 165, 30, 55, 30 });
-	wake.PushBack({ 220, 30, 55, 30 });
-	wake.loop = false;
-	wake.speed = 0.1f;
+	idle.PushBack({  0, 48, 16, 16 });
+	idle.PushBack({ 16, 48, 16, 16 });
+	idle.PushBack({ 32, 48, 16, 16 });
+	idle.PushBack({ 48, 48, 16, 16 });
+	idle.PushBack({ 64, 48, 16, 16 });
+	idle.speed = 0.1f;
 
-	move.PushBack({   0, 60, 55, 30 });
-	move.PushBack({  55, 60, 55, 30 });
-	move.PushBack({ 110, 60, 55, 30 });
-	move.PushBack({ 165, 60, 55, 30 });
-	move.PushBack({ 220, 60, 55, 30 });
-	move.PushBack({ 275, 60, 55, 30 });
-	move.PushBack({ 330, 60, 55, 30 });
-	move.PushBack({ 385, 60, 55, 30 });
+	move.PushBack({ 112, 48, 16, 16 });
+	move.PushBack({ 128, 48, 16, 16 });
+	move.PushBack({ 144, 48, 16, 16 });
+	move.PushBack({ 160, 48, 16, 16 });
+	move.PushBack({ 176, 48, 16, 16 });
+	move.PushBack({ 192, 48, 16, 16 });
 	move.speed = 0.2f;
 
-	dash.PushBack({ 385,   0, 120, 30 });
-	dash.PushBack({ 385,  30, 120, 30 });
-	dash.PushBack({ 385,  60, 120, 30 });
-	dash.PushBack({ 385,  90, 120, 30 });
-	dash.PushBack({ 385, 120, 120, 30 });
-	dash.PushBack({ 385, 150, 120, 30 });
-	dash.PushBack({ 385, 180, 120, 30 });
-	dash.loop = false;
-	dash.speed = 0.4f;
 
-	charge.PushBack({   0, 90, 55, 30 });
-	charge.PushBack({  55, 90, 55, 30 });
-	charge.PushBack({ 110, 90, 55, 30 });
-	charge.PushBack({ 165, 90, 55, 30 });
-	charge.speed = 0.2f;
-	 
-	shoot.PushBack({   0, 120, 55, 30 });
-	shoot.PushBack({  55, 120, 55, 30 });
-	shoot.PushBack({ 110, 120, 55, 30 });
-	shoot.PushBack({ 165, 120, 55, 30 });
-	shoot.loop = false;
-	shoot.speed = 0.3f;
+	//hit.PushBack({  0, 150, 55, 30 });
+	//hit.PushBack({ 55, 150, 55, 30 });
+	//hit.loop = false;
+	//hit.speed = 0.2f;
 
-	hit.PushBack({  0, 150, 55, 30 });
-	hit.PushBack({ 55, 150, 55, 30 });
-	hit.loop = false;
-	hit.speed = 0.2f;
+	//death.PushBack({   0, 180, 55, 30 });
+	//death.PushBack({  55, 180, 55, 30 });
+	//death.PushBack({ 110, 180, 55, 30 });
+	//death.PushBack({ 165, 180, 55, 30 });
+	//death.PushBack({ 220, 180, 55, 30 });
+	//death.PushBack({ 275, 180, 55, 30 });
+	//death.loop = false;
+	//death.speed = 0.2f;
 
-	death.PushBack({   0, 180, 55, 30 });
-	death.PushBack({  55, 180, 55, 30 });
-	death.PushBack({ 110, 180, 55, 30 });
-	death.PushBack({ 165, 180, 55, 30 });
-	death.PushBack({ 220, 180, 55, 30 });
-	death.PushBack({ 275, 180, 55, 30 });
-	death.loop = false;
-	death.speed = 0.2f;
-
-	currentAnim = &sleep;
+	currentAnim = &idle;
 }
 
 void EnemyWalk::SetPosition(int posX, int posY)

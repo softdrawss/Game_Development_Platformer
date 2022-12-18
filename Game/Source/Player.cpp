@@ -160,7 +160,7 @@ bool Player::Update()
 		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && !isAttackingRock) {
 			Attack();
 			isAttackingRock = true;
-			currentAnim = &attackRock;
+			currentAnim = &attackNormal;
 			isIdle = false;
 		}	
 	}
@@ -176,7 +176,7 @@ bool Player::Update()
 	if (remainingJumpSteps > 0)
 	{
 		float force = pbody->body->GetMass() * 10 / 0.01666; //F = mv/t (t = 1/60fps)
-		force /= 6.0;
+		force /= 7.0;
 		pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
 		remainingJumpSteps--;	
 	}
@@ -186,17 +186,17 @@ bool Player::Update()
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	//Animations
-	if (isAttackingRock && attackRock.GetCurrentFrameint() == 4)
+	if (isAttackingRock && attackNormal.GetCurrentFrameint() == 4)
 	{
-		attackRock.Reset();
+		attackNormal.Reset();
 		isAttackingRock = false;
 	}
 
 	if (isIdle && !isAttackingRock) { currentAnim = &idle; }
 	if (!isGrounded) { currentAnim = &jump; }
-	if (isAttackingRock) { currentAnim = &attackRock; }
+	if (isAttackingRock) { currentAnim = &attackNormal; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y+11, flip, &rect2);
+	app->render->DrawTexture(texture, position.x+9, position.y+11, flip, &rect2);
 	currentAnim->Update();
 
 	return true;
@@ -259,12 +259,8 @@ void Player::LoadAnimations()
 	idle.PushBack({ 0, 0, 15, 16 });
 	idle.PushBack({ 16, 0, 15, 16 });
 	idle.PushBack({ 32, 0, 15, 16 });
-	//idle.PushBack({ 48, 0, 15, 16 });
-	//idle.PushBack({ 64, 0, 15, 16 });
-	//idle.PushBack({ 80, 0, 15, 16 });
-	//idle.PushBack({ 96, 0, 15, 16 });
-	//idle.PushBack({ 112, 0, 15, 16 });
-	idle.speed = 0.05f;
+	idle.speed = 0.03f;
+
 
 	// Run animation, there is also a walk animation
 	// but as we are not using anything that changes the speed I'm going to stick to walk
@@ -276,7 +272,7 @@ void Player::LoadAnimations()
 	run.PushBack({ 80, 16, 15, 16 });
 	run.PushBack({ 96, 16, 15, 16 });
 	run.PushBack({ 112, 16, 15, 16 });
-
+	run.speed = 0.1f;
 	run.speed = 0.15f;
 
 	//climb.PushBack({ 0, 128, 32, 32 });
@@ -284,18 +280,15 @@ void Player::LoadAnimations()
 	//climb.PushBack({ 64, 128, 32, 32 });
 	//climb.PushBack({ 96, 128, 32, 32 });
 	//climb.speed = 0.1f;
-	//
+	
 	jump.PushBack({ 48, 0, 15, 16 });
 	jump.PushBack({ 64, 0, 15, 16 });
 	jump.PushBack({ 80, 0, 15, 16 });
 	jump.PushBack({ 96, 0, 15, 16 });
 	jump.PushBack({ 112, 0, 15, 16 });
-	//jump.PushBack({ 384, 32, 32, 32 });
-	//jump.PushBack({ 416, 32, 32, 32 });
-	//jump.PushBack({ 448, 32, 32, 32 });
 	jump.speed = 0.1f;
 	jump.loop;
-	//
+	
 	//death.PushBack({ 224, 128, 32, 32 });
 	//death.PushBack({ 256, 128, 32, 32 });
 	//death.PushBack({ 288, 128, 32, 32 });
@@ -307,14 +300,14 @@ void Player::LoadAnimations()
 	//death.PushBack({ 480, 128, 32, 32 });
 	//death.speed = 0.1f;
 	//death.loop = false;
-	//
-	//attackRock.PushBack({ 224, 192, 32, 32 });
-	//attackRock.PushBack({ 256, 192, 32, 32 });
-	//attackRock.PushBack({ 288, 192, 32, 32 });
-	//attackRock.PushBack({ 320, 192, 32, 32 });
-	//attackRock.PushBack({ 352, 192, 32, 32 });
-	//attackRock.speed = 0.3f;
-	//attackRock.loop = false;
+	
+	attackNormal.PushBack({ 0, 48, 15, 16 });
+	attackNormal.PushBack({ 16, 48, 15, 16 });
+	attackNormal.PushBack({ 32, 48, 15, 16 });
+	attackNormal.PushBack({ 48, 48, 15, 16 });
+	
+	attackNormal.speed = 0.1f;
+	attackNormal.loop = false;
 
 	currentAnim = &idle;
 }
@@ -331,5 +324,5 @@ void Player::Attack() {
 	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
 	//Specially if the player has to shoot to a flying enemy, and do the animations for that
 	//Jump onto them if not
-	app->particles->AddParticle(app->particles->shot, position.x + 20, position.y+20, ColliderType::SHOT);
+	//app->particles->AddParticle(app->particles->shot, position.x + 20, position.y+20, ColliderType::SHOT);
 }
