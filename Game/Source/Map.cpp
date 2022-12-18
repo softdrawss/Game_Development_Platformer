@@ -105,6 +105,61 @@ iPoint Map::MapToWorld(int x, int y) const
     return ret;
 }
 
+iPoint Map::WorldToMap(int x, int y) const
+{
+    iPoint ret;
+
+    ret.x = x / mapData.tileWidth;
+    ret.y = y / mapData.tileHeight;
+
+    return ret;
+}
+
+bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+{
+    bool ret = false;
+    ListItem<MapLayer*>* item;
+    item = mapData.maplayers.start;
+
+    for (item = mapData.maplayers.start; item != NULL; item = item->next)
+    {
+        MapLayer* layer = item->data;
+
+        if (layer->name != "NAVIGATION" )
+            continue;
+
+        uchar* map = new uchar[layer->width * layer->height];
+        memset(map, 1, layer->width * layer->height);
+
+        for (int y = 0; y < mapData.height; ++y)
+        {
+            for (int x = 0; x < mapData.width; ++x)
+            {
+                int i = (y * layer->width) + x;
+
+                int tileId = layer->Get(x, y);
+                TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
+
+                if (tileset != NULL)
+                {
+                    map[i] = tileId == 1027 ? 1 : 0;    // RED - no walk
+                    map[i] = tileId == 1026 ? 10 : 0;    // YELLOW - high G cost
+                }
+            }
+        }
+
+        *buffer = map;
+        width = mapData.width;
+        height = mapData.height;
+        ret = true;
+
+        break;
+    }
+
+    return ret;
+}
+
+
 // Get relative Tile rectangle
 SDL_Rect TileSet::GetTileRect(int gid) const
 {
@@ -430,6 +485,7 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
                  if ((SString)type.attribute("value").as_string() == "GROUND")   { c1->ctype = ColliderType::GROUND; }
             else if ((SString)type.attribute("value").as_string() == "PLATFORM") { c1->ctype = ColliderType::PLATFORM; }
             else if ((SString)type.attribute("value").as_string() == "WALL")     { c1->ctype = ColliderType::WALL; }
+            else if ((SString)type.attribute("value").as_string() == "CEILING")  { c1->ctype = ColliderType::CEILING; }
         }
     }
 

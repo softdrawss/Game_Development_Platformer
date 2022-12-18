@@ -109,7 +109,7 @@ public:
 
 	Map* map;
 	EntityManager* entityManager;
-	PathFinding* pathfinding;
+	PathFinding* pathFinding;
 	Camera* camera;
 
 	FadeToBlack* fade;

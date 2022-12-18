@@ -6,6 +6,7 @@
 #include "Physics.h"
 #include "SDL/include/SDL.h"
 #include "Animation.h"
+#include "PathFinding.h"
 
 struct SDL_Texture;
 
@@ -25,6 +26,7 @@ public:
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void LoadAnimations();
 	void SetPosition(int posX, int posY);
+	bool PlayerInRange(double range);
 
 public:
 
@@ -53,6 +55,9 @@ private:
 	
 	//FX
 	int pickCoinFxId;
+
+	//PATHFINDING
+	DynArray<iPoint> path;
 
 };
 

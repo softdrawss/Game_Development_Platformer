@@ -9,15 +9,17 @@
 	<logo />
 	<title />
 	<scene>
-		<player x="150" y="503" />
+		<player x="16" y="71" />
 	</scene>
 	<ending />
 	<map />
+	<pathfinding />
 	<entitymanager />
 	<:anonymous />
 	<:anonymous />
-	<pathfinding />
+	<:anonymous />
+	<:anonymous />
 	<renderer>
-		<camera x="0" y="-448" />
+		<camera x="0" y="0" />
 	</renderer>
 </save_state>
