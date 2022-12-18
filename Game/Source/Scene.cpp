@@ -57,6 +57,8 @@ bool Scene::Start()
 	//PLAYER
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
+	playerInteract = (PlayerInteract*)app->entityManager->CreateEntity(EntityType::INTERACT);
+	playerInteract->parameters = config.child("interact");
 
 	//Enables
 	app->map->Enable();

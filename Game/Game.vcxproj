@@ -103,6 +103,7 @@
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
+    <ClCompile Include="Source\PlayerInteract.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Logo.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FadeToBlack.h" />
     <ClInclude Include="Source\Fonts.h" />
+    <ClInclude Include="Source\PlayerInteract.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Logo.h" />
     <ClInclude Include="Source\Map.h" />

@@ -82,6 +82,9 @@
     <ClCompile Include="Source\Particles.cpp">
       <Filter>Modules\Gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PlayerInteract.cpp">
+      <Filter>Modules\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -190,6 +193,9 @@
       <Filter>Modules\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="Source\NPCChickBoy.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerInteract.h">
       <Filter>Modules\Entities</Filter>
     </ClInclude>
   </ItemGroup>
