@@ -48,8 +48,7 @@ private:
 	//Animation
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;
-	Animation sleep, wake, move, dash;
-	Animation charge, shoot;
+	Animation idle, move;
 	Animation hit, death;
 	
 	//FX
