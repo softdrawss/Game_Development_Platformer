@@ -105,14 +105,17 @@ bool EnemyFly::Update()
 			}
 		}
 		
-
-		//Draw path
-		for (uint i = 0; i < path.Count(); ++i)
+		if (app->debug->drawColliders)
 		{
-			iPoint pos = app->map->MapToWorld(path.At(i)->x, path.At(i)->y);
-			SDL_Rect pathTile{ pos.x, pos.y, 16, 16 };
-			app->render->DrawRectangle(pathTile, 255, 255, 255, 64);
+			//Draw path
+			for (uint i = 0; i < path.Count(); ++i)
+			{
+				iPoint pos = app->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+				SDL_Rect pathTile{ pos.x, pos.y, 16, 16 };
+				app->render->DrawRectangle(pathTile, 255, 255, 255, 64);
+			}
 		}
+		
 
 		// MOVEMENT
 		

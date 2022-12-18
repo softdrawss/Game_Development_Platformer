@@ -49,7 +49,7 @@ bool EnemyWalk::Start()
 	isAsleep = true;
 
 	// L07 DONE 5: Add physics to the enemy - initialize physics body
-	pbody = app->physics->CreateRectangle(position.x, position.y, 13, 13, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 8, bodyType::DYNAMIC);
 
 	//// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -63,7 +63,7 @@ bool EnemyWalk::Start()
 bool EnemyWalk::Update()
 {
 	b2Vec2 vel;
-	int speed = 4;
+	int speed = 1;
 	
 	//Death
 	if (!alive)
@@ -100,43 +100,46 @@ bool EnemyWalk::Update()
 				path.PushBack(iPoint(lastPath->At(i)->x, lastPath->At(i)->y));
 			}
 
-			//Draw path
-			for (uint i = 0; i < path.Count(); ++i)
+			if (app->debug->drawColliders)
 			{
-				iPoint pos = app->map->MapToWorld(path.At(i)->x, path.At(i)->y);
-				SDL_Rect pathTile{ pos.x, pos.y, 16, 16 };
-				app->render->DrawRectangle(pathTile, 255, 255, 255, 64);
-			}
+				//Draw path
+				for (uint i = 0; i < path.Count(); ++i)
+				{
+					iPoint pos = app->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+					SDL_Rect pathTile{ pos.x, pos.y, 16, 16 };
+					app->render->DrawRectangle(pathTile, 255, 255, 255, 64);
+				}
+			}		
 		}
 		
 		// MOVEMENT
-		//Left
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			currentAnim = &move;
-			vel.x = -speed;
-			isAsleep = false;
-			flip = SDL_FLIP_HORIZONTAL;
-		}
-		//Right
-		else if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			currentAnim = &move;
-			vel.x = speed;
-			isAsleep = false;
-			flip = SDL_FLIP_NONE;
-		}
-		else
-			vel.x = 0;
+		
+		if (path.Count() > 1)
+		{
+			iPoint dir;
+			dir.Create(path.At(1)->x - path.At(0)->x, path.At(1)->y - path.At(0)->y);
 
-		////Start charge
-		//if (app->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT && isCharging == 0 && !isShooting)
-		//{
-		//	isCharging = 120;
-		//	currentAnim = &shoot;
-		//	isAsleep = false;
-		//}
+
+			//Left
+			if (dir.x < 0)
+			{
+				currentAnim = &move;
+				vel.x = -speed;
+				flip = SDL_FLIP_HORIZONTAL;
+			}
+			//Right
+			else if (dir.x > 0)
+			{
+				currentAnim = &move;
+				vel.x = speed;
+				flip = SDL_FLIP_NONE;
+			}
+
+			
+		}
 
 		//Charging
-		if (isCharging == 1)
+		/*if (isCharging == 1)
 		{
 			isCharging = 0;
 			isShooting = true;
@@ -154,6 +157,7 @@ bool EnemyWalk::Update()
 				isAsleep = false;
 			}
 		}
+		*/
 	}
 
 	//Set the velocity of the pbody of the enemy
