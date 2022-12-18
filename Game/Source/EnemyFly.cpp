@@ -239,3 +239,10 @@ void EnemyFly::SetPosition(int posX, int posY)
 	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
 	pbody->body->SetTransform(position, 0);
 }
+
+bool EnemyFly::PlayerInRange(double range)
+{
+	double distance = sqrt(pow(app->scene->player->position.x - position.x, 2) + pow(app->scene->player->position.y - position.y, 2) * 1.0);
+
+	return distance < range ? true : false;
+}
