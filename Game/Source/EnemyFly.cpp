@@ -83,7 +83,6 @@ bool EnemyFly::Update()
 	{
 		isIdle = true;
 
-
 		// PATHFINDING
 		iPoint enemyTile = app->map->WorldToMap(
 			METERS_TO_PIXELS(this->pbody->body->GetPosition().x),

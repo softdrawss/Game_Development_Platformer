@@ -29,6 +29,8 @@ bool Audio::Awake(pugi::xml_node& config)
 	bool ret = true;
 	SDL_Init(0);
 
+	volume = 10;
+
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
 		LOG("SDL_INIT_AUDIO could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -55,6 +57,7 @@ bool Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	
 	return ret;
 }
 
@@ -108,6 +111,8 @@ bool Audio::PlayMusic(const char* path, float fadeTime)
 	}
 
 	music = Mix_LoadMUS(path);
+	Mix_Volume(1, volume);
+	Mix_VolumeMusic(volume);
 
 	if(music == NULL)
 	{
