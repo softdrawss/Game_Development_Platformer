@@ -160,7 +160,7 @@ bool EnemyFly::Update()
 
 	//Animation
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x+20, position.y+16, flip, &rect2);
+	app->render->DrawTexture(texture, position.x+16, position.y+16, flip, &rect2);
 	currentAnim->Update();
 	return true;
 }

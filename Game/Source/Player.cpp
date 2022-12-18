@@ -196,7 +196,7 @@ bool Player::Update()
 	if (!isGrounded) { currentAnim = &jump; }
 	if (isAttackingRock) { currentAnim = &attackNormal; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x+9, position.y+11, flip, &rect2);
+	app->render->DrawTexture(texture, position.x+4, position.y+11, flip, &rect2);
 	currentAnim->Update();
 
 	return true;
