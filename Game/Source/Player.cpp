@@ -51,7 +51,7 @@ bool Player::Start()
 	isIdle = true;
 	
 	// Pysics body
-	pbody = app->physics->CreateCircle(position.x, position.y, 8, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 7, bodyType::DYNAMIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::PLAYER;
 
@@ -68,7 +68,7 @@ bool Player::Start()
 bool Player::Update()
 {
 	b2Vec2 vel;
-	int speed = 5;
+	int speed = 4;
 
 	//God Mode
 	if (app->debug->godMode)
@@ -182,7 +182,7 @@ bool Player::Update()
 	}
 
 	//Player position
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 9;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
 
 	//Animations
@@ -264,7 +264,7 @@ void Player::LoadAnimations()
 	//idle.PushBack({ 80, 0, 15, 16 });
 	//idle.PushBack({ 96, 0, 15, 16 });
 	//idle.PushBack({ 112, 0, 15, 16 });
-	idle.speed = 0.03f;
+	idle.speed = 0.05f;
 
 	// Run animation, there is also a walk animation
 	// but as we are not using anything that changes the speed I'm going to stick to walk
@@ -277,7 +277,7 @@ void Player::LoadAnimations()
 	run.PushBack({ 96, 16, 15, 16 });
 	run.PushBack({ 112, 16, 15, 16 });
 
-	run.speed = 0.01f;
+	run.speed = 0.15f;
 
 	//climb.PushBack({ 0, 128, 32, 32 });
 	//climb.PushBack({ 32, 128, 32, 32 });
