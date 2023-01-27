@@ -42,34 +42,7 @@ bool GuiSlider::Update(float dt)
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) {
 				state = GuiControlState::PRESSED;
-				if (button == GuiButtontype::PUSH_Q) {
-					//Quaternion values in std::string to float
-					//app->scene->Reset();
-					
-					//
-
-					//app->scene->Reset();
-				}
-				if (button == GuiButtontype::PUSH_E) {
-					//Euler axis and angle values in std::string to float
-					//app->scene->Reset();
-					
-					//app->scene->Reset();
-				}
-				if (button == GuiButtontype::PUSH_A) {
-					//Euler angles values in std::string to float
-					//app->scene->Reset();
-					
-					//app->scene->Reset();
-				}
-				if (button == GuiButtontype::PUSH_V) {
-					//Rotation vector in std::string to float
-					//app->scene->Reset();
-					
-					//app->scene->Reset();
-				}
-				if (button == GuiButtontype::RESET) {
-				}
+				
 			}
 
 			//

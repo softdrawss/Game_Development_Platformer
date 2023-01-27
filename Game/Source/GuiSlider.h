@@ -6,14 +6,6 @@
 #include "Point.h"
 #include "SString.h"
 
-enum class GuiButtontype {
-	PUSH_Q,
-	PUSH_E,
-	PUSH_A,
-	PUSH_V,
-	RESET
-};
-
 class GuiSlider : public GuiControl
 {
 public:
@@ -33,7 +25,6 @@ public:
 	uint audioFxId;
 
 public:
-	GuiButtontype button;
 };
 
 #endif // __GUISLIDER_H__
