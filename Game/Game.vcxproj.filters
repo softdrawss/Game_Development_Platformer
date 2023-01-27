@@ -85,6 +85,24 @@
     <ClCompile Include="Source\PlayerInteract.cpp">
       <Filter>Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GuiButton.cpp">
+      <Filter>Modules\GuiButton</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiManager.cpp">
+      <Filter>Modules\GuiButton</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Timer.cpp">
+      <Filter>Modules\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PerfTimer.cpp">
+      <Filter>Modules\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiCheckBox.cpp">
+      <Filter>Modules\GuiButton</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiSlider.cpp">
+      <Filter>Modules\GuiButton</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Defs.h">
@@ -165,9 +183,6 @@
     <ClInclude Include="Source\Fonts.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Module.h">
-      <Filter>Modules\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Camera.h">
       <Filter>Modules\Gameplay</Filter>
     </ClInclude>
@@ -198,6 +213,30 @@
     <ClInclude Include="Source\PlayerInteract.h">
       <Filter>Modules\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GuiButton.h">
+      <Filter>Modules\GuiButton</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiControl.h">
+      <Filter>Modules\GuiButton</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiManager.h">
+      <Filter>Modules\GuiButton</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Module.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Timer.h">
+      <Filter>Modules\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PerfTimer.h">
+      <Filter>Modules\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiCheckBox.h">
+      <Filter>Modules\GuiButton</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiSlider.h">
+      <Filter>Modules\GuiButton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -224,8 +263,14 @@
     <Filter Include="Modules\Scenes">
       <UniqueIdentifier>{1d52225b-5837-41ff-be7c-d8c566c359ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules\GuiButton">
+      <UniqueIdentifier>{68735ccd-2b57-4b66-b6ad-d86202ccd016}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Modules\Entities">
       <UniqueIdentifier>{e9f149eb-3442-421f-aa46-05871af65b31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Timer">
+      <UniqueIdentifier>{d0b453f1-a82f-4e58-a0c1-991bc7b2ce12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

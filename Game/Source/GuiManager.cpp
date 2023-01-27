@@ -3,10 +3,11 @@
 #include "Textures.h"
 
 #include "GuiButton.h"
-#include "InpButton.h"
+#include "GuiCheckBox.h"
+#include "GuiSlider.h"
 #include "Audio.h"
 
-GuiManager::GuiManager() :Module()
+GuiManager::GuiManager(bool startEnabled) :Module(startEnabled)
 {
 	name.Create("guiManager");
 }
@@ -30,24 +31,23 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	case GuiControlType::BUTTON:
 		guiControl = new GuiButton(id, bounds, text);
 		break;
-	/*
-	case GuiControlType::TOGGLE:
-		break;
 	case GuiControlType::CHECKBOX:
+		guiControl = new GuiCheckBox(id, bounds, text);
 		break;
 	case GuiControlType::SLIDER:
+		guiControl = new GuiSlider(id, bounds, text);
+		break;
+	/*
+	case GuiControlType::TOGGLE:
 		break;
 	case GuiControlType::SLIDERBAR:
 		break;
 	case GuiControlType::COMBOBOX:
 		break;
 	case GuiControlType::DROPDOWNBOX:
-		break;*/
-
-	case GuiControlType::INPUTBOX:
-		guiControl = new InpButton(id, bounds, text);
 		break;
-	/*
+	case GuiControlType::INPUTBOX:
+		break;
 	case GuiControlType::VALUEBOX:
 		break;
 	case GuiControlType::SPINNER:

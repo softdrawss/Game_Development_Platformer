@@ -11,7 +11,7 @@ class GuiManager : public Module
 public:
 
 	// Constructor
-	GuiManager();
+	GuiManager(bool startEnabled);
 
 	// Destructor
 	virtual ~GuiManager();

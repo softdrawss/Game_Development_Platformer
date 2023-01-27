@@ -4,8 +4,6 @@
 #include "Audio.h"
 #include "Log.h"
 #include "Scene.h"
-#include <eigen/Eigen/Core>
-#include <eigen/Eigen/Dense>
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -47,88 +45,30 @@ bool GuiButton::Update(float dt)
 				if (button == GuiButtontype::PUSH_Q) {
 					//Quaternion values in std::string to float
 					//app->scene->Reset();
-					Eigen::Vector4f q(std::stof(app->scene->q[0]->input), std::stof(app->scene->q[1]->input), std::stof(app->scene->q[2]->input), std::stof(app->scene->q[3]->input));
-					app->scene->rmatrix = app->scene->CreateRotationMatrix(app->scene->AngleAndAxisFromQuaternion(q.normalized()));
-					Eigen::Vector4f rot(q.normalized());
-
-					app->scene->p1 << 200, 200, 200;
-					app->scene->p2 << 400, 200, 200;
-					app->scene->p3 << 400, 400, 200;
-					app->scene->p4 << 200, 400, 200;
-					app->scene->p5 << 200, 200, 400;
-					app->scene->p6 << 400, 200, 400;
-					app->scene->p7 << 400, 400, 400;
-					app->scene->p8 << 200, 400, 400;
+					
 					//
 
-					app->scene->ComputationAndPrintingOfAllRotations();					
-					app->scene->ChangePositionPoints(rot);
 					//app->scene->Reset();
 				}
 				if (button == GuiButtontype::PUSH_E) {
 					//Euler axis and angle values in std::string to float
 					//app->scene->Reset();
-					Eigen::Vector4f e(std::stof(app->scene->e[0]->input), std::stof(app->scene->e[1]->input), std::stof(app->scene->e[2]->input), std::stof(app->scene->e[3]->input));
-					app->scene->rmatrix = app->scene->CreateRotationMatrix(e);
-
-					Eigen::Vector4f rot(app->scene->QuaternionFromEulerAndAxis(e).normalized());
-					//
-					app->scene->p1 << 200, 200, 200;
-					app->scene->p2 << 400, 200, 200;
-					app->scene->p3 << 400, 400, 200;
-					app->scene->p4 << 200, 400, 200;
-					app->scene->p5 << 200, 200, 400;
-					app->scene->p6 << 400, 200, 400;
-					app->scene->p7 << 400, 400, 400;
-					app->scene->p8 << 200, 400, 400;
-
-					app->scene->ComputationAndPrintingOfAllRotations();					
-					app->scene->ChangePositionPoints(rot);
+					
 					//app->scene->Reset();
 				}
 				if (button == GuiButtontype::PUSH_A) {
 					//Euler angles values in std::string to float
 					//app->scene->Reset();
-					app->scene->rmatrix = app->scene->CreateEulerAnglesRotation(std::stof(app->scene->a[0]->input), std::stof(app->scene->a[1]->input), std::stof(app->scene->a[2]->input));
-
-					Eigen::Vector4f rot(app->scene->QuaternionFromEulerAngles(std::stof(app->scene->a[0]->input), std::stof(app->scene->a[1]->input), std::stof(app->scene->a[2]->input)).normalized().normalized());
-					app->scene->p1 << 200, 200, 200;
-					app->scene->p2 << 400, 200, 200;
-					app->scene->p3 << 400, 400, 200;
-					app->scene->p4 << 200, 400, 200;
-					app->scene->p5 << 200, 200, 400;
-					app->scene->p6 << 400, 200, 400;
-					app->scene->p7 << 400, 400, 400;
-					app->scene->p8 << 200, 400, 400;
-					//
-			
-					app->scene->ComputationAndPrintingOfAllRotations();		
-					app->scene->ChangePositionPoints(rot);
+					
 					//app->scene->Reset();
 				}
 				if (button == GuiButtontype::PUSH_V) {
 					//Rotation vector in std::string to float
 					//app->scene->Reset();
-					Eigen::Vector3f v(std::stof(app->scene->v[0]->input), std::stof(app->scene->v[1]->input), std::stof(app->scene->v[2]->input));
-					app->scene->rmatrix = app->scene->CreateRotationMatrix(app->scene->AngleAndAxisFromRotationVector(v));
-
-					Eigen::Vector4f rot(app->scene->QuaternionFromEulerAndAxis(app->scene->AngleAndAxisFromRotationVector(v)));
-					app->scene->p1 << 200, 200, 200;
-					app->scene->p2 << 400, 200, 200;
-					app->scene->p3 << 400, 400, 200;
-					app->scene->p4 << 200, 400, 200;
-					app->scene->p5 << 200, 200, 400;
-					app->scene->p6 << 400, 200, 400;
-					app->scene->p7 << 400, 400, 400;
-					app->scene->p8 << 200, 400, 400;
-					//
-
-					app->scene->ComputationAndPrintingOfAllRotations();					
-					app->scene->ChangePositionPoints(rot);
+					
 					//app->scene->Reset();
 				}
 				if (button == GuiButtontype::RESET) {
-					app->scene->Reset();
 				}
 			}
 

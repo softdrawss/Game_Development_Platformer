@@ -7,6 +7,7 @@
 
 class App;
 class PhysBody;
+class GuiControl;
 
 class Module
 {
@@ -88,6 +89,11 @@ public:
 			active = false;
 			CleanUp();
 		}
+	}
+
+	virtual bool OnGuiMouseClickEvent(GuiControl* control)
+	{
+		return true;
 	}
 
 public:
