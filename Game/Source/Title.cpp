@@ -72,12 +72,16 @@ bool Title::Start()
 	currentAnim = &anim;
 
 	//Buttons
-	B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 600,600,100,40 }, this);
+	B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 600,300,100,40 }, this);
 	B_play->button = GuiButtontype::PLAY;
-	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 600,500,100,40 }, this);
-	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 600,400,100,40 }, this);
-	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 600,300,100,40 }, this);
+	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 600,400,100,40 }, this);
+	B_continue->button = GuiButtontype::CONTINUE;
+	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 600,500,100,40 }, this);
+	B_continue->button = GuiButtontype::SETTINGS;
+	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 600,600,100,40 }, this);
+	B_continue->button = GuiButtontype::CREDITS;
 	B_exit = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "EXIT", { 600,700,100,40 }, this);
+	B_continue->button = GuiButtontype::EXIT;
 
 	//Sliders
 	//S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 1130,51,100,40 }, this);

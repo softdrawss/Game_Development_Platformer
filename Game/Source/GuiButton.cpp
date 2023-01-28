@@ -8,6 +8,8 @@
 #include "Title.h"
 #include "Scene.h"
 #include "Physics.h"
+#include "Window.h"
+
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -27,6 +29,7 @@ GuiButton::~GuiButton()
 
 bool GuiButton::Update(float dt)
 {
+	int scale = app->win->GetScale();
 	if (state != GuiControlState::DISABLED)
 	{
 		// L15: DONE 3: Update the state of the GUiButton according to the mouse position
@@ -38,8 +41,8 @@ bool GuiButton::Update(float dt)
 		GuiControlState previousState = state;
 
 		// I'm inside the limitis of the button
-		if (mouseX >= bounds.x && mouseX <= bounds.x + bounds.w &&
-			mouseY >= bounds.y && mouseY <= bounds.y + bounds.h) {
+		if (mouseX * scale >= bounds.x && mouseX * scale <= bounds.x + bounds.w &&
+			mouseY * scale >= bounds.y && mouseY * scale <= bounds.y + bounds.h) {
 			
 			state = GuiControlState::FOCUSED;
 			if (previousState != state) {
@@ -49,26 +52,26 @@ bool GuiButton::Update(float dt)
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) {
 				state = GuiControlState::PRESSED;
-				if (button == GuiButtontype::PLAY) {
+				switch (this->button)
+				{
+				case GuiButtontype::PLAY:
 					app->fade->FadeBlack((Module*)app->titleScreen, (Module*)app->scene, 90);
-				}
-				if (button == GuiButtontype::CONTINUE) {
-					
-				}
-				if (button == GuiButtontype::SETTINGS) {
+					break;
+				case GuiButtontype::CONTINUE:
+					break;
+				case GuiButtontype::SETTINGS:
 					app->titleScreen->settings = true;
-				}
-				if (button == GuiButtontype::CREDITS) {
+					break;
+				case GuiButtontype::CREDITS:
 					app->titleScreen->credits = true;
-				}
-				if (button == GuiButtontype::EXIT) {
-					//must return false in the update
-				}
-				if (button == GuiButtontype::RESUME) {
-
-				}
-				if (button == GuiButtontype::BACK_TO_TITLE) {
+					break;
+				case GuiButtontype::RESUME:
+					break;
+				case GuiButtontype::BACK_TO_TITLE:
 					app->fade->FadeBlack((Module*)app->scene, (Module*)app->titleScreen, 90);
+					break;
+				default:
+					break;
 				}
 			}
 
