@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Coin.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\Ending.cpp" />
     <ClCompile Include="Source\EnemyFly.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="Source\GuiCheckBox.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\GuiSlider.cpp" />
+    <ClCompile Include="Source\Health.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\PlayerInteract.cpp" />
     <ClCompile Include="Source\Item.cpp" />
@@ -129,6 +131,7 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\Coin.h" />
     <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\Ending.h" />
     <ClInclude Include="Source\EnemyFly.h" />
@@ -142,6 +145,7 @@
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\GuiSlider.h" />
+    <ClInclude Include="Source\Health.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\PlayerInteract.h" />
     <ClInclude Include="Source\Item.h" />

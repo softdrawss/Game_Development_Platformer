@@ -33,6 +33,9 @@
     <player x="16" y="81" texturepath="Assets/Textures/Characters/NewPlayer/player.png" jump="Assets/Audio/Fx/jump.wav" death="Assets/Audio/Fx/death.wav" dash="Assets/Audio/Fx/dash.wav"/>
     <fly x="300" y="118" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png" audioPath="Assets/Audio/Fx/attack.wav"/>
 	<walk x="100" y="118" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png" audioPath="Assets/Audio/Fx/attack.wav"/>
+	<coin x="200" y="118" texturepath="Assets/Textures/Characters/Coins/coin4_16x16.png" audioPath="Assets/Audio/Fx/attack.wav"/>
+	<heart x="400" y="118" texturepath="Assets/Textures/Characters/Coins/coin4_16x16.png" audioPath="Assets/Audio/Fx/attack.wav"/>
+
 	<interact audioPath="Assets/Audio/Fx/attack.wav"/>
 	  
 	<chickboy x="2186" y="385" texturepath="Assets/Textures/Characters/ChickBoy/AnimationList.png"/>
