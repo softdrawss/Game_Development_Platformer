@@ -4,6 +4,9 @@
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
+#include "GuiButton.h"
+#include "GuiCheckBox.h"
+#include "GuiSlider.h"
 
 struct SDL_Texture;
 
@@ -34,7 +37,25 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void DrawCredits();
+	void DrawSettings();
+
 public:
+	//Buttons
+	GuiButton* B_play;
+	GuiButton* B_continue;
+	GuiButton* B_settings;
+	GuiButton* B_credits;
+	GuiButton* B_exit;
+
+	//Sliders
+	GuiSlider* S_music;
+	GuiSlider* S_fx;
+
+	//CheckBox
+	GuiCheckBox* C_screen;
+	GuiCheckBox* C_vysinc;
+	bool credits = false, settings = false;
 
 private:
 	SDL_Texture* img;

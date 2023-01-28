@@ -12,7 +12,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "Player.h"
-
+#include "GuiManager.h"
 #include "Scene.h"
 
 #include "Debug.h"
@@ -71,7 +71,24 @@ bool Title::Start()
 
 	currentAnim = &anim;
 
-	
+	//Buttons
+	B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 600,600,100,40 }, this);
+	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 600,500,100,40 }, this);
+	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 600,400,100,40 }, this);
+	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 600,300,100,40 }, this);
+	B_exit = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "EXIT", { 600,700,100,40 }, this);
+
+	//Sliders
+	//S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 1130,51,100,40 }, this);
+	//S_music->active = false;
+	//S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 1130,51,100,40 }, this);
+	//S_fx->active = false;
+
+	//CheckBox
+	//C_screen = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "FULL SCREEN", { 1130,51,100,40 }, this);
+	//C_screen->active = false;
+	//C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 1130,51,100,40 }, this);
+	//C_vysinc->active = false;
 	return true;
 }
 
@@ -95,6 +112,13 @@ bool Title::Update(float dt)
 	if (xA >= 700) {
 			app->fade->FadeBlack(this, (Module*)app->scene, 90);
 	}
+
+	if (credits)
+		DrawCredits();
+
+	if (settings)
+		DrawSettings();
+
 	return true;
 }
 
@@ -105,6 +129,7 @@ bool Title::PostUpdate()
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(animImg, xA, yA, SDL_FLIP_NONE, &rect2);
 	currentAnim->Update();
+	app->guimanager->Draw();
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 	{
@@ -120,4 +145,12 @@ bool Title::CleanUp()
 	LOG("Freeing title");
 	app->tex->UnLoad(img);
 	return true;
+}
+
+void Title::DrawCredits() {
+
+}
+
+void Title::DrawSettings() {
+
 }

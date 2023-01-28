@@ -4,6 +4,9 @@
 #include "Audio.h"
 #include "Log.h"
 #include "Scene.h"
+#include "FadeToBlack.h"
+#include "Title.h"
+#include "Scene.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -42,33 +45,26 @@ bool GuiButton::Update(float dt)
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) {
 				state = GuiControlState::PRESSED;
-				if (button == GuiButtontype::PUSH_Q) {
-					//Quaternion values in std::string to float
-					//app->scene->Reset();
+				if (button == GuiButtontype::PLAY) {
+					app->fade->FadeBlack((Module*)app->titleScreen, (Module*)app->scene, 90);
+				}
+				if (button == GuiButtontype::CONTINUE) {
 					
-					//
+				}
+				if (button == GuiButtontype::SETTINGS) {
+					app->titleScreen->settings = true;
+				}
+				if (button == GuiButtontype::CREDITS) {
+					app->titleScreen->credits = true;
+				}
+				if (button == GuiButtontype::EXIT) {
+					//must return false in the update
+				}
+				if (button == GuiButtontype::RESUME) {
 
-					//app->scene->Reset();
 				}
-				if (button == GuiButtontype::PUSH_E) {
-					//Euler axis and angle values in std::string to float
-					//app->scene->Reset();
-					
-					//app->scene->Reset();
-				}
-				if (button == GuiButtontype::PUSH_A) {
-					//Euler angles values in std::string to float
-					//app->scene->Reset();
-					
-					//app->scene->Reset();
-				}
-				if (button == GuiButtontype::PUSH_V) {
-					//Rotation vector in std::string to float
-					//app->scene->Reset();
-					
-					//app->scene->Reset();
-				}
-				if (button == GuiButtontype::RESET) {
+				if (button == GuiButtontype::BACK_TO_TITLE) {
+					app->fade->FadeBlack((Module*)app->scene, (Module*)app->titleScreen, 90);
 				}
 			}
 
@@ -91,24 +87,25 @@ bool GuiButton::Update(float dt)
 bool GuiButton::Draw(Render* render)
 {
 	//L15: DONE 4: Draw the button according the GuiControl State
+	if (active) {
+		switch (state)
+		{
+		case GuiControlState::DISABLED:
+			render->DrawRectangle(bounds, 200, 200, 200, 200, true, false);
+			break;
+		case GuiControlState::NORMAL:
+			render->DrawRectangle(bounds, 0, 0, 255, 200, true, false);
+			break;
+		case GuiControlState::FOCUSED:
+			render->DrawRectangle(bounds, 153, 153, 255, 200, true, false);
+			break;
+		case GuiControlState::PRESSED:
+			render->DrawRectangle(bounds, 0, 255, 0, 200, true, false);
+			break;
+		}
 
-	switch (state)
-	{
-	case GuiControlState::DISABLED:
-		render->DrawRectangle(bounds, 200, 200, 200, 200, true, false);
-		break;
-	case GuiControlState::NORMAL:
-		render->DrawRectangle(bounds, 0, 0, 255, 200, true, false);
-		break;
-	case GuiControlState::FOCUSED:
-		render->DrawRectangle(bounds, 153, 153, 255, 200, true, false);
-		break;
-	case GuiControlState::PRESSED:
-		render->DrawRectangle(bounds, 0, 255, 0, 200, true, false);
-		break;
+		app->render->DrawText(text.GetString(), bounds.x + 10, bounds.y + 5, bounds.w - 20, bounds.h - 10, { 255,255,255 });
 	}
-
-	app->render->DrawText(text.GetString(), bounds.x+10, bounds.y+5, bounds.w-20, bounds.h-10, {255,255,255});
 
 	return false;
 }

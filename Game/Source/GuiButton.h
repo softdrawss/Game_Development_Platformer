@@ -7,11 +7,13 @@
 #include "SString.h"
 
 enum class GuiButtontype {
-	PUSH_Q,
-	PUSH_E,
-	PUSH_A,
-	PUSH_V,
-	RESET
+	PLAY,
+	CONTINUE,
+	SETTINGS,
+	CREDITS,
+	EXIT,
+	RESUME,
+	BACK_TO_TITLE
 };
 
 class GuiButton : public GuiControl
