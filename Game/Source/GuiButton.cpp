@@ -7,7 +7,7 @@
 #include "FadeToBlack.h"
 #include "Title.h"
 #include "Scene.h"
-
+#include "Physics.h"
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -17,6 +17,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	drawBasic = false;
 
 	//audioFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	this->state = GuiControlState::NORMAL;
 }
 
 GuiButton::~GuiButton()
@@ -29,7 +30,10 @@ bool GuiButton::Update(float dt)
 	if (state != GuiControlState::DISABLED)
 	{
 		// L15: DONE 3: Update the state of the GUiButton according to the mouse position
-		app->input->GetMousePosition(mouseX, mouseY);
+		app->input->GetMousePosition((mouseX), mouseY);
+
+		//mouseX = PIXEL_TO_METERS(mouseX);
+		//mouseY = PIXEL_TO_METERS(mouseY);
 
 		GuiControlState previousState = state;
 

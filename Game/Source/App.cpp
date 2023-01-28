@@ -67,6 +67,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(titleScreen);
 	AddModule(scene);
 	AddModule(endScreen);
+	AddModule(guimanager);
 
 	AddModule(map);
 	AddModule(pathFinding);
@@ -78,7 +79,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
-
 	
 }
 

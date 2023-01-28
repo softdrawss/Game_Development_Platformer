@@ -73,6 +73,7 @@ bool Title::Start()
 
 	//Buttons
 	B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 600,600,100,40 }, this);
+	B_play->button = GuiButtontype::PLAY;
 	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 600,500,100,40 }, this);
 	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 600,400,100,40 }, this);
 	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 600,300,100,40 }, this);
@@ -125,9 +126,9 @@ bool Title::Update(float dt)
 // Called each loop iteration
 bool Title::PostUpdate()
 {
-	app->render->DrawTexture(img, x, y, SDL_FLIP_NONE);
+	//app->render->DrawTexture(img, x, y, SDL_FLIP_NONE);
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(animImg, xA, yA, SDL_FLIP_NONE, &rect2);
+	//app->render->DrawTexture(animImg, xA, yA, SDL_FLIP_NONE, &rect2);
 	currentAnim->Update();
 	app->guimanager->Draw();
 
@@ -152,5 +153,24 @@ void Title::DrawCredits() {
 }
 
 void Title::DrawSettings() {
+
+}
+
+// Define multiple Gui Event methods
+bool Title::OnGuiMouseClickEvent(GuiControl* control) {
+	// L15: DONE 5: Implement the OnGuiMouseClickEvent method
+	LOG("Event by %d ", control->id);
+
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button 1 click");
+		break;
+	case 2:
+		LOG("Button 2 click");
+		break;
+	}
+
+	return true;
 
 }

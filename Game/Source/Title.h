@@ -40,6 +40,9 @@ public:
 	void DrawCredits();
 	void DrawSettings();
 
+	// Define multiple Gui Event methods
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 public:
 	//Buttons
 	GuiButton* B_play;
