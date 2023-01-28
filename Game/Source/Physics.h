@@ -49,6 +49,10 @@ enum class ColliderType
 	TRIG_2A,
 	TRIG_2R,
 
+	//
+	COIN,
+	HEALTH,
+
 	UNKNOWN
 };
 

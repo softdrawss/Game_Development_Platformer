@@ -1,5 +1,5 @@
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#ifndef __COIN_H__
+#define __COIN_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -9,12 +9,12 @@
 
 struct SDL_Texture;
 
-class Player : public Entity
+class Coin : public Entity
 {
 public:
 
-	Player();	
-	virtual ~Player();
+	Coin();
+	virtual ~Coin();
 
 	bool Awake();
 	bool Start();
@@ -30,7 +30,7 @@ public:
 
 public:
 
-	bool alive;
+	bool alive, isGrounded;
 	b2Vec2 initPosition;
 	//Physics
 	PhysBody* pbody;
@@ -38,15 +38,7 @@ public:
 private:
 	
 	//Bools
-	bool isIdle;
-	bool isGrounded;
-	bool wallSlideRight, wallSlideLeft;
-	bool stairs;
 
-	int remainingJumpSteps;
-	int remainingDash;
-	int dashCD;
-	bool isAttacking;
 
 	//Texture
 	SDL_Texture* texture;
@@ -55,15 +47,11 @@ private:
 	//Animation
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;
-	Animation idle, run, jump, climb;
-	Animation attackNormal;
-	Animation death;
+	Animation rot;
 
 	//FX
-	int pickCoinFxIdaudio, jumpaudio, deathaudio, dashaudio;
-	const char* jumppath;
-	const char* deathpath;
-	const char* dashpath;
+	int pickCoinFxIdaudio;
+
 };
 
 #endif // __PLAYER_H__

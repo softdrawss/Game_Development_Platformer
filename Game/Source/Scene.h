@@ -8,7 +8,8 @@
 #include "EnemyWalk.h"
 #include "EnemyFly.h"
 #include "NPCChickBoy.h"
-
+#include "Coin.h"
+#include "Health.h"
 
 struct SDL_Texture;
 
@@ -47,6 +48,8 @@ public:
 	EnemyFly* enemyFly;
 	EnemyWalk* enemyWalk;
 	NPCChickBoy* npcChickBoy;
+	Coin* coin;
+	Health* health;
 
 	int camSpeed;
 

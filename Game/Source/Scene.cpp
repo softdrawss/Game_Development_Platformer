@@ -62,6 +62,10 @@ bool Scene::Start()
 	playerInteract = (PlayerInteract*)app->entityManager->CreateEntity(EntityType::INTERACT);
 	playerInteract->parameters = config.child("interact");
 
+	//PLAYER INTERACT
+	coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
+	coin->parameters = config.child("coin");
+
 	//Enables
 	app->map->Enable();
 	app->physics->Enable();

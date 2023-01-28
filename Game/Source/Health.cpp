@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Health.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -14,16 +14,16 @@
 #include "PlayerInteract.h"
 #include "EntityManager.h"
 
-Player::Player() : Entity(EntityType::PLAYER)
+Health::Health() : Entity(EntityType::HEALTH)
 {
-	name.Create("Player");
+	name.Create("Health");
 }
 
-Player::~Player() {
+Health::~Health() {
 
 }
 
-bool Player::Awake() {
+bool Health::Awake() {
 
 	//L02: DONE 1: Initialize Player parameters
 	//pos = position;
@@ -34,7 +34,7 @@ bool Player::Awake() {
 	return true;
 }
 
-bool Player::Start()
+bool Health::Start()
 {
 	alive = true;
 	stairs = false;
@@ -79,7 +79,7 @@ bool Player::Start()
 	return true;
 }
 
-bool Player::Update()
+bool Health::Update()
 {
 	b2Vec2 vel;
 	int speed = 2;
@@ -264,20 +264,20 @@ bool Player::Update()
 	return true;
 }
 
-bool Player::PostUpdate()
+bool Health::PostUpdate()
 {
 	
 	
 	return true;
 }
 
-bool Player::CleanUp()
+bool Health::CleanUp()
 {
 	app->entityManager->DestroyEntity(this);
 	return true;
 }
 
-void Player::OnCollision(PhysBody* physA, PhysBody* physB)
+void Health::OnCollision(PhysBody* physA, PhysBody* physB)
 {
 	switch (physB->ctype)
 	{
@@ -317,13 +317,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	}
 }
 
-void Player::SetPosition(int posX, int posY)
+void Health::SetPosition(int posX, int posY)
 {
 	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
 	pbody->body->SetTransform(position, 0);
 }
 
-void Player::Attack() {
+void Health::Attack() {
 	
 	//IDEAS
 	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
@@ -332,12 +332,12 @@ void Player::Attack() {
 	//pbody->body->SetActive(true);
 }
 
-bool Player::LookingRight()
+bool Health::LookingRight()
 {
-	return app->scene->player->flip == SDL_FLIP_NONE ? true : false;;
+	return app->scene->health->flip == SDL_FLIP_NONE ? true : false;;
 }
 
-void Player::LoadAnimations()
+void Health::LoadAnimations()
 {
 	idle.PushBack({ 0, 0, 15, 16 });
 	idle.PushBack({ 16, 0, 15, 16 });

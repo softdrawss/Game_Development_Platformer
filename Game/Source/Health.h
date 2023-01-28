@@ -1,5 +1,5 @@
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#ifndef __HEALTH_H__
+#define __HEALTH_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -9,12 +9,12 @@
 
 struct SDL_Texture;
 
-class Player : public Entity
+class Health : public Entity
 {
 public:
 
-	Player();	
-	virtual ~Player();
+	Health();
+	virtual ~Health();
 
 	bool Awake();
 	bool Start();
@@ -66,4 +66,4 @@ private:
 	const char* dashpath;
 };
 
-#endif // __PLAYER_H__
+#endif // __HEALTH_H__

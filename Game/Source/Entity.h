@@ -16,6 +16,8 @@ enum class EntityType
 	WALK,
 	FLY,
 	NPC,
+	COIN,
+	HEALTH,
 	UNKNOWN
 };
 

@@ -310,7 +310,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		else
 			wallSlideRight = true;
 		break;
-
+	case ColliderType::COIN:
+		LOG("Collision UNKNOWN");
+		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

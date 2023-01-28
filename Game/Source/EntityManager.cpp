@@ -5,6 +5,8 @@
 #include "NPCChickBoy.h"
 #include "EnemyFly.h"
 #include "EnemyWalk.h"
+#include "Coin.h"
+#include "Health.h"
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
@@ -96,20 +98,23 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::INTERACT:
 		entity = new PlayerInteract();
 		break;
-
 	case EntityType::ITEM:
 		entity = new Item();
 		break;
-
 	case EntityType::FLY:
 		entity = new EnemyFly();
 		break;
 	case EntityType::WALK:
 		entity = new EnemyWalk();
 		break;
-
 	case EntityType::NPC:
 		entity = new NPCChickBoy();
+		break;
+	case EntityType::COIN:
+		entity = new Coin();
+		break;
+	case EntityType::HEALTH:
+		entity = new Health();
 		break;
 	default: break;
 	}
