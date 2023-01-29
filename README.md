@@ -12,10 +12,8 @@ Link to the Beta release: [https://github.com/softdrawss/Game_Development_Platfo
 
 ### NOTE ON THIS VERSION!
 
-To fit the assignment, we changed totally the assets we were using and the way the Game was displayed (before this version, you had to go to the right to continue the level. However, now you must go up and down in order to trigger some parts of the game and continue.
-
-Because of the aesthetics of the game, we also changed the name from "Pink Guy" to "The Pipe Maze" and changed the screens too as they featured the player from the Alpha version.
-
+- Added from Assigment 1: XML config file loading - read modules and entity parameters from XML
+- Added from Assigment 1: Load/Save game state using XML file
 
 ## Key Features
 
