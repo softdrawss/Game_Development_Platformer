@@ -61,6 +61,10 @@ bool Scene::Start()
 	playerInteract = (PlayerInteract*)app->entityManager->CreateEntity(EntityType::INTERACT);
 	playerInteract->parameters = config.child("interact");
 
+	//TRIGGERS
+	door_A = false;
+	trapDoor_A = false;
+
 	//COIN
 	coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 	coin->parameters = config.child("coin");

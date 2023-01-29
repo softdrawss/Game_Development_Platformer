@@ -62,6 +62,10 @@ public:
 
 	SDL_Rect rectCamera;
 
+	//Triggers
+	bool door_A;
+	bool trapDoor_A;
+
 private:
 	SDL_Texture* img;
 

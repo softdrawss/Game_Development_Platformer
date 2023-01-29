@@ -32,10 +32,10 @@ bool PlayerInteract::Start()
 	//texture = app->tex->Load(texturePath);
 	
 	// L07 DONE 4: Add a physics to an item - initialize the physics body
-	pbody = app->physics->CreateRectangleSensor(position.x, position.y, 22, 16, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangleSensor(position.x, position.y, 22, 16, bodyType::STATIC);
 	pbody->ctype = ColliderType::INTERACT;
-	pbody->body->SetActive(false);
 	pbody->listener = this;
+	pbody->body->SetActive(true);
 	active = 0;
 	return true;
 }
@@ -43,23 +43,25 @@ bool PlayerInteract::Start()
 bool PlayerInteract::Update()
 {
 	OPTICK_EVENT();
+
 	// Set active?
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		pbody->body->SetActive(true);
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && active < 3)
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && active == 0)
 	{
-		active = 3;
+		active = 4;
 	}
-	if (active > 0) {
+	if (active >= 1)
+	{
 		pbody->body->SetActive(true);
 		active--;
-	}
-	else {
-		pbody->body->SetActive(false);
+
+		if (active == 0){}
+			//pbody->body->SetActive(false);
 	}
 
-	if (pbody->body->IsActive() == true) {
+	if (true/*pbody->body->IsActive() == true*/) {
 		//Set position
 		b2Vec2 position;
 	
@@ -74,8 +76,7 @@ bool PlayerInteract::Update()
 		pbody->body->SetTransform(PIXEL_TO_METERS(position), 0);
 	}
 	
-	
-	
+		
 	//app->render->DrawTexture(texture, position.x, position.y, SDL_FLIP_NONE);
 
 	return true;
@@ -83,7 +84,6 @@ bool PlayerInteract::Update()
 
 bool PlayerInteract::CleanUp()
 {
-	
 	app->entityManager->DestroyEntity(this);
 	return true;
 }
@@ -94,10 +94,11 @@ void PlayerInteract::OnCollision(PhysBody* physA, PhysBody* physB)
 	{
 	case ColliderType::TRIG_1A:
 		LOG("Collision TRIG_1A");
-		
+		app->scene->door_A = true;
 		break;
 	case ColliderType::TRIG_2A:
 		LOG("Collision TRIG_2A");
+		app->scene->trapDoor_A = true;
 		break;
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");

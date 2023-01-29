@@ -52,7 +52,7 @@ bool Coin::Start()
 	//Set bools
 
 	// Pysics body
-	pbody = app->physics->CreateCircle(position.x, position.y, 7, bodyType::STATIC);
+	pbody = app->physics->CreateCircleSensor(position.x, position.y, 7, bodyType::STATIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::COIN;
 
