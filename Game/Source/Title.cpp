@@ -110,7 +110,7 @@ bool Title::Start()
 	C_screen->active = false;
 	C_screen->state = GuiControlState::DISABLED;
 	C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 260,460,50,50 }, this);
-	C_screen->button = GuiCheckBoxType::VSYNC;
+	C_vysinc->button = GuiCheckBoxType::VSYNC;
 	C_vysinc->active = false;
 	C_vysinc->state = GuiControlState::DISABLED;
 

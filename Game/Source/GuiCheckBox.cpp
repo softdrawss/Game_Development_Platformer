@@ -67,14 +67,12 @@ bool GuiCheckBox::Update(float dt)
 		if (checked)         
 			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);     
 		else if (!checked)         
-		SDL_SetWindowFullscreen(app->win->window, 0);
+			SDL_SetWindowFullscreen(app->win->window, 0);
 	}
 	if (this->button == GuiCheckBoxType::VSYNC) {
 		app->debug->controlFPS = !app->debug->controlFPS;
 	}
-	if (app->debug->controlFPS) {
-		checked = true;
-	}
+	
 	return false;
 }
 
@@ -101,6 +99,24 @@ bool GuiCheckBox::Draw(Render* render)
 				render->DrawRectangle(bounds, 0, 255, 0, 200, checked, false);
 				break;
 			}
+			if (this->button == GuiCheckBoxType::VSYNC) {
+				if (checked) {
+					app->render->DrawText("OFF", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+
+				}
+				else {
+					app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+				}
+			}
+			else if (this->button == GuiCheckBoxType::FULLSCREEN) {
+				if (checked) {
+					app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+
+				}
+				else {
+					app->render->DrawText("OFF", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+				}
+			}
 		}
 		else {
 			switch (state)
@@ -118,25 +134,26 @@ bool GuiCheckBox::Draw(Render* render)
 				render->DrawRectangle(bounds, 0, 255, 0, 200, checked, false);
 				break;
 			}
-		}
-		if (this->button == GuiCheckBoxType::VSYNC) {
-			if (checked) {
-				app->render->DrawText("OFF", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+			if (this->button == GuiCheckBoxType::VSYNC) {
+				if (checked) {
+					app->render->DrawText("OFF", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
 
+				}
+				else {
+					app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+				}
 			}
-			else {
-				app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
-			}
-		}
-		else if (this->button == GuiCheckBoxType::FULLSCREEN) {
-			if (checked) {
-				app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+			else if (this->button == GuiCheckBoxType::FULLSCREEN) {
+				if (checked) {
+					app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
 
-			}
-			else {
-				app->render->DrawText("OFF", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+				}
+				else {
+					app->render->DrawText("OFF", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+				}
 			}
 		}
+		
 	}
 
 	
