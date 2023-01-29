@@ -122,7 +122,7 @@ void Coin::OnCollision(PhysBody* physA, PhysBody* physB)
 			}
 			isPicked = true;
 
-			LOG("CARROT PICKED :D");
+			LOG("COIN PICKED");
 		}
 	}
 }

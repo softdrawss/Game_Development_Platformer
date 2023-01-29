@@ -6,6 +6,12 @@
 #include "Point.h"
 #include "SString.h"
 
+enum class GuiSlidertype {
+	FX,
+	MUSIC
+};
+
+
 class GuiSlider : public GuiControl
 {
 public:
@@ -15,14 +21,21 @@ public:
 
 	bool Update(float dt);
 	bool Draw(Render* render);
+	void SetValue(int value);
 
-	int mouseX, mouseY;
+	int mouseX, mouseY, previousX, previousY;
 	unsigned int click;
 
 	bool canClick = true;
 	bool drawBasic = false;
 
+	int length, position;
+
 	uint audioFxId;
+	SDL_Rect square;
+
+	GuiSlidertype slider;
+	SDL_Rect sliderLine;
 
 public:
 };

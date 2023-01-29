@@ -81,6 +81,11 @@ bool GuiButton::Update(float dt)
 				case GuiButtontype::EXIT:
 					app->titleScreen->exit = true;
 					break;
+				case GuiButtontype::BACK:
+					app->titleScreen->credits = false;
+					app->titleScreen->settings = false;
+
+					break;
 				default:
 					break;
 				}
