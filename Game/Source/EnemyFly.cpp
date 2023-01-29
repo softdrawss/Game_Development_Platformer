@@ -67,6 +67,7 @@ bool EnemyFly::Start()
 
 bool EnemyFly::Update()
 {
+	OPTICK_EVENT();
 	b2Vec2 vel;
 
 	int speed = 1;
@@ -170,7 +171,7 @@ bool EnemyFly::Update()
 bool EnemyFly::PostUpdate()
 {
 	//For highscore
-
+	OPTICK_EVENT();
 	return true;
 }
 

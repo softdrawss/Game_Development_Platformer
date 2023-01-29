@@ -30,6 +30,7 @@ bool Debug::Start()
 
 bool Debug::Update(float dt)
 {
+	OPTICK_EVENT();
 	if (app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 		debug = !debug;
 
@@ -99,6 +100,7 @@ bool Debug::Update(float dt)
 
 bool Debug::PostUpdate()
 {
+	OPTICK_EVENT();
 	if (debug)
 		DrawDebug();
 

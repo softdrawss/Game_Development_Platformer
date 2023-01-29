@@ -31,6 +31,7 @@ bool FadeToBlack::Start()
 
 bool FadeToBlack::Update(float dt)
 {
+	OPTICK_EVENT();
 	// Exit this function if we are not performing a fade
 	if (currentStep == Fade_Step::NONE) return true;
 
@@ -58,6 +59,7 @@ bool FadeToBlack::Update(float dt)
 }
 bool FadeToBlack::PostUpdate()
 {
+	OPTICK_EVENT();
 	// Exit this function if we are not performing a fade
 	if (currentStep == Fade_Step::NONE) return true;
 

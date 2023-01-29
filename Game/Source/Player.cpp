@@ -81,6 +81,7 @@ bool Player::Start()
 
 bool Player::Update()
 {
+	OPTICK_EVENT();
 	b2Vec2 vel;
 	int speed = 2;
 
@@ -266,7 +267,7 @@ bool Player::Update()
 
 bool Player::PostUpdate()
 {
-	
+	OPTICK_EVENT();
 	
 	return true;
 }

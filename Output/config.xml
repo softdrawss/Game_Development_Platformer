@@ -34,10 +34,10 @@
     <fly x="300" y="118" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png" audioPath="Assets/Audio/Fx/attack.wav"/>
 	<walk x="100" y="118" texturepath="Assets/Textures/Characters/NewEnemies/enemies.png" audioPath="Assets/Audio/Fx/attack.wav"/>
 	<coin x="200" y="118" texturepath="Assets/Textures/Characters/Coins/coin4_16x16.png" audioPath="Assets/Audio/Fx/coin.wav"/>
-	<health x="400" y="118" texturepath="Assets/Textures/Characters/Coins/health.png" audioPath="Assets/Audio/Fx/coin.wav"/>
+	<health x="16" y="128" texturepath="Assets/Textures/Characters/Coins/health.png" audioPath="Assets/Audio/Fx/coin.wav"/>
 
 	<interact audioPath="Assets/Audio/Fx/attack.wav"/>
-	  
+	<ui coinCount="0" healthCount="3" coinPath="Assets/Textures/Characters/Coins/coin4_16x16.png" healthPath="Assets/Textures/Characters/Coins/health.png"/>
 	<chickboy x="2186" y="385" texturepath="Assets/Textures/Characters/ChickBoy/AnimationList.png"/>
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
 	<fonts fontPath="Assets/Textures/Fonts/sprite_font_white.png"/>

@@ -142,6 +142,7 @@ void EntityManager::AddEntity(Entity* entity)
 
 bool EntityManager::Update(float dt)
 {
+	OPTICK_EVENT();
 	bool ret = true;
 	ListItem<Entity*>* item;
 	Entity* pEntity = NULL;

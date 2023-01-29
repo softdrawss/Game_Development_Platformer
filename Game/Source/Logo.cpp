@@ -59,6 +59,7 @@ bool Logo::PreUpdate()
 // Called each loop iteration
 bool Logo::Update(float dt)
 {
+	OPTICK_EVENT();
 	count++;
 	if (count == 100)
 	{
@@ -71,6 +72,7 @@ bool Logo::Update(float dt)
 // Called each loop iteration
 bool Logo::PostUpdate()
 {
+	OPTICK_EVENT();
 	app->render->DrawTexture(img, x, y, SDL_FLIP_NONE);
 	
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

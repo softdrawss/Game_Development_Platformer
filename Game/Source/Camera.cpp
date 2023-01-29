@@ -46,6 +46,7 @@ bool Camera::Update(float dt)
 
 bool Camera::PostUpdate()
 {
+	OPTICK_EVENT();
 	if (app->debug->freeCam)
 	{
 		FreeCamera();

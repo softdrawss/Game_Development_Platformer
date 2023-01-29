@@ -19,12 +19,10 @@ public:
 	bool Awake();
 	bool Start();
 	bool Update();	
-	bool PostUpdate();
 	bool CleanUp();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	void SetPosition(int posX, int posY);
-	void Attack();
 	bool LookingRight();
 	void LoadAnimations();
 

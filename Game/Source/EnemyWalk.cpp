@@ -62,6 +62,7 @@ bool EnemyWalk::Start()
 
 bool EnemyWalk::Update()
 {
+	OPTICK_EVENT();
 	b2Vec2 vel;
 	int speed = 1;
 	
@@ -187,7 +188,7 @@ bool EnemyWalk::Update()
 bool EnemyWalk::PostUpdate()
 {
 	//For highscore
-	
+	OPTICK_EVENT();
 	return true;
 }
 

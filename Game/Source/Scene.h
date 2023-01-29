@@ -73,9 +73,17 @@ private:
 
 	//CAMERA XML
 	int camX, camY, speed;
-	int coins_value, heart;
+	int coins_value;
 
 	int coinCount = 0, healthCount = 0, coinPicked = 0;
+
+	Animation coinUI, healthUI;
+	Animation* coinUIanim;
+	Animation* healthUIanim;
+	const char* coinPath;
+	const char* healthPath;
+	SDL_Texture* coinText;
+	SDL_Texture* healthText;
 };
 
 #endif // __SCENE_H__

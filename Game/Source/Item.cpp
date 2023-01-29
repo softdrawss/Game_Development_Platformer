@@ -40,6 +40,7 @@ bool Item::Start() {
 
 bool Item::Update()
 {
+	OPTICK_EVENT();
 	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;

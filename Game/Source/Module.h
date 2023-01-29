@@ -4,6 +4,7 @@
 #include "SString.h"
 
 #include "PugiXml/src/pugixml.hpp"
+#include <Optick/include/optick.h>
 
 class App;
 class PhysBody;
@@ -36,18 +37,21 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate()
 	{
+		OPTICK_EVENT();
 		return true;
 	}
 
 	// Called each loop iteration
 	virtual bool Update(float dt)
 	{
+		OPTICK_EVENT();
 		return true;
 	}
 
 	// Called each loop iteration
 	virtual bool PostUpdate()
 	{
+		OPTICK_EVENT();
 		return true;
 	}
 

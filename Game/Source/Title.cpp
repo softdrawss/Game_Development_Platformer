@@ -72,15 +72,15 @@ bool Title::Start()
 	currentAnim = &anim;
 
 	//Buttons
-	B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 600,300,100,40 }, this);
+	B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 586,250+15,300,90 }, this);
 	B_play->button = GuiButtontype::PLAY;
-	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 600,400,100,40 }, this);
+	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 586,350+25,300,90 }, this);
 	B_continue->button = GuiButtontype::CONTINUE;
-	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 600,500,100,40 }, this);
+	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 586,450+35,300,90 }, this);
 	B_settings->button = GuiButtontype::SETTINGS;
-	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 600,600,100,40 }, this);
+	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 586,550+45,300,90 }, this);
 	B_credits->button = GuiButtontype::CREDITS;
-	B_exit = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "EXIT", { 600,700,100,40 }, this);
+	B_exit = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "EXIT", { 586,650+55,300,90 }, this);
 	B_exit->button = GuiButtontype::EXIT;
 
 	//Sliders
@@ -100,12 +100,14 @@ bool Title::Start()
 // Called each loop iteration
 bool Title::PreUpdate()
 {
+	OPTICK_EVENT();
 	return true;
 }
 
 // Called each loop iteration
 bool Title::Update(float dt)
 {
+	OPTICK_EVENT();
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		currentAnim = &run;
@@ -133,9 +135,10 @@ bool Title::Update(float dt)
 // Called each loop iteration
 bool Title::PostUpdate()
 {
-	//app->render->DrawTexture(img, x, y, SDL_FLIP_NONE);
+	OPTICK_EVENT();
+	app->render->DrawTexture(img, x, y, SDL_FLIP_NONE);
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	//app->render->DrawTexture(animImg, xA, yA, SDL_FLIP_NONE, &rect2);
+	app->render->DrawTexture(animImg, xA, yA, SDL_FLIP_NONE, &rect2);
 	currentAnim->Update();
 	app->guimanager->Draw();
 
@@ -152,6 +155,13 @@ bool Title::CleanUp()
 {
 	LOG("Freeing title");
 	app->tex->UnLoad(img);
+
+	B_play->state = GuiControlState::DISABLED;
+	B_continue->state = GuiControlState::DISABLED;
+	B_settings->state = GuiControlState::DISABLED;
+	B_credits->state = GuiControlState::DISABLED;
+	B_exit->state = GuiControlState::DISABLED;
+
 	return true;
 }
 

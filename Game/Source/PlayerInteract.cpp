@@ -42,6 +42,7 @@ bool PlayerInteract::Start()
 
 bool PlayerInteract::Update()
 {
+	OPTICK_EVENT();
 	// Set active?
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
 		pbody->body->SetActive(true);

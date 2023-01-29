@@ -42,7 +42,6 @@ bool Scene::Start()
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
 
-	
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
 	enemyWalk->parameters = config.child("walk");
@@ -125,25 +124,65 @@ bool Scene::Start()
 	
 	app->win->SetTitle(title.GetString());
 
+	coinCount = config.child("ui").attribute("coinCount").as_int();
+	healthCount = config.child("ui").attribute("healthCount").as_int();
+	coinPath = (char*)config.child("ui").attribute("coinPath").as_string();
+	healthPath = (char*)config.child("ui").attribute("healthPath").as_string();
+	
+	coinText = app->tex->Load(coinPath);
+	healthText = app->tex->Load(healthPath);
+
+	coinUI.PushBack({ 0, 0, 16, 16 });
+	coinUI.PushBack({ 16, 0, 16, 16 });
+	coinUI.PushBack({ 32, 0, 16, 16 });
+	coinUI.PushBack({ 48, 0, 16, 16 });
+	coinUI.PushBack({ 64, 0, 16, 16 });
+	coinUI.PushBack({ 80, 0, 16, 16 });
+	coinUI.PushBack({ 96, 0, 16, 16 });
+	coinUI.PushBack({ 112, 0, 16, 16 });
+	coinUI.speed = 0.03f;
+
+	healthUI.PushBack({ 0, 0, 16, 16 });
+
+	coinUIanim = &coinUI;
+	healthUIanim = &healthUI;
 	return true;
 }
 
 
 bool Scene::PreUpdate()
 {
+	OPTICK_EVENT();
 	return true;
 }
 
 
 bool Scene::Update(float dt)
 {
+	OPTICK_EVENT();
 	// Draw map
-	std::string string;
-	string = std::to_string(coinPicked);
-	app->render->DrawText(string.c_str(), 800, 800, 800, 800, { 225, 225, 225 });
-
-
 	app->map->Draw();
+	
+	//UI
+	// Health
+	app->render->DrawRectangle({ 0,0, 1472, 75 }, 244, 244, 228, 225, true, false);
+	std::string string;
+	string = std::to_string(healthCount);
+	app->render->DrawText(string.c_str(), 70, 10, 50, 50, { 0, 0, 0 });
+	SDL_Rect rect2 = healthUIanim->GetCurrentFrame();
+	app->render->Blit(healthText, 10, 10, &rect2, false);
+	//Score
+
+	//Coins picked
+	string = std::to_string(coinPicked);
+	app->render->DrawText(string.c_str(), 200, 10, 50, 50, { 0, 0, 0 });
+	SDL_Rect rect3 = coinUIanim->GetCurrentFrame();
+	app->render->Blit(coinText, 80, 10, &rect3, false);
+	coinUIanim->Update();
+
+	//Timer
+	string = std::to_string((int)app->secondsSinceStartup);
+	app->render->DrawText(string.c_str(), 600, 10, 50, 50, { 0, 0, 0 });
 
 	//Check player death
 	if (!player->alive)
@@ -155,12 +194,16 @@ bool Scene::Update(float dt)
 		coinPicked++;
 	}
 
+	if (health->CheckPickingHealth()) {
+		healthCount++;
+	}
 	return true;
 }
 
 
 bool Scene::PostUpdate()
 {
+	OPTICK_EVENT();
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		return false;
 

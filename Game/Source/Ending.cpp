@@ -55,12 +55,14 @@ bool Ending::Start()
 // Called each loop iteration
 bool Ending::PreUpdate()
 {
+	OPTICK_EVENT();
 	return true;
 }
 
 // Called each loop iteration
 bool Ending::Update(float dt)
 {
+	OPTICK_EVENT();
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		app->fade->FadeBlack(this, (Module*)app->titleScreen, 90);
@@ -72,6 +74,7 @@ bool Ending::Update(float dt)
 // Called each loop iteration
 bool Ending::PostUpdate()
 {
+	OPTICK_EVENT();
 	app->render->DrawTexture(img, x, y, SDL_FLIP_NONE);
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

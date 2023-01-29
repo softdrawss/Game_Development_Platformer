@@ -70,17 +70,20 @@ bool Render::Start()
 // Called each loop iteration
 bool Render::PreUpdate()
 {
+	OPTICK_EVENT();
 	SDL_RenderClear(renderer);
 	return true;
 }
 
 bool Render::Update(float dt)
 {
+	OPTICK_EVENT();
 	return true;
 }
 
 bool Render::PostUpdate()
 {
+	OPTICK_EVENT();
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;

@@ -68,6 +68,7 @@ bool Coin::Start()
 
 bool Coin::Update()
 {
+	OPTICK_EVENT();
 	b2Vec2 vel;
 	int speed = 2;
 
@@ -106,13 +107,6 @@ bool Coin::Update()
 	return true;
 }
 
-bool Coin::PostUpdate()
-{
-	
-	
-	return true;
-}
-
 bool Coin::CleanUp()
 {
 	app->entityManager->DestroyEntity(this);
@@ -137,15 +131,6 @@ void Coin::SetPosition(int posX, int posY)
 {
 	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
 	pbody->body->SetTransform(position, 0);
-}
-
-void Coin::Attack() {
-	
-	//IDEAS
-	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
-	//Specially if the player has to shoot to a flying enemy, and do the animations for that
-	//Jump onto them if not
-	//pbody->body->SetActive(true);
 }
 
 bool Coin::LookingRight()

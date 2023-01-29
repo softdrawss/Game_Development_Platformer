@@ -54,7 +54,7 @@ bool Health::Start()
 	// Pysics body
 	pbody = app->physics->CreateCircle(position.x, position.y, 7, bodyType::STATIC);
 	pbody->listener = this;
-	pbody->ctype = ColliderType::COIN;
+	pbody->ctype = ColliderType::HEALTH;
 
 	pbody->body->SetTransform(PIXEL_TO_METERS(initPosition), 0);
 	alive = true;
@@ -68,6 +68,7 @@ bool Health::Start()
 
 bool Health::Update()
 {
+	OPTICK_EVENT();
 	b2Vec2 vel;
 	int speed = 2;
 
@@ -106,13 +107,6 @@ bool Health::Update()
 	return true;
 }
 
-bool Health::PostUpdate()
-{
-
-
-	return true;
-}
-
 bool Health::CleanUp()
 {
 	app->entityManager->DestroyEntity(this);
@@ -128,7 +122,7 @@ void Health::OnCollision(PhysBody* physA, PhysBody* physB)
 			}
 			isPicked = true;
 
-			LOG("CARROT PICKED :D");
+			LOG("Health PICKED :D");
 		}
 	}
 }
@@ -137,15 +131,6 @@ void Health::SetPosition(int posX, int posY)
 {
 	b2Vec2 position = { PIXEL_TO_METERS(posX), PIXEL_TO_METERS(posY) };
 	pbody->body->SetTransform(position, 0);
-}
-
-void Health::Attack() {
-
-	//IDEAS
-	//shoot them with the animation of shooting (but we have to calibrate where stones are going)
-	//Specially if the player has to shoot to a flying enemy, and do the animations for that
-	//Jump onto them if not
-	//pbody->body->SetActive(true);
 }
 
 bool Health::LookingRight()
