@@ -167,17 +167,19 @@ bool Scene::Update(float dt)
 	// Health
 	app->render->DrawRectangle({ 0,0, 1472, 75 }, 244, 244, 228, 225, true, false);
 	std::string string;
-	string = std::to_string(healthCount);
-	app->render->DrawText(string.c_str(), 70, 10, 50, 50, { 0, 0, 0 });
+	
 	SDL_Rect rect2 = healthUIanim->GetCurrentFrame();
-	app->render->Blit(healthText, 10, 10, &rect2, false);
+	for (int i = 0; i < healthCount; i++) {
+		app->render->Blit(healthText, 10+i*18, 10, &rect2, false);
+	}
+	
 	//Score
 
 	//Coins picked
 	string = std::to_string(coinPicked);
-	app->render->DrawText(string.c_str(), 200, 10, 50, 50, { 0, 0, 0 });
+	app->render->DrawText(string.c_str(), 215, 10, 50, 50, { 0, 0, 0 });
 	SDL_Rect rect3 = coinUIanim->GetCurrentFrame();
-	app->render->Blit(coinText, 80, 10, &rect3, false);
+	app->render->Blit(coinText, 90, 10, &rect3, false);
 	coinUIanim->Update();
 
 	//Timer
