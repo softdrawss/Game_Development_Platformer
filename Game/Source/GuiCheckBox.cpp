@@ -51,15 +51,7 @@ bool GuiCheckBox::Update(float dt)
 				state = GuiControlState::PRESSED;
 				app->audio->PlayFx(pressed);
 				checked = !checked;
-				if (this->button == GuiCheckBoxType::FULLSCREEN) {
-					if (checked)         
-						SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);     
-					else if (!checked)         
-						SDL_SetWindowFullscreen(app->win->window, 0);
-				}
-				if (this->button == GuiCheckBoxType::VSYNC) {
-					app->debug->controlFPS = !app->debug->controlFPS;
-				}
+				
 			}
 
 			//
@@ -71,7 +63,15 @@ bool GuiCheckBox::Update(float dt)
 			state = GuiControlState::NORMAL;
 		}
 	}
-
+	if (this->button == GuiCheckBoxType::FULLSCREEN) {
+		if (checked)         
+			SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);     
+		else if (!checked)         
+		SDL_SetWindowFullscreen(app->win->window, 0);
+	}
+	if (this->button == GuiCheckBoxType::VSYNC) {
+		app->debug->controlFPS = !app->debug->controlFPS;
+	}
 	if (app->debug->controlFPS) {
 		checked = true;
 	}
@@ -128,7 +128,7 @@ bool GuiCheckBox::Draw(Render* render)
 				app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
 			}
 		}
-		if (this->button == GuiCheckBoxType::FULLSCREEN) {
+		else if (this->button == GuiCheckBoxType::FULLSCREEN) {
 			if (checked) {
 				app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
 
