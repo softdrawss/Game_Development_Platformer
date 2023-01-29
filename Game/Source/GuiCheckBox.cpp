@@ -4,6 +4,8 @@
 #include "Audio.h"
 #include "Log.h"
 #include "Scene.h"
+#include "Window.h"
+#include "Debug.h"
 
 GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::CHECKBOX, id)
 {
@@ -13,7 +15,8 @@ GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, const char* text) : GuiCont
 	canClick = true;
 	drawBasic = false;
 
-	//audioFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	focused = app->audio->LoadFx("Assets/Audio/Fx/focused.wav");
+	pressed = app->audio->LoadFx("Assets/Audio/Fx/click.wav");
 }
 
 GuiCheckBox::~GuiCheckBox()
@@ -23,6 +26,8 @@ GuiCheckBox::~GuiCheckBox()
 
 bool GuiCheckBox::Update(float dt)
 {
+	int scale = app->win->GetScale();
+
 	if (state != GuiControlState::DISABLED)
 	{
 		// L15: DONE 3: Update the state of the GUiButton according to the mouse position
@@ -31,10 +36,12 @@ bool GuiCheckBox::Update(float dt)
 		GuiControlState previousState = state;
 
 		// I'm inside the limitis of the button
-		if (mouseX >= bounds.x && mouseX <= bounds.x + bounds.w &&
-			mouseY >= bounds.y && mouseY <= bounds.y + bounds.h) {
+		if (mouseX * scale >= bounds.x && mouseX * scale <= bounds.x + bounds.w &&
+			mouseY * scale >= bounds.y && mouseY * scale <= bounds.y + bounds.h) {
 			
 			state = GuiControlState::FOCUSED;
+			app->audio->PlayFx(focused);
+
 			if (previousState != state) {
 				LOG("Change state from %d to %d",previousState,state);
 				//app->audio->PlayFx(audioFxId);
@@ -42,7 +49,17 @@ bool GuiCheckBox::Update(float dt)
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) {
 				state = GuiControlState::PRESSED;
-				
+				app->audio->PlayFx(pressed);
+				checked = !checked;
+				if (this->button == GuiCheckBoxType::FULLSCREEN) {
+					if (checked)         
+						SDL_SetWindowFullscreen(app->win->window, SDL_WINDOW_FULLSCREEN);     
+					else if (!checked)         
+						SDL_SetWindowFullscreen(app->win->window, 0);
+				}
+				if (this->button == GuiCheckBoxType::VSYNC) {
+					app->debug->controlFPS = !app->debug->controlFPS;
+				}
 			}
 
 			//
@@ -55,6 +72,9 @@ bool GuiCheckBox::Update(float dt)
 		}
 	}
 
+	if (app->debug->controlFPS) {
+		checked = true;
+	}
 	return false;
 }
 
@@ -64,24 +84,62 @@ bool GuiCheckBox::Update(float dt)
 bool GuiCheckBox::Draw(Render* render)
 {
 	//L15: DONE 4: Draw the button according the GuiControl State
+	if (active) {
+		if (app->debug->colourblind) {
+			switch (state)
+			{
+			case GuiControlState::DISABLED:
+				render->DrawRectangle(bounds, 225, 225, 200, 200, checked, false);
+				break;
+			case GuiControlState::NORMAL:
+				render->DrawRectangle(bounds, 0, 0, 255, 200, checked, false);
+				break;
+			case GuiControlState::FOCUSED:
+				render->DrawRectangle(bounds, 153, 153, 255, 200, checked, false);
+				break;
+			case GuiControlState::PRESSED:
+				render->DrawRectangle(bounds, 0, 255, 0, 200, checked, false);
+				break;
+			}
+		}
+		else {
+			switch (state)
+			{
+			case GuiControlState::DISABLED:
+				render->DrawRectangle(bounds, 200, 200, 200, 200, checked, false);
+				break;
+			case GuiControlState::NORMAL:
+				render->DrawRectangle(bounds, 255, 255, 255, 200, checked, false);
+				break;
+			case GuiControlState::FOCUSED:
+				render->DrawRectangle(bounds, 153, 153, 255, 200, checked, false);
+				break;
+			case GuiControlState::PRESSED:
+				render->DrawRectangle(bounds, 0, 255, 0, 200, checked, false);
+				break;
+			}
+		}
+		if (this->button == GuiCheckBoxType::VSYNC) {
+			if (checked) {
+				app->render->DrawText("OFF", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
 
-	switch (state)
-	{
-	case GuiControlState::DISABLED:
-		render->DrawRectangle(bounds, 200, 200, 200, 200, true, false);
-		break;
-	case GuiControlState::NORMAL:
-		render->DrawRectangle(bounds, 0, 0, 255, 200, true, false);
-		break;
-	case GuiControlState::FOCUSED:
-		render->DrawRectangle(bounds, 153, 153, 255, 200, true, false);
-		break;
-	case GuiControlState::PRESSED:
-		render->DrawRectangle(bounds, 0, 255, 0, 200, true, false);
-		break;
+			}
+			else {
+				app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+			}
+		}
+		if (this->button == GuiCheckBoxType::FULLSCREEN) {
+			if (checked) {
+				app->render->DrawText("ON", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+
+			}
+			else {
+				app->render->DrawText("OFF", bounds.x + 60, bounds.y, 40, bounds.h, { 255,255,255 });
+			}
+		}
 	}
 
-	app->render->DrawText(text.GetString(), bounds.x+10, bounds.y+5, bounds.w-20, bounds.h-10, {255,255,255});
+	
 
 	return false;
 }

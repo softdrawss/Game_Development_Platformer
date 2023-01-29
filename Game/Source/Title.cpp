@@ -94,21 +94,25 @@ bool Title::Start()
 	B_back->active = false;
 	B_back->state = GuiControlState::DISABLED;
 
-	////Sliders
-	S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 90,40,40,40 }, this, { 20, 40, 120, 10 });
+	//Sliders
+	S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 260,250,40,40 }, this, { 230, 257, 120, 10 });
 	S_music->slider = GuiSliderType::MUSIC;
-	S_music->active = active;
+	S_music->active = false;
 	S_music->state = GuiControlState::DISABLED;
-	//S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 1130,51,100,40 }, this);
-	//S_fx->active = false;
-	//
-	////CheckBox
-	//C_screen = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "FULL SCREEN", { 1130,51,100,40 }, this);
-	//C_screen->active = false;
-	//C_screen->state = GuiControlState::DISABLED;
-	//C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 1130,51,100,40 }, this);
-	//C_vysinc->active = false;
-	//C_vysinc->state = GuiControlState::DISABLED;
+	S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 260,270+50,40,40 }, this, { 230, 327, 120, 10 });
+	S_fx->slider = GuiSliderType::FX;
+	S_fx->active = false;
+	S_fx->state = GuiControlState::DISABLED;
+	
+	//CheckBox
+	C_screen = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "FULL SCREEN", { 260,390,50,50 }, this);
+	C_screen->button = GuiCheckBoxType::FULLSCREEN;
+	C_screen->active = false;
+	C_screen->state = GuiControlState::DISABLED;
+	C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 260,460,50,50 }, this);
+	C_screen->button = GuiCheckBoxType::VSYNC;
+	C_vysinc->active = false;
+	C_vysinc->state = GuiControlState::DISABLED;
 
 	credits = false;
 	settings = false;
@@ -181,6 +185,14 @@ bool Title::PostUpdate()
 		
 		B_back->active = false;
 		B_back->state = GuiControlState::DISABLED;
+		S_music->active = false;
+		S_music->state = GuiControlState::DISABLED;
+		S_fx->active = false;
+		S_fx->state = GuiControlState::DISABLED;
+		C_screen->active = false;
+		C_screen->state = GuiControlState::DISABLED;
+		C_vysinc->active = false;
+		C_vysinc->state = GuiControlState::DISABLED;
 	}
 	return true;
 }
@@ -214,7 +226,6 @@ void Title::DrawCredits() {
 	app->render->DrawText("CREDITS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
 	SDL_Rect rect = { 0, 0, 1236, 738 };
 	//NO se ve nada
-	//app->render->DrawText("HÉCTOR BÁSCONES ZAMORA, @Hekbas", )
 }
 
 void Title::DrawSettings() {
@@ -226,10 +237,23 @@ void Title::DrawSettings() {
 
 	B_back->active = true;
 	B_back->state = GuiControlState::NORMAL;
-	app->render->DrawRectangle({ 118, 58, 1236, 738 }, 255, 79, 120, 255, true, false);
+	S_music->active = true;
+	S_music->state = GuiControlState::NORMAL;
+	S_fx->active = true;
+	S_fx->state = GuiControlState::NORMAL;
+	C_screen->active = true;
+	C_screen->state = GuiControlState::NORMAL;
+	C_vysinc->active = true;
+	C_vysinc->state = GuiControlState::NORMAL;
+
+	app->render->DrawRectangle({ 400, 58, 1236-(400-118), 738 }, 255, 79, 120, 255, true, false);
 	app->render->DrawText("SETTINGS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
 
-
+	app->render->DrawText("MUSIC VOLUME", 343+70, 200+50, 250, 50, { 244,244,228 });
+	app->render->DrawText("FX VOLUME", 343 + 70, 270 + 50, 175, 50, { 244,244,228 });
+	app->render->DrawText("FULLSCREEN", 343 + 70, 340 + 50, 245, 50, { 244,244,228 });
+	app->render->DrawText("VYSINC", 343 + 70, 410 + 50, 150, 50, { 244,244,228 });
+	
 }
 
 // Define multiple Gui Event methods

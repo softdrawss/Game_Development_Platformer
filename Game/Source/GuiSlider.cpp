@@ -54,7 +54,7 @@ bool GuiSlider::Update(float dt)
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
 				state = GuiControlState::PRESSED;
-				app->audio->PlayFx(pressed);
+				//app->audio->PlayFx(pressed);
 
 			}
 
@@ -113,35 +113,62 @@ bool GuiSlider::Draw(Render* render)
 	//L15: DONE 4: Draw the button according the GuiControl State
 	app->input->GetMousePosition(mouseX, mouseY);
 	if (active) {
-		switch (state)
-		{
-		case GuiControlState::DISABLED:
+		if (app->debug->colourblind) {
+			switch (state)
+			{
+			case GuiControlState::DISABLED:
 
-			app->render->DrawRectangle(sliderbounds, 0, 0, 255, 255, true, false);
-			app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 0, 0, 255, true, false);
+				app->render->DrawRectangle(sliderbounds, 255, 255, 255, 255, true, false);
+				app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 0, 0, 255, true, false);
 
-			break;
-		case GuiControlState::NORMAL:
-			app->render->DrawRectangle(sliderbounds, 0, 0, 255, 255, true, false);
-			app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 0, 255, 255, true, false);
+				break;
+			case GuiControlState::NORMAL:
+				app->render->DrawRectangle(sliderbounds, 255, 255, 255, 255, true, false);
+				app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 0, 255, 255, true, false);
 
-			break;
-		case GuiControlState::FOCUSED:
-			//section of the rectangle
-			app->render->DrawRectangle(sliderbounds, 0, 0, 255, 255, true, false);
-			app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 255, 0, 255, true, false);
+				break;
+			case GuiControlState::FOCUSED:
+				//section of the rectangle
+				app->render->DrawRectangle(sliderbounds, 255, 255, 255, 255, true, false);
+				app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 255, 0, 255, true, false);
 
-			break;
-		case GuiControlState::PRESSED:
-			app->render->DrawRectangle(sliderbounds, 0, 0, 255, 255, true, false);
-			app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 255, 0, 0, 255, true, false);
+				break;
+			case GuiControlState::PRESSED:
+				app->render->DrawRectangle(sliderbounds, 255, 255, 255, 255, true, false);
+				app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 255, 0, 0, 255, true, false);
 
-			break;
+				break;
+			}
+		}
+		else {
+			switch (state)
+			{
+			case GuiControlState::DISABLED:
+
+				app->render->DrawRectangle(sliderbounds, 255, 255, 255, 255, true, false);
+				app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 0, 0, 255, true, false);
+
+				break;
+			case GuiControlState::NORMAL:
+				app->render->DrawRectangle(sliderbounds, 255, 255, 255, 255, true, false);
+				app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 255, 79, 120, 255, true, false);
+
+				break;
+			case GuiControlState::FOCUSED:
+				//section of the rectangle
+				app->render->DrawRectangle(sliderbounds, 255, 255, 255, 255, true, false);
+				app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 83, 94, 105, 255, true, false);
+
+				break;
+			case GuiControlState::PRESSED:
+				app->render->DrawRectangle(sliderbounds, 255, 255, 255, 255, true, false);
+				app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 255, 0, 0, 255, true, false);
+
+				break;
+			}
 		}
 	}
-	else {
-
-	}
+	
 	return false;
 }
 
