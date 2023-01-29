@@ -37,7 +37,7 @@ Link to the Beta release: [https://github.com/softdrawss/Game_Development_Platfo
  - F3: Start from the beginning of the current level
  - F5: Save the current game state
  - F6: Load the previous state (even across levels)
- - F8: Free camera
+ - F8: View GUI bounds rectangles and state in different colors
  - F9: View colliders / logic / paths
  - F10: God Mode (fly around, cannot be killed, etc)
  - F11: Enable/Disable FPS cap to 30
