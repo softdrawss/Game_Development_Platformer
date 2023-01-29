@@ -35,7 +35,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 		guiControl = new GuiCheckBox(id, bounds, text);
 		break;
 	case GuiControlType::SLIDER:
-		guiControl = new GuiSlider(id, bounds, text);
+		guiControl = new GuiSlider(id, bounds, text, sliderBounds);
 		break;
 	/*
 	case GuiControlType::TOGGLE:

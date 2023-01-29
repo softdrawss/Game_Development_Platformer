@@ -195,7 +195,7 @@ bool Scene::Update(float dt)
 
 	//Timer
 	string = std::to_string((int)app->secondsSinceStartup);
-	app->render->DrawText(string.c_str(), 600, 10, 50, 50, { 0, 0, 0 });
+	app->render->DrawText(string.c_str(), 700, 10, 50, 50, { 0, 0, 0 });
 
 	//Check player death
 	if (!player->alive)
