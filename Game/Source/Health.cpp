@@ -165,7 +165,7 @@ bool Health::CheckPickingHealth()
 
 void Health::LoadAnimations()
 {
-	rot.PushBack({ 128, 0, 16, 16 });
+	rot.PushBack({ 0, 0, 16, 16 });
 
 	currentAnim = &rot;
 }
