@@ -235,7 +235,7 @@ void App::FinishUpdate()
 	if (loadGameRequested == true) LoadFromFile();
 	if (saveGameRequested == true) SaveToFile();
 
-	// L13: DONE 4: Now calculate:
+	// L13: TODO 4: Now calculate:
 	// Amount of frames since startup
 	frameCount++;
 	// Amount of time since game start (use a low resolution timer)
@@ -253,26 +253,18 @@ void App::FinishUpdate()
 		averageFps = (averageFps + framesPerSecond) / 2;
 	}
 
-	// L14: DONE 2: Use SDL_Delay to make sure you get your capped framerate
-	// L14: DONE 3: Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
+	if (vsync) {
+		float delay = float(maxFrameDuration) - dt;
 
-	float delay = float(maxFrameDuration) - dt;
-
-	PerfTimer delayTimer = PerfTimer();
-	delayTimer.Start();
-	if (maxFrameDuration > 0 && delay > 0) {
-		SDL_Delay(delay);
-		//LOG("We waited for %f milliseconds and the real delay is % f", delay, delayTimer.ReadMs());
-		dt = maxFrameDuration;
-	}
-	else {
-		//LOG("No wait");
+		if (maxFrameDuration > 0 && delay > 0) {
+			SDL_Delay(delay);
+			dt = maxFrameDuration;
+		}
 	}
 
-	// Shows the time measurements in the window title
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
+	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u Vsync %i",
+		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount, vsync);
 
 	app->win->SetTitle(title);
 }

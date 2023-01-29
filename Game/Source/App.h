@@ -7,6 +7,7 @@
 #include "Timer.h"
 
 #include "PugiXml/src/pugixml.hpp"
+#include "Optick/include/optick.h"
 
 #define DEBUG_MODE false
 #define CONFIG_FILENAME		"config.xml"
@@ -134,6 +135,7 @@ private:
 	pugi::xml_node configNode;
 
 	uint frames;
+	bool vsync;
 	float dt;
 
 	// L03: DONE 1: Create control variables to control that the real Load and Save happens at the end of the frame

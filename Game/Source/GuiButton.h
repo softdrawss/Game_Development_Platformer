@@ -32,7 +32,7 @@ public:
 	bool canClick = true;
 	bool drawBasic = false;
 
-	uint audioFxId;
+	uint pressed, focused;
 
 public:
 	GuiButtontype button;

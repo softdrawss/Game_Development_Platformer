@@ -18,7 +18,8 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	canClick = true;
 	drawBasic = false;
 
-	//audioFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
+	focused = app->audio->LoadFx("Assets/Audio/Fx/focused.wav");
+	pressed = app->audio->LoadFx("Assets/Audio/Fx/click.wav");
 	this->state = GuiControlState::NORMAL;
 }
 
@@ -47,15 +48,18 @@ bool GuiButton::Update(float dt)
 			state = GuiControlState::FOCUSED;
 			if (previousState != state) {
 				LOG("Change state from %d to %d",previousState,state);
-				//app->audio->PlayFx(audioFxId);
+				app->audio->PlayFx(focused);
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) {
 				state = GuiControlState::PRESSED;
+				app->audio->PlayFx(pressed);
 				switch (this->button)
 				{
 				case GuiButtontype::PLAY:
 					app->fade->FadeBlack((Module*)app->titleScreen, (Module*)app->scene, 90);
+					app->audio->PlayFx(pressed);
+
 					break;
 				case GuiButtontype::CONTINUE:
 					break;
@@ -69,6 +73,9 @@ bool GuiButton::Update(float dt)
 					break;
 				case GuiButtontype::BACK_TO_TITLE:
 					app->fade->FadeBlack((Module*)app->scene, (Module*)app->titleScreen, 90);
+					break;
+				case GuiButtontype::EXIT:
+					app->titleScreen->exit = true;
 					break;
 				default:
 					break;

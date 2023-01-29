@@ -62,9 +62,13 @@ bool Scene::Start()
 	playerInteract = (PlayerInteract*)app->entityManager->CreateEntity(EntityType::INTERACT);
 	playerInteract->parameters = config.child("interact");
 
-	//PLAYER INTERACT
+	//COIN
 	coin = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 	coin->parameters = config.child("coin");
+	
+	//HEART
+	health = (Health*)app->entityManager->CreateEntity(EntityType::HEALTH);
+	health->parameters = config.child("health");
 
 	//Enables
 	app->map->Enable();
@@ -134,12 +138,21 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	// Draw map
+	std::string string;
+	string = std::to_string(coinPicked);
+	app->render->DrawText(string.c_str(), 800, 800, 800, 800, { 225, 225, 225 });
+
+
 	app->map->Draw();
 
 	//Check player death
 	if (!player->alive)
 	{
 		app->fade->FadeBlack(this, (Module*)app->endScreen, 90);
+	}
+
+	if (coin->CheckPickingCoin()) {
+		coinPicked++;
 	}
 
 	return true;

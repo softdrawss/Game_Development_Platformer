@@ -72,28 +72,28 @@ bool Title::Start()
 	currentAnim = &anim;
 
 	//Buttons
-	//B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 600,300,100,40 }, this);
-	//B_play->button = GuiButtontype::PLAY;
+	B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 600,300,100,40 }, this);
+	B_play->button = GuiButtontype::PLAY;
 	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 600,400,100,40 }, this);
 	B_continue->button = GuiButtontype::CONTINUE;
 	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 600,500,100,40 }, this);
-	B_continue->button = GuiButtontype::SETTINGS;
+	B_settings->button = GuiButtontype::SETTINGS;
 	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 600,600,100,40 }, this);
-	B_continue->button = GuiButtontype::CREDITS;
+	B_credits->button = GuiButtontype::CREDITS;
 	B_exit = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "EXIT", { 600,700,100,40 }, this);
-	B_continue->button = GuiButtontype::EXIT;
+	B_exit->button = GuiButtontype::EXIT;
 
 	//Sliders
-	//S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 1130,51,100,40 }, this);
-	//S_music->active = false;
-	//S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 1130,51,100,40 }, this);
-	//S_fx->active = false;
+	S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 1130,51,100,40 }, this);
+	S_music->active = false;
+	S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 1130,51,100,40 }, this);
+	S_fx->active = false;
 
 	//CheckBox
-	//C_screen = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "FULL SCREEN", { 1130,51,100,40 }, this);
-	//C_screen->active = false;
-	//C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 1130,51,100,40 }, this);
-	//C_vysinc->active = false;
+	C_screen = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "FULL SCREEN", { 1130,51,100,40 }, this);
+	C_screen->active = false;
+	C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 1130,51,100,40 }, this);
+	C_vysinc->active = false;
 	return true;
 }
 
@@ -117,6 +117,9 @@ bool Title::Update(float dt)
 	if (xA >= 700) {
 			app->fade->FadeBlack(this, (Module*)app->scene, 90);
 	}
+
+	if (exit)
+		return false;
 
 	if (credits)
 		DrawCredits();

@@ -11,6 +11,10 @@
 #include "Coin.h"
 #include "Health.h"
 
+#define MAX_COINS 4
+#define MAX_HEATH 4
+
+
 struct SDL_Texture;
 
 class Scene : public Module
@@ -69,6 +73,9 @@ private:
 
 	//CAMERA XML
 	int camX, camY, speed;
+	int coins_value, heart;
+
+	int coinCount = 0, healthCount = 0, coinPicked = 0;
 };
 
 #endif // __SCENE_H__

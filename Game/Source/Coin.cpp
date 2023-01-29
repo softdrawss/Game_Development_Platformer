@@ -30,7 +30,8 @@ bool Coin::Awake() {
 	//texturePath = "Assets/Textures/player/idle1.png";
 
 	//L02: DONE 5: Get Player parameters from XML
-
+	active = true;
+	isPicked = false;
 	return true;
 }
 
@@ -44,14 +45,14 @@ bool Coin::Start()
 	initPosition.y = position.y;
 
 	texturePath = parameters.attribute("texturepath").as_string();
-
+	audioPath = parameters.attribute("audioPath").as_string();
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-
+	pickCoinAudio = app->audio->LoadFx(audioPath);
 	//Set bools
 
 	// Pysics body
-	pbody = app->physics->CreateCircle(position.x, position.y, 7, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, 7, bodyType::STATIC);
 	pbody->listener = this;
 	pbody->ctype = ColliderType::COIN;
 
@@ -120,31 +121,15 @@ bool Coin::CleanUp()
 
 void Coin::OnCollision(PhysBody* physA, PhysBody* physB)
 {
-	switch (physB->ctype)
-	{
-	case ColliderType::DEATH:
-		LOG("Collision DEATH");
-		alive = false;
-		break;
-	case ColliderType::ENEMY:
+	if (physB != nullptr) {
+		if (physB->ctype == ColliderType::PLAYER) {
+			if (!isPicked) {
+				app->audio->PlayFx(pickCoinAudio);
+			}
+			isPicked = true;
 
-		break;
-	case ColliderType::GROUND:
-		LOG("Collision GROUND");
-		isGrounded = true;
-		break;
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
-		//app->audio->PlayFx(pickCoinFxId);
-		break;
-	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
-		isGrounded = true;
-		break;
-
-	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
-		break;
+			LOG("CARROT PICKED :D");
+		}
 	}
 }
 
@@ -185,3 +170,12 @@ void Coin::LoadAnimations()
 	currentAnim = &rot;
 }
 
+
+bool Coin::CheckPickingCoin()
+{
+	if (active && isPicked) {
+		active = false;
+		return true;
+	}
+	return false;
+}

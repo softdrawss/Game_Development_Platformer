@@ -28,6 +28,8 @@ public:
 	bool LookingRight();
 	void LoadAnimations();
 
+	bool CheckPickingHealth();
+
 public:
 
 	bool alive;
@@ -36,34 +38,22 @@ public:
 	PhysBody* pbody;
 
 private:
-	
-	//Bools
-	bool isIdle;
-	bool isGrounded;
-	bool wallSlideRight, wallSlideLeft;
-	bool stairs;
+	bool isPicked = false;
 
-	int remainingJumpSteps;
-	int remainingDash;
-	int dashCD;
-	bool isAttacking;
+	//Bools
 
 	//Texture
 	SDL_Texture* texture;
 	const char* texturePath;
+	const char* audioPath;
 
 	//Animation
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;
-	Animation idle, run, jump, climb;
-	Animation attackNormal;
-	Animation death;
+	Animation rot;
 
 	//FX
-	int pickCoinFxIdaudio, jumpaudio, deathaudio, dashaudio;
-	const char* jumppath;
-	const char* deathpath;
-	const char* dashpath;
+	int pickCoinAudio;
 };
 
 #endif // __HEALTH_H__
