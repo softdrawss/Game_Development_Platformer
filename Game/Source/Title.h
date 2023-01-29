@@ -42,6 +42,8 @@ public:
 
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
+	bool CheckContinue();
+	bool saved;
 
 public:
 	//Buttons

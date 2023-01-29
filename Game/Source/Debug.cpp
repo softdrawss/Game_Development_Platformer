@@ -14,6 +14,8 @@
 #include "Title.h"
 #include "Scene.h"
 #include "Ending.h"
+#include "GuiManager.h"
+#include "GuiControl.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -70,9 +72,9 @@ bool Debug::Update(float dt)
 		app->LoadGameRequest();
 	}
 
-	// F8: Free camera
+	// F8:  View GUI bounds rectangles and state in different colors
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		freeCam = !freeCam;
+		colourblind = !colourblind;
 	}
 
 	// F9: View colliders / logic / paths

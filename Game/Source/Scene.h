@@ -61,6 +61,7 @@ public:
 	bool SaveState(pugi::xml_node&);
 
 	SDL_Rect rectCamera;
+	bool continue_pressed;
 
 	//Triggers
 	bool door_A;

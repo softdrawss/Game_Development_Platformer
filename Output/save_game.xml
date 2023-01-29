@@ -9,11 +9,14 @@
 	<logo />
 	<title />
 	<scene>
-		<player x="156" y="108" />
-		<walk x="93" y="108" alive="false" />
-		<fly x="193" y="96" alive="false" />
+		<player x="211" y="108" />
+		<walk x="177" y="106" alive="true" />
+		<fly x="135" y="95" alive="true" />
+		<coin x="191" y="100" alive="false" />
+		<health x="7" y="110" alive="true" />
 	</scene>
 	<ending />
+	<guiManager />
 	<map />
 	<pathfinding />
 	<entitymanager />
