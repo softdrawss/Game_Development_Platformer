@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "Physics.h"
 #include "Window.h"
+#include "Debug.h"
 
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
@@ -62,6 +63,9 @@ bool GuiButton::Update(float dt)
 
 					break;
 				case GuiButtontype::CONTINUE:
+					app->fade->FadeBlack((Module*)app->titleScreen, (Module*)app->scene, 90);
+					app->audio->PlayFx(pressed);
+					app->scene->continue_pressed = true;
 					break;
 				case GuiButtontype::SETTINGS:
 					app->titleScreen->settings = true;
@@ -102,23 +106,44 @@ bool GuiButton::Draw(Render* render)
 {
 	//L15: DONE 4: Draw the button according the GuiControl State
 	if (active) {
-		switch (state)
-		{
-		case GuiControlState::DISABLED:
-			render->DrawRectangle(bounds, 200, 200, 200, 200, true, false);
-			break;
-		case GuiControlState::NORMAL:
-			render->DrawRectangle(bounds, 255, 79, 120, 200, true, false);
-			break;
-		case GuiControlState::FOCUSED:
-			render->DrawRectangle(bounds, 83, 94, 105, 200, true, false);
-			break;
-		case GuiControlState::PRESSED:
-			render->DrawRectangle(bounds, 31, 35, 47, 200, true, false);
-			break;
-		}
+		if (app->debug->colourblind) {
+			switch (state)
+			{
+			case GuiControlState::DISABLED:
+				render->DrawRectangle(bounds, 255, 234, 0, 200, true, false);
+				break;
+			case GuiControlState::NORMAL:
+				render->DrawRectangle(bounds, 255, 0, 0, 200, true, false);
+				break;
+			case GuiControlState::FOCUSED:
+				render->DrawRectangle(bounds, 0, 0, 225, 200, true, false);
+				break;
+			case GuiControlState::PRESSED:
+				render->DrawRectangle(bounds, 0, 255, 0, 200, true, false);
+				break;
+			}
 
-		app->render->DrawText(text.GetString(), bounds.x + 10, bounds.y + 5, bounds.w - 20, bounds.h - 10, { 244,244,228 });
+			app->render->DrawText(text.GetString(), bounds.x + 10, bounds.y + 5, bounds.w - 20, bounds.h - 10, { 244,244,228 });
+		}
+		else {
+			switch (state)
+			{
+			case GuiControlState::DISABLED:
+				render->DrawRectangle(bounds, 71, 176, 206, 200, true, false);
+				break;
+			case GuiControlState::NORMAL:
+				render->DrawRectangle(bounds, 255, 79, 120, 200, true, false);
+				break;
+			case GuiControlState::FOCUSED:
+				render->DrawRectangle(bounds, 83, 94, 105, 200, true, false);
+				break;
+			case GuiControlState::PRESSED:
+				render->DrawRectangle(bounds, 31, 35, 47, 200, true, false);
+				break;
+			}
+
+			app->render->DrawText(text.GetString(), bounds.x + 10, bounds.y + 5, bounds.w - 20, bounds.h - 10, { 244,244,228 });
+		}
 	}
 
 	return false;

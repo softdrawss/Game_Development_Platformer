@@ -15,6 +15,7 @@
 #include "Particles.h"
 #include "Defs.h"
 #include "Log.h"
+#include "Title.h"
 
 Scene::Scene(bool startEnabled) : Module(startEnabled)
 {
@@ -41,6 +42,7 @@ bool Scene::Start()
 {
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
+
 
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
@@ -74,7 +76,6 @@ bool Scene::Start()
 	app->physics->Enable();
 	app->pathFinding->Enable();
 	app->entityManager->Enable();
-	app->debug->Enable();
 	app->particles->Enable();
 
 	// Iterate all objects in the scene -- Check https://pugixml.org/docs/quickstart.html#access	
@@ -146,6 +147,10 @@ bool Scene::Start()
 
 	coinUIanim = &coinUI;
 	healthUIanim = &healthUI;
+
+	if (continue_pressed) {
+		app->LoadGameRequest();
+	}
 	return true;
 }
 
@@ -219,7 +224,7 @@ bool Scene::CleanUp()
 	app->map->Disable();
 	app->entityManager->Disable();
 	app->physics->Disable();
-
+	continue_pressed = false;
 	return true;
 }
 
@@ -231,7 +236,10 @@ bool Scene::LoadState(pugi::xml_node& data)
 	enemyWalk->alive = data.child("walk").attribute("alive").as_bool(); 
 	enemyFly->SetPosition(data.child("fly").attribute("x").as_int(), data.child("fly").attribute("y").as_int());
 	enemyFly->alive = data.child("fly").attribute("alive").as_bool();
-
+	coin->SetPosition(data.child("coinItem").attribute("x").as_int(), data.child("coinItem").attribute("y").as_int());
+	coin->alive = data.child("coinItem").attribute("alive").as_bool();
+	health->SetPosition(data.child("healthItem").attribute("x").as_int(), data.child("healthItem").attribute("y").as_int());
+	health->alive = data.child("healthItem").attribute("alive").as_bool();
 
 	return true;
 }
@@ -254,6 +262,16 @@ bool Scene::SaveState(pugi::xml_node& data)
 	fly.append_attribute("x") = enemyFly->position.x + 16;
 	fly.append_attribute("y") = enemyFly->position.y - 10;
 	fly.append_attribute("alive") = enemyFly->alive;
+
+	pugi::xml_node coinItem = data.append_child("coin");
+	coinItem.append_attribute("x") = coin->position.x;
+	coinItem.append_attribute("y") = coin->position.y;
+	coinItem.append_attribute("alive") = coin->alive;
+
+	pugi::xml_node healthItem = data.append_child("health");
+	healthItem.append_attribute("x") = health->position.x;
+	healthItem.append_attribute("y") = health->position.y;
+	healthItem.append_attribute("alive") = health->alive;
 
 	return true;
 }

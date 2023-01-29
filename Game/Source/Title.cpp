@@ -40,6 +40,8 @@ bool Title::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Title::Start()
 {
+	app->debug->Enable();
+
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
 
@@ -76,6 +78,7 @@ bool Title::Start()
 	B_play->button = GuiButtontype::PLAY;
 	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 586,350+25,300,90 }, this);
 	B_continue->button = GuiButtontype::CONTINUE;
+	B_continue->state = GuiControlState::DISABLED;
 	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 586,450+35,300,90 }, this);
 	B_settings->button = GuiButtontype::SETTINGS;
 	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 586,550+45,300,90 }, this);
@@ -94,7 +97,18 @@ bool Title::Start()
 	C_screen->active = false;
 	C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 1130,51,100,40 }, this);
 	C_vysinc->active = false;
+
+	if (CheckContinue()) {
+		B_continue->state = GuiControlState::NORMAL;
+	}
+
 	return true;
+}
+
+//Check if we can continue the game or not
+bool Title::CheckContinue() {
+	
+	return app->CheckFileExists();
 }
 
 // Called each loop iteration

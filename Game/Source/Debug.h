@@ -32,6 +32,7 @@ public:
 	bool moveRight = false;
 	bool drawColliders = false;
 	bool controlFPS = false;
+	bool colourblind = false;
 
 	// FPS
 	microseconds timePerCycle;

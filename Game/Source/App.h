@@ -73,7 +73,7 @@ public:
 	void SaveGameRequest() ;
 	bool LoadFromFile();
 	bool SaveToFile() ;
-
+	bool CheckFileExists();
 private:
 
 	// Load config file

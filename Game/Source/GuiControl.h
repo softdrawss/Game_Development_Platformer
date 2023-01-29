@@ -76,7 +76,7 @@ public:
 	}
 
 public:
-
+	
 	uint32 id;
 	GuiControlType type;
 	GuiControlState state;

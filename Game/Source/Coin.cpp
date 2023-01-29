@@ -75,7 +75,6 @@ bool Coin::Update()
 	//God Mode
 	if (app->debug->godMode)
 	{
-		alive = true;
 		pbody->body->SetGravityScale(0);
 	}
 	else
@@ -91,18 +90,19 @@ bool Coin::Update()
 		pbody->body->SetType(b2_staticBody);
 		//app->audio->PlayFx(deathaudio);
 	}
+	else {
+
+		//Coin position
+		position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 9;
+		position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
+
+		SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x+4, position.y+11, flip, &rect2);
+		currentAnim->Update();
+	}
 
 
-	//Set the velocity of the pbody of the player
-	pbody->body->SetLinearVelocity(vel);
-
-	//Coin position
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 9;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 18;
-
-	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x+4, position.y+11, flip, &rect2);
-	currentAnim->Update();
+	
 
 	return true;
 }
@@ -160,6 +160,7 @@ bool Coin::CheckPickingCoin()
 {
 	if (active && isPicked) {
 		active = false;
+		alive = false;
 		return true;
 	}
 	return false;

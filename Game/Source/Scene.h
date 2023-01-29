@@ -61,7 +61,7 @@ public:
 	bool SaveState(pugi::xml_node&);
 
 	SDL_Rect rectCamera;
-
+	bool continue_pressed;
 private:
 	SDL_Texture* img;
 
