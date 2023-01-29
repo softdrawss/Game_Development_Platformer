@@ -6,19 +6,23 @@
 #include "Scene.h"
 #include "Debug.h"
 #include "Window.h"
+#include "SDL/include/SDL.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 
-GuiSlider::GuiSlider(int id, SDL_Rect bounds, const char* text, unsigned int clickedFx, unsigned int focusedFx, SDL_Texture* textureButton, SDL_Texture* textureSlider) : GuiControl(GuiControlType::SLIDER, id)
+GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, const char* text, SDL_Rect sliderBounds) : GuiControl(GuiControlType::SLIDER, id)
 {
 	this->bounds = bounds;
 	this->text = text;
-	minValue = 0;
-	maxValue = 100;
-	focusedFX = focusedFx;
-	clickedFX = clickedFx;
-	textureButtons = textureButton;
-	textureSliders = textureSlider;
-	drawRect = false;
-	pendingToDelete = false;
+	this->sliderbounds = sliderBounds;
+
+	canClick = true;
+	drawBasic = false;
+
+	bounds.x = sliderbounds.x + sliderbounds.w;
+
+	focused = app->audio->LoadFx("Assets/Audio/Fx/focused.wav");
+	pressed = app->audio->LoadFx("Assets/Audio/Fx/click.wav");
+	this->state = GuiControlState::NORMAL;
 }
 
 GuiSlider::~GuiSlider()
@@ -27,113 +31,117 @@ GuiSlider::~GuiSlider()
 
 bool GuiSlider::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-	{
-		if (drawRect == false)
-		{
-			drawRect = true;
-		}
-		else
-		{
-			drawRect = false;
-		}
+	int scale = app->win->GetScale();
+	if (canClick == false) {
+		state = GuiControlState::NORMAL;
+		return false;
 	}
-
 	if (state != GuiControlState::DISABLED)
 	{
-		int mouseX, mouseY;
+		// L15: DONE 3: Update the state of the GUiButton according to the mouse position
 		app->input->GetMousePosition(mouseX, mouseY);
-		mouseX += app->render->camera.x * -1;
-		mouseY += app->render->camera.y * -1;
 
-		// Check collision between mouse and button bounds
-		if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) &&
-			(mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
-		{
+		GuiControlState previousState = state;
+		state = GuiControlState::NORMAL;
+
+		// I'm inside the limitis of the button
+		if (mouseX * scale>= bounds.x && mouseX * scale <= bounds.x + bounds.w &&
+			mouseY * scale >= bounds.y && mouseY * scale <= bounds.y + bounds.h) {
+
 			state = GuiControlState::FOCUSED;
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-			{
+			app->audio->PlayFx(focused);
+
+
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT) {
 				state = GuiControlState::PRESSED;
-				value = ((maxValue - minValue) * (mouseX - (float)(bounds.x + slider.w / 2))) / (float)(bounds.w - slider.w) + minValue;
+				app->audio->PlayFx(pressed);
 
-				NotifyObserver();
+			}
 
-				if (slider.w > 0)
-				{
-					slider.x = mouseX - slider.w / 2;
+
+			if (previousState == GuiControlState::PRESSED && state == GuiControlState::NORMAL) {
+				//in case you want to change the volume in intervals of 25
+				/*if (mouseX > sliderbounds.x + 12.5f && mouseX < sliderbounds.x + 37.5f) {
+					bounds.x = sliderbounds.x + 25 - bounds.w / 2;
+				}else if (mouseX > sliderbounds.x + 37.5f && mouseX < sliderbounds.x + 62.5f) {
+					bounds.x = sliderbounds.x + 50 - bounds.w/2;
 				}
-				else if (slider.w == 0)
-				{
-					//slider.w = sliderValue;
+				else if (mouseX > sliderbounds.x + 62.5f && mouseX < sliderbounds.x + 87.5f) {
+					bounds.x = sliderbounds.x + 75 - bounds.w / 2;
+				}
+				else if(mouseX < sliderbounds.x + 12.5f && mouseX > sliderbounds.x -1){
+					bounds.x = sliderbounds.x;
+				}
+				else if (mouseX > sliderbounds.x + 87.5f && mouseX < sliderbounds.x +sliderbounds.w +1) {
+					bounds.x = sliderbounds.x + 100 - bounds.w/2;
+				}
+				else if (mouseX > sliderbounds.x + 100.0f) {
+					bounds.x = sliderbounds.x + sliderbounds.w;
+				}*/
+			}
+			else if (previousState == GuiControlState::NORMAL && state == GuiControlState::FOCUSED) {
+				LOG("Change state from %d to %d", previousState, state);
+				app->audio->PlayFx(focusaudioFxId);
+			}
+
+			if (previousState == GuiControlState::FOCUSED && state == GuiControlState::PRESSED) {
+				app->audio->PlayFx(clickaudioFxId);
+			}
+
+			if (state == GuiControlState::PRESSED) {
+				bounds.x = (mouseX*scale - (bounds.w / 2));
+				if (bounds.x > sliderbounds.x + sliderbounds.w) {
+					bounds.x = sliderbounds.x + sliderbounds.w;
+				}
+				else if (bounds.x < sliderbounds.x) {
+					bounds.x = sliderbounds.x;
 				}
 			}
-		}
-		else state = GuiControlState::NORMAL;
 
-		if (value > maxValue)
-		{
-			value = maxValue;
+			if (slider == GuiSliderType::MUSIC) {
+				Mix_VolumeMusic(bounds.x - sliderbounds.x);
+			}
+			if (slider == GuiSliderType::FX) {
+				Mix_Volume(-1, bounds.x - sliderbounds.x);
+			}
 		}
-		else if (value < minValue)
+	}
+}
+
+bool GuiSlider::Draw(Render* render)
+{
+	//L15: DONE 4: Draw the button according the GuiControl State
+	app->input->GetMousePosition(mouseX, mouseY);
+	if (active) {
+		switch (state)
 		{
-			value = minValue;
+		case GuiControlState::DISABLED:
+
+			app->render->DrawRectangle(sliderbounds, 0, 0, 255, 255, true, false);
+			app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 0, 0, 255, true, false);
+
+			break;
+		case GuiControlState::NORMAL:
+			app->render->DrawRectangle(sliderbounds, 0, 0, 255, 255, true, false);
+			app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 0, 255, 255, true, false);
+
+			break;
+		case GuiControlState::FOCUSED:
+			//section of the rectangle
+			app->render->DrawRectangle(sliderbounds, 0, 0, 255, 255, true, false);
+			app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 0, 255, 0, 255, true, false);
+
+			break;
+		case GuiControlState::PRESSED:
+			app->render->DrawRectangle(sliderbounds, 0, 0, 255, 255, true, false);
+			app->render->DrawRectangle({ bounds.x,bounds.y,bounds.w,bounds.h }, 255, 0, 0, 255, true, false);
+
+			break;
 		}
+	}
+	else {
+
 	}
 	return false;
 }
 
-bool GuiSlider::Draw()
-{
-	SDL_Rect rect = { 3486,3838,359,57 };
-	SDL_Rect rect2 = { 3450,3955, 3.41 * value,46 };
-	SDL_Rect rect3;
-
-	if (id == 1)
-	{
-		value = app->audio->volumeMusic;
-		rect3 = { 1074,921, 91,96 };
-	}
-	if (id == 2)
-	{
-		value = app->audio->volumeFx;
-		rect3 = { 1074,1029, 91,96 };
-	}
-	// Draw the right button depending on state
-	switch (state)
-	{
-	case GuiControlState::DISABLED:
-		app->render->DrawTexture(textureSliders, bounds.x, bounds.y, &rect);
-		app->render->DrawTexture(textureSliders, bounds.x + 8, bounds.y + 6, &rect2);
-		app->render->DrawTexture(textureButtons, bounds.x - 95, bounds.y, &rect3);
-		if (drawRect == true) app->render->DrawRectangle(bounds, 0, 255, 0, 255);
-		break;
-	case GuiControlState::NORMAL:
-		app->render->DrawTexture(textureSliders, bounds.x, bounds.y, &rect);
-		app->render->DrawTexture(textureSliders, bounds.x + 8, bounds.y + 6, &rect2);
-		app->render->DrawTexture(textureButtons, bounds.x - 95, bounds.y, &rect3);
-		if (drawRect == true) app->render->DrawRectangle(bounds, 0, 255, 0, 255);
-		break;
-	case GuiControlState::FOCUSED:
-		app->render->DrawTexture(textureSliders, bounds.x, bounds.y, &rect);
-		app->render->DrawTexture(textureSliders, bounds.x + 8, bounds.y + 6, &rect2);
-		app->render->DrawTexture(textureButtons, bounds.x - 95, bounds.y, &rect3);
-		if (drawRect == true) app->render->DrawRectangle(bounds, 255, 255, 0, 255);
-		break;
-	case GuiControlState::PRESSED:
-		app->render->DrawTexture(textureSliders, bounds.x, bounds.y, &rect);
-		app->render->DrawTexture(textureSliders, bounds.x + 8, bounds.y + 6, &rect2);
-		app->render->DrawTexture(textureButtons, bounds.x - 95, bounds.y, &rect3);
-		if (drawRect == true) app->render->DrawRectangle(bounds, 255, 0, 0, 255);
-		break;
-		break;
-	default:
-		break;
-	}
-
-	return false;
-}
-
-int GuiSlider::GetMusicValue()
-{
-	return value;
-}

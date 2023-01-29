@@ -95,9 +95,10 @@ bool Title::Start()
 	B_back->state = GuiControlState::DISABLED;
 
 	////Sliders
-	S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 300,300,300,300 }, this);
-	S_music->slider = GuiSlidertype::MUSIC;
+	S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 90,40,40,40 }, this, { 20, 40, 120, 10 });
+	S_music->slider = GuiSliderType::MUSIC;
 	S_music->active = active;
+	S_music->state = GuiControlState::DISABLED;
 	//S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 1130,51,100,40 }, this);
 	//S_fx->active = false;
 	//
@@ -213,8 +214,7 @@ void Title::DrawCredits() {
 	app->render->DrawText("CREDITS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
 	SDL_Rect rect = { 0, 0, 1236, 738 };
 	//NO se ve nada
-	//app->render->Blit(credImg, 0, 0, &rect, false);
-
+	//app->render->DrawText("HÉCTOR BÁSCONES ZAMORA, @Hekbas", )
 }
 
 void Title::DrawSettings() {
@@ -228,6 +228,8 @@ void Title::DrawSettings() {
 	B_back->state = GuiControlState::NORMAL;
 	app->render->DrawRectangle({ 118, 58, 1236, 738 }, 255, 79, 120, 255, true, false);
 	app->render->DrawText("SETTINGS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
+
+
 }
 
 // Define multiple Gui Event methods
