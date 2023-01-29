@@ -153,7 +153,7 @@ bool Title::PostUpdate()
 	app->render->DrawTexture(img, x, y, SDL_FLIP_NONE);
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(animImg, xA, yA, SDL_FLIP_NONE, &rect2);
-	currentAnim->Update();
+	currentAnim->Update(app->GetDeltaTime());
 	app->guimanager->Draw();
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

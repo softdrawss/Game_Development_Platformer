@@ -18,7 +18,7 @@ public:
 
 	bool Awake();
 	bool Start();
-	bool Update();	
+	bool Update(float dt);
 	bool CleanUp();
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);

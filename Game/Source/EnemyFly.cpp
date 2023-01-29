@@ -65,7 +65,7 @@ bool EnemyFly::Start()
 	return true;
 }
 
-bool EnemyFly::Update()
+bool EnemyFly::Update(float dt)
 {
 	OPTICK_EVENT();
 	b2Vec2 vel;
@@ -164,7 +164,7 @@ bool EnemyFly::Update()
 	//Animation
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x+20, position.y+16, flip, &rect2);
-	currentAnim->Update();
+	currentAnim->Update(dt);
 	return true;
 }
 

@@ -66,7 +66,7 @@ bool Health::Start()
 	return true;
 }
 
-bool Health::Update()
+bool Health::Update(float dt)
 {
 	OPTICK_EVENT();
 	b2Vec2 vel;
@@ -98,7 +98,7 @@ bool Health::Update()
 
 		SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 		app->render->DrawTexture(texture, position.x + 4, position.y + 11, flip, &rect2);
-		currentAnim->Update();
+		currentAnim->Update(dt);
 	}
 
 	return true;

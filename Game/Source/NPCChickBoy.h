@@ -18,7 +18,7 @@ public:
 
 	bool Awake();
 	bool Start();
-	bool Update();
+	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
 

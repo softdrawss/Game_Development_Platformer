@@ -36,10 +36,10 @@ public:
 		return !loop && !pingpong && loopCount > 0;
 	}
 
-	void Update()
+	void Update(float dt)
 	{
 		OPTICK_EVENT();
-		currentFrame += speed;
+		currentFrame += speed * dt / 16.6666666f; //animations adjust to framerate
 		if (currentFrame >= totalFrames)
 		{
 			currentFrame = (loop || pingpong) ? 0.0f : totalFrames - 1;

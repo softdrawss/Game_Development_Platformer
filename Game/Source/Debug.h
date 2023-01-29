@@ -38,7 +38,7 @@ public:
 	microseconds timePerCycle;
 	microseconds elapsedFrame;
 	int desiredFPSmic;
-	int desiredFPS = 30;
+	int desiredFPS;
   
 private:
 

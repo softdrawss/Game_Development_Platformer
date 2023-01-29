@@ -94,6 +94,7 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+
 public:
 
 	// Modules
@@ -121,6 +122,9 @@ public:
 	Render* render;
 
 	float secondsSinceStartup = 0.0f;
+	
+	float GetDeltaTime() { return dt; }
+
 private:
 
 	int argc;

@@ -56,7 +56,7 @@ bool NPCChickBoy::Start()
 	return true;
 }
 
-bool NPCChickBoy::Update()
+bool NPCChickBoy::Update(float dt)
 {
 	b2Vec2 vel;
 	int speed = 4;
@@ -106,7 +106,7 @@ bool NPCChickBoy::Update()
 	if (isAsleep) { currentAnim = &idle; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, flip, &rect2);
-	currentAnim->Update();
+	currentAnim->Update(dt);
 
 	return true;
 }

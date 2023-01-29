@@ -43,6 +43,8 @@ bool Scene::Start()
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
 
+	//FPS CAP
+	app->debug->desiredFPS = config.child("frcap").attribute("fps").as_int();
 
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
@@ -174,7 +176,7 @@ bool Scene::Update(float dt)
 	
 	//UI
 	// Health
-	app->render->DrawRectangle({ 0,0, 1472, 75 }, 244, 244, 228, 225, true, false);
+	app->render->DrawRectangle({ 0,0, 1472, 75 }, 255, 255, 255, 64, true, false);
 	std::string string;
 	
 	SDL_Rect rect2 = healthUIanim->GetCurrentFrame();
@@ -189,7 +191,7 @@ bool Scene::Update(float dt)
 	app->render->DrawText(string.c_str(), 215, 10, 50, 50, { 0, 0, 0 });
 	SDL_Rect rect3 = coinUIanim->GetCurrentFrame();
 	app->render->Blit(coinText, 90, 10, &rect3, false);
-	coinUIanim->Update();
+	coinUIanim->Update(dt);
 
 	//Timer
 	string = std::to_string((int)app->secondsSinceStartup);

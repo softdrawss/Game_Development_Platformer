@@ -79,7 +79,7 @@ bool Player::Start()
 	return true;
 }
 
-bool Player::Update()
+bool Player::Update(float dt)
 {
 	OPTICK_EVENT();
 	b2Vec2 vel;
@@ -260,7 +260,7 @@ bool Player::Update()
 	if (isAttacking) { currentAnim = &attackNormal; }
 	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x+4, position.y+11, flip, &rect2);
-	currentAnim->Update();
+	currentAnim->Update(dt);
 
 	return true;
 }
@@ -314,6 +314,18 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::COIN:
 		LOG("Collision UNKNOWN");
 		break;
+
+		//TRIGGER
+	case ColliderType::TRIG_1A:
+		LOG("Save checkpoint 1");
+		app->SaveGameRequest();
+		break;
+
+	case ColliderType::TRIG_2A:
+		LOG("Save checkpoint 2");
+		app->SaveGameRequest();
+		break;
+
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
 		break;

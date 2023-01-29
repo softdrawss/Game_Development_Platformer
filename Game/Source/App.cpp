@@ -255,19 +255,12 @@ void App::FinishUpdate()
 		averageFps = (averageFps + framesPerSecond) / 2;
 	}
 
-	if (vsync) {
-		float delay = float(maxFrameDuration) - dt;
-
-		if (maxFrameDuration > 0 && delay > 0) {
-			SDL_Delay(delay);
-			dt = maxFrameDuration;
-		}
-	}
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u Vsync %i",
-		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount, vsync);
+	sprintf_s(title, 256, " FPS: %d  |  Av.FPS: %.1f  |  dt(ms): %.1f  |  Vsync: %s",
+		 framesPerSecond, averageFps, dt, vsync ? "on" : "off");
 
+	//: FPS / Avg. FPS / Last-frame MS / Vsync: on/of
 	app->win->SetTitle(title);
 }
 

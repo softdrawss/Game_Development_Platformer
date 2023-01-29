@@ -66,7 +66,7 @@ bool Coin::Start()
 	return true;
 }
 
-bool Coin::Update()
+bool Coin::Update(float dt)
 {
 	OPTICK_EVENT();
 	b2Vec2 vel;
@@ -98,7 +98,7 @@ bool Coin::Update()
 
 		SDL_Rect rect2 = currentAnim->GetCurrentFrame();
 		app->render->DrawTexture(texture, position.x+4, position.y+11, flip, &rect2);
-		currentAnim->Update();
+		currentAnim->Update(dt);
 	}
 
 

@@ -15,7 +15,7 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
-
+	
   <audio>
     <music volume="10"/>
     <fx volume="32"/>
@@ -42,6 +42,8 @@
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
 	<fonts fontPath="Assets/Textures/Fonts/sprite_font_white.png"/>
 	<camera speed="6" x="0" y="0"/>
+
+	<frcap fps="60"/>
   </scene>
 
   <ending>

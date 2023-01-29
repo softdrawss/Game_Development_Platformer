@@ -34,7 +34,7 @@ bool ParticleBody::Update()
 
 	if (isAlive)
 	{
-		anim.Update();
+		anim.Update(app->GetDeltaTime());
 
 		// If the particle has a specific lifetime, check when it has to be destroyed
 		if (lifetime > 0)

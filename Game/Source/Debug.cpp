@@ -27,6 +27,7 @@ Debug::~Debug() {}
 bool Debug::Start()
 {
 	debug = false;
+	desiredFPS = 60;
 	return true;
 }
 
@@ -72,6 +73,11 @@ bool Debug::Update(float dt)
 		app->LoadGameRequest();
 	}
 
+	// F7: Move between checkpoints
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+
+	}
+
 	// F8:  View GUI bounds rectangles and state in different colors
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
 		colourblind = !colourblind;
@@ -87,14 +93,9 @@ bool Debug::Update(float dt)
 		godMode = !godMode;
 	}
 
-	// F11: Enable/Disable FPS cap to 30
+	// F11: Enable/Disable FPS cap to xml value
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
 		controlFPS = !controlFPS;
-	}
-
-	// F7: Auto move right
-	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
-		moveRight = !moveRight;
 	}
 
 	return true;

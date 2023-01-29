@@ -40,7 +40,7 @@ bool PlayerInteract::Start()
 	return true;
 }
 
-bool PlayerInteract::Update()
+bool PlayerInteract::Update(float dt)
 {
 	OPTICK_EVENT();
 
