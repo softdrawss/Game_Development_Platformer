@@ -47,12 +47,15 @@ bool Title::Start()
 
 	titlepath = (char*)config.child("pos").attribute("texturepath").as_string();
 	animpath = (char*)config.child("pos").attribute("textureAnim").as_string();
+	credpath = (char*)config.child("pos").attribute("credits").as_string();
 	x = config.child("pos").attribute("x").as_int();
 	y = config.child("pos").attribute("y").as_int();
 	xA = config.child("pos").attribute("xA").as_int();
 	yA = config.child("pos").attribute("yA").as_int();
+	
 	img = app->tex->Load(titlepath);
 	animImg = app->tex->Load(animpath);
+	credImg = app->tex->Load(credpath);
 
 	app->camera->SetPosition(0, 0);
 
@@ -86,18 +89,29 @@ bool Title::Start()
 	B_exit = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "EXIT", { 586,650+55,300,90 }, this);
 	B_exit->button = GuiButtontype::EXIT;
 
-	//Sliders
-	S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 1130,51,100,40 }, this);
-	S_music->active = false;
-	S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 1130,51,100,40 }, this);
-	S_fx->active = false;
+	B_back = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "BACK", { 1254,8,100,50 }, this);
+	B_back->button = GuiButtontype::BACK;
+	B_back->active = false;
+	B_back->state = GuiControlState::DISABLED;
 
-	//CheckBox
-	C_screen = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "FULL SCREEN", { 1130,51,100,40 }, this);
-	C_screen->active = false;
-	C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 1130,51,100,40 }, this);
-	C_vysinc->active = false;
+	////Sliders
+	S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 90,40,40,40 }, this, { 20, 40, 120, 10 });
+	S_music->slider = GuiSliderType::MUSIC;
+	S_music->active = active;
+	S_music->state = GuiControlState::DISABLED;
+	//S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 1130,51,100,40 }, this);
+	//S_fx->active = false;
+	//
+	////CheckBox
+	//C_screen = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "FULL SCREEN", { 1130,51,100,40 }, this);
+	//C_screen->active = false;
+	//C_screen->state = GuiControlState::DISABLED;
+	//C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 1130,51,100,40 }, this);
+	//C_vysinc->active = false;
+	//C_vysinc->state = GuiControlState::DISABLED;
 
+	credits = false;
+	settings = false;
 	if (CheckContinue()) {
 		B_continue->state = GuiControlState::NORMAL;
 	}
@@ -137,12 +151,6 @@ bool Title::Update(float dt)
 	if (exit)
 		return false;
 
-	if (credits)
-		DrawCredits();
-
-	if (settings)
-		DrawSettings();
-
 	return true;
 }
 
@@ -160,7 +168,20 @@ bool Title::PostUpdate()
 	{
 		return false;
 	}
-
+	if (credits)
+		DrawCredits();
+	else if (settings)
+		DrawSettings();
+	else {
+		B_play->state = GuiControlState::NORMAL;
+		B_continue->state = GuiControlState::NORMAL;
+		B_settings->state = GuiControlState::NORMAL;
+		B_credits->state = GuiControlState::NORMAL;
+		B_exit->state = GuiControlState::NORMAL;
+		
+		B_back->active = false;
+		B_back->state = GuiControlState::DISABLED;
+	}
 	return true;
 }
 
@@ -180,10 +201,34 @@ bool Title::CleanUp()
 }
 
 void Title::DrawCredits() {
+	//
+	B_play->state = GuiControlState::DISABLED;
+	B_continue->state = GuiControlState::DISABLED;
+	B_settings->state = GuiControlState::DISABLED;
+	B_credits->state = GuiControlState::DISABLED;
+	B_exit->state = GuiControlState::DISABLED;
 
+	B_back->active = true;
+	B_back->state = GuiControlState::NORMAL;
+	app->render->DrawRectangle({ 118, 58, 1236, 738 }, 255, 79, 120, 255, true, false);
+	app->render->DrawText("CREDITS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
+	SDL_Rect rect = { 0, 0, 1236, 738 };
+	//NO se ve nada
+	//app->render->DrawText("HÉCTOR BÁSCONES ZAMORA, @Hekbas", )
 }
 
 void Title::DrawSettings() {
+	B_play->state = GuiControlState::DISABLED;
+	B_continue->state = GuiControlState::DISABLED;
+	B_settings->state = GuiControlState::DISABLED;
+	B_credits->state = GuiControlState::DISABLED;
+	B_exit->state = GuiControlState::DISABLED;
+
+	B_back->active = true;
+	B_back->state = GuiControlState::NORMAL;
+	app->render->DrawRectangle({ 118, 58, 1236, 738 }, 255, 79, 120, 255, true, false);
+	app->render->DrawText("SETTINGS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
+
 
 }
 

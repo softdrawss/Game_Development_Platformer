@@ -52,6 +52,7 @@ public:
 	GuiButton* B_settings;
 	GuiButton* B_credits;
 	GuiButton* B_exit;
+	GuiButton* B_back;
 
 	//Sliders
 	GuiSlider* S_music;
@@ -65,11 +66,13 @@ public:
 private:
 	SDL_Texture* img;
 	SDL_Texture* animImg;
+	SDL_Texture* credImg;
 	Animation anim, run;
 	Animation* currentAnim = nullptr;
 
 	char* titlepath;
 	char* animpath;
+	char* credpath;
 	int x, y, xA, yA;
 };
 

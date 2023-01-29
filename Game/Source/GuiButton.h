@@ -13,7 +13,10 @@ enum class GuiButtontype {
 	CREDITS,
 	EXIT,
 	RESUME,
-	BACK_TO_TITLE
+	BACK_TO_TITLE,
+	BACK,
+	TP_1,
+	TP_2
 };
 
 class GuiButton : public GuiControl

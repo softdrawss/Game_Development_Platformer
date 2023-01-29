@@ -26,7 +26,7 @@
   </logo>
 
   <title>
-  	<pos x="0" y="0" texturepath="Assets/Textures/Scenes/menu.png" textureAnim="Assets/Textures/Characters/NewPlayer/player.png" xA="590" yA="121"/>
+  	<pos x="0" y="0" texturepath="Assets/Textures/Scenes/menu.png" textureAnim="Assets/Textures/Characters/NewPlayer/player.png" xA="590" yA="121" credits="Assets/Textures/Scenes/credits.png"/>
   </title>
 	
   <scene>
