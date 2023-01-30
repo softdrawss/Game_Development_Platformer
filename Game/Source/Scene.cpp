@@ -246,7 +246,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 	coin->alive = data.child("coinItem").attribute("alive").as_bool();
 	health->SetPosition(data.child("healthItem").attribute("x").as_int(), data.child("healthItem").attribute("y").as_int());
 	health->alive = data.child("healthItem").attribute("alive").as_bool();
-
+	coinCount = data.child("uiData").attribute("coinCount").as_int();
+	healthCount = data.child("uiData").attribute("healthCount").as_int();
 	return true;
 }
 
@@ -278,6 +279,10 @@ bool Scene::SaveState(pugi::xml_node& data)
 	healthItem.append_attribute("x") = health->position.x;
 	healthItem.append_attribute("y") = health->position.y;
 	healthItem.append_attribute("alive") = health->alive;
+
+	pugi::xml_node uiData = data.append_child("ui");
+	healthItem.append_attribute("coinCount") = coinCount;
+	healthItem.append_attribute("healthCount") = healthCount;
 
 	return true;
 }

@@ -252,7 +252,7 @@ void Title::DrawSettings() {
 	app->render->DrawText("MUSIC VOLUME", 343+70, 200+50, 250, 50, { 244,244,228 });
 	app->render->DrawText("FX VOLUME", 343 + 70, 270 + 50, 175, 50, { 244,244,228 });
 	app->render->DrawText("FULLSCREEN", 343 + 70, 340 + 50, 245, 50, { 244,244,228 });
-	app->render->DrawText("VYSINC", 343 + 70, 410 + 50, 150, 50, { 244,244,228 });
+	app->render->DrawText("VSYNC", 343 + 70, 410 + 50, 150, 50, { 244,244,228 });
 	
 }
 
