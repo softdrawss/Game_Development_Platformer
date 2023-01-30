@@ -27,7 +27,7 @@ Link to the Beta release: [https://github.com/softdrawss/Game_Development_Platfo
  - SPACE: Jump
  - SHIFT: Dash
  - ENTER: Start game
- - ESC: Quit
+ - ESC: Pause Menu
  
  ### Debug
  - TAB + C: Camera
