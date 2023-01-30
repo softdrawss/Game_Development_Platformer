@@ -5,7 +5,7 @@
   </app>
 
   <renderer>
-    <vsync value="false"/>
+	  <vsync value="false"/>
   </renderer>
 
   <window>
@@ -43,7 +43,8 @@
 	<fonts fontPath="Assets/Textures/Fonts/sprite_font_white.png"/>
 	<camera speed="6" x="0" y="0"/>
 
-	<frcap fps="60"/>
+	<frcap fps="20"/>
+	<vsync value="false"/>
   </scene>
 
   <ending>

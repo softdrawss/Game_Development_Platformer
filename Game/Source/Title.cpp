@@ -114,6 +114,7 @@ bool Title::Start()
 	C_vysinc->active = false;
 	C_vysinc->state = GuiControlState::DISABLED;
 
+
 	credits = false;
 	settings = false;
 	if (CheckContinue()) {
