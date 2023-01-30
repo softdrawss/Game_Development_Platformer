@@ -70,10 +70,14 @@ public:
 	SDL_Rect rectCamera;
 	bool continue_pressed;
 
+	int score;
+
 	//Triggers
 	bool door_A;
 	bool trapDoor_A;
 	
+
+	//GUI
 	bool pause = false;
 	GuiButton* B_resume;
 	GuiButton* B_settings;
@@ -89,6 +93,7 @@ public:
 	GuiCheckBox* C_screen;
 	GuiCheckBox* C_vysinc;
 	bool credits = false, settings = false, exit = false;
+
 private:
 	SDL_Texture* img;
 
@@ -107,10 +112,6 @@ private:
 	int healthCount;
 	int coinPicked;
 
-	//sfx
-	char* audioPath;
-	int pickCoinAudio_sfx;
-
 	//Anim
 	Animation coinUI, healthUI;
 	Animation* coinUIanim;
@@ -121,6 +122,13 @@ private:
 	const char* healthPath;
 	SDL_Texture* coinText;
 	SDL_Texture* healthText;
+
+
+public:
+
+	//sfx
+	char* audioPath;
+	int pickCoinAudio_sfx;
 };
 
 #endif // __SCENE_H__

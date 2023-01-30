@@ -5,6 +5,7 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
+#include "Physics.h"
 #include "Scene.h"
 #include "PathFinding.h"
 #include "EntityManager.h"
@@ -44,9 +45,6 @@ bool Scene::Start()
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
 
-	//FPS CAP
-	app->debug->desiredFPS = config.child("frcap").attribute("fps").as_int();
-	app->debug->controlFPS = config.child("vsync").attribute("value").as_int();
 
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
@@ -78,6 +76,11 @@ bool Scene::Start()
 	//HEART
 	health = (Health*)app->entityManager->CreateEntity(EntityType::HEALTH);
 	health->parameters = config.child("health");
+
+	//VAR
+	coinCount = 0;
+	healthCount = 0;
+	coinPicked = 0;
 
 	//Enables
 	app->map->Enable();
@@ -166,6 +169,7 @@ bool Scene::Start()
 		app->LoadGameRequest();
 	}
 
+	//GUI
 	B_resume = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "RESUME", { 586,350 + 25,300,90 }, this);
 	B_resume->button = GuiButtontype::RESUME;
 	B_resume->active = false;
@@ -212,6 +216,7 @@ bool Scene::Start()
 	pause = false;
 	settings = false;
 	exit = false;
+
 	return true;
 }
 
@@ -258,6 +263,26 @@ void Scene::DrawSettings() {
 bool Scene::PreUpdate()
 {
 	OPTICK_EVENT();
+
+	//disable PLATFORM
+	for (b2Body* body = app->physics->world->GetBodyList(); body; body = body->GetNext())
+	{
+		PhysBody* pBody = (PhysBody*)body->GetUserData();
+
+		if (pBody != nullptr && pBody->ctype == ColliderType::PLATFORM)
+		{
+			int posX = 0;
+			int posY = 0;
+
+			pBody->GetPosition(posX, posY);
+
+			if (posY < player->position.y + 32)
+				pBody->body->SetActive(false);
+			else
+				pBody->body->SetActive(true);
+		}
+	}
+
 	return true;
 }
 
@@ -307,7 +332,7 @@ bool Scene::Update(float dt)
 	if (health->CheckPickingHealth()) {
 		healthCount++;
 	}
-	if ((int)app->secondsSinceStartup <= 5000) {
+	if ((int)app->secondsSinceStartup >= 5000) {
 		player->alive = false;
 	}
 

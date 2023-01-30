@@ -124,6 +124,7 @@ public:
 	float secondsSinceStartup = 0.0f;
 	
 	float GetDeltaTime() { return dt; }
+	void SetMaxFrameDuration(float max) { maxFrameDuration = max; }
 
 private:
 
@@ -163,7 +164,7 @@ private:
 
 	float averageFps = 0.0f;
 
-	uint32 maxFrameDuration = 0;
+	float maxFrameDuration = 0.0f;
 };
 
 extern App* app;

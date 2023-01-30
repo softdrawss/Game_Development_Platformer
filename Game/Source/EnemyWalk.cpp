@@ -64,7 +64,7 @@ bool EnemyWalk::Update(float dt)
 {
 	OPTICK_EVENT();
 	b2Vec2 vel;
-	int speed = 1;
+	float speed = 1 * dt / 16.6666666f;
 	
 	//Death
 	if (!alive)
@@ -226,7 +226,6 @@ void EnemyWalk::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::PLAYER:
 		LOG("Collision PLATFORM");
-		//alive = false;
 		break;
 	case ColliderType::WALL:
 		LOG("Collision WALL");

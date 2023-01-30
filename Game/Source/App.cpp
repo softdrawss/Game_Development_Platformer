@@ -255,9 +255,19 @@ void App::FinishUpdate()
 		averageFps = (averageFps + framesPerSecond) / 2;
 	}
 
+	//vsync
+	if (app->debug->controlFPS)
+	{
+		float delay = float(maxFrameDuration) - dt;
 
-	static char title[256];
-	sprintf_s(title, 256, " FPS: %d  |  Av.FPS: %.1f  |  dt(ms): %.1f  |  Vsync: %s",
+		if (maxFrameDuration > 0 && delay > 0) {
+			SDL_Delay(delay);
+			dt = maxFrameDuration;
+		}
+	}
+
+	static char title[128];
+	sprintf_s(title, 128, " FPS: %d  |  Av.FPS: %.1f  |  dt(ms): %.1f  |  Vsync: %s",
 		 framesPerSecond, averageFps, dt, app->debug->controlFPS ? "on" : "off");
 
 	//: FPS / Avg. FPS / Last-frame MS / Vsync: on/of
@@ -269,7 +279,7 @@ bool App::PreUpdate()
 {
 	OPTICK_EVENT();
 	bool ret = true;
-	ListItem<Module*>* item;
+	ListItem<Module*>* item; 
 	item = modules.start;
 	Module* pModule = NULL;
 

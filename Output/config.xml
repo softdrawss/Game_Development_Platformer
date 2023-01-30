@@ -26,6 +26,8 @@
   </logo>
 
   <title>
+	<frcap fps="60"/>
+    <vsync value="false"/>
   	<pos x="0" y="0" texturepath="Assets/Textures/Scenes/menu.png" textureAnim="Assets/Textures/Characters/NewPlayer/player.png" xA="590" yA="121" credits="Assets/Textures/Scenes/credits.png"/>
   </title>
 	
@@ -42,9 +44,6 @@
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
 	<fonts fontPath="Assets/Textures/Fonts/sprite_font_white.png"/>
 	<camera speed="6" x="0" y="0"/>
-
-	<frcap fps="20"/>
-	<vsync value="false"/>
   </scene>
 
   <ending>

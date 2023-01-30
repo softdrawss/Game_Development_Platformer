@@ -57,7 +57,6 @@ bool Health::Start()
 	pbody->ctype = ColliderType::HEALTH;
 
 	pbody->body->SetTransform(PIXEL_TO_METERS(initPosition), 0);
-	alive = true;
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	//pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
@@ -69,8 +68,6 @@ bool Health::Start()
 bool Health::Update(float dt)
 {
 	OPTICK_EVENT();
-	b2Vec2 vel;
-	int speed = 2;
 
 	//Death
 	if (!alive)

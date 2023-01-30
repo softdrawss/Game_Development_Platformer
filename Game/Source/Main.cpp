@@ -110,28 +110,7 @@ int main(int argc, char* args[])
 			result = EXIT_FAILURE;
 			state = EXIT;
 			break;
-		}
-		
-		if (state == LOOP && app->debug->controlFPS)
-		{
-			//FPS CONTROL
-			high_resolution_clock::time_point endTime = high_resolution_clock::now();
-			app->debug->timePerCycle = duration_cast<microseconds>(endTime - startTime);
-
-			//Frames per microseconds of the desiredFPS
-			app->debug->desiredFPSmic = (int)((1.0f / (float)app->debug->desiredFPS) * 1E6);
-
-			//Sleep if the time is less than the desiredFPSmic
-			if (app->debug->timePerCycle < std::chrono::microseconds(app->debug->desiredFPSmic))
-			{
-				std::this_thread::sleep_for(std::chrono::microseconds(std::chrono::microseconds(app->debug->desiredFPSmic) - app->debug->timePerCycle));
-			}
-
-			//Calculate the time with the delay
-			endTime = high_resolution_clock::now();
-			app->debug->elapsedFrame = duration_cast<microseconds>(endTime - startTime);
-		}
-		
+		}		
 	}
 	
 	LOG("... Bye! :)\n");

@@ -70,7 +70,6 @@ bool Player::Start()
 	pbody->ctype = ColliderType::PLAYER;
 
 	pbody->body->SetTransform(PIXEL_TO_METERS(initPosition), 0);
-	alive = true;
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	//pickCoinFxId = app->audio->LoadFx("Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg");
 
@@ -83,7 +82,7 @@ bool Player::Update(float dt)
 {
 	OPTICK_EVENT();
 	b2Vec2 vel;
-	int speed = 2;
+	float speed = 2 * dt / 16.6666666f;
 
 	//God Mode
 	if (app->debug->godMode)
@@ -290,7 +289,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		//need to tell it, depending on how we kill (or make disappear) enemies
 		//will we shoot to them? or more like mario, smashing them up to the ground with our weight?
 		
-		app->scene->health -= 1;
+		//app->scene->health -= 1;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
@@ -410,4 +409,3 @@ void Player::LoadAnimations()
 
 	currentAnim = &idle;
 }
-

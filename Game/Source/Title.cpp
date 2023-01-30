@@ -52,7 +52,12 @@ bool Title::Start()
 	y = config.child("pos").attribute("y").as_int();
 	xA = config.child("pos").attribute("xA").as_int();
 	yA = config.child("pos").attribute("yA").as_int();
-	
+
+	//FPS CAP
+	app->debug->desiredFPS = config.child("frcap").attribute("fps").as_int();
+	app->debug->controlFPS = config.child("vsync").attribute("value").as_int();
+	app->SetMaxFrameDuration((float)1000 / app->debug->desiredFPS);
+
 	img = app->tex->Load(titlepath);
 	animImg = app->tex->Load(animpath);
 	credImg = app->tex->Load(credpath);

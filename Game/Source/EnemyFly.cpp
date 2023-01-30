@@ -70,7 +70,7 @@ bool EnemyFly::Update(float dt)
 	OPTICK_EVENT();
 	b2Vec2 vel;
 
-	int speed = 1;
+	float speed = 1 * dt / 16.6666666f;
 	vel.y = 0;
 	//vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
 	
