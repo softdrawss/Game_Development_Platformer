@@ -47,6 +47,10 @@ bool Debug::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 			teleport = !teleport;
+
+		if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+			freeCam = !freeCam;
+
 	}
 
 	// F1/F2: Start from the first/second level

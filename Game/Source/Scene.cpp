@@ -46,6 +46,7 @@ bool Scene::Start()
 
 	//FPS CAP
 	app->debug->desiredFPS = config.child("frcap").attribute("fps").as_int();
+	app->debug->controlFPS = config.child("vsync").attribute("value").as_int();
 
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
