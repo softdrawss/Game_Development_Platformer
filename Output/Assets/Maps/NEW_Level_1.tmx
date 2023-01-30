@@ -80086,7 +80086,7 @@
   <properties>
    <property name="Draw" type="bool" value="false"/>
   </properties>
-  <object id="77" x="463.25" y="260.25" width="16.375" height="16.5">
+  <object id="77" x="457.75" y="255.75" width="21.875" height="21">
    <properties>
     <property name="colliderType" value="TRIG_1A"/>
    </properties>

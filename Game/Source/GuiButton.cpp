@@ -33,29 +33,30 @@ GuiButton::~GuiButton()
 bool GuiButton::Update(float dt)
 {
 	int scale = app->win->GetScale();
+	GuiControlState previousState = state;
+
+	if (!canClick)
+		state = GuiControlState::DISABLED;
+	else
+		state = GuiControlState::NORMAL;
+
+
 	if (state != GuiControlState::DISABLED)
 	{
 		// L15: DONE 3: Update the state of the GUiButton according to the mouse position
 		app->input->GetMousePosition((mouseX), mouseY);
-
-		//mouseX = PIXEL_TO_METERS(mouseX);
-		//mouseY = PIXEL_TO_METERS(mouseY);
-
-		GuiControlState previousState = state;
 
 		// I'm inside the limitis of the button
 		if (mouseX * scale >= bounds.x && mouseX * scale <= bounds.x + bounds.w &&
 			mouseY * scale >= bounds.y && mouseY * scale <= bounds.y + bounds.h) {
 			
 			state = GuiControlState::FOCUSED;
-			if (previousState != state) {
-				LOG("Change state from %d to %d",previousState,state);
-				app->audio->PlayFx(focused);
-			}
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) {
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
+			{
 				state = GuiControlState::PRESSED;
 				app->audio->PlayFx(pressed);
+
 				switch (this->button)
 				{
 				case GuiButtontype::PLAY:
@@ -98,6 +99,14 @@ bool GuiButton::Update(float dt)
 			//
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP) {
 				NotifyObserver();
+			}
+
+			if (previousState != state)
+			{
+				LOG("Change state from %d to %d", previousState, state);
+
+				if (state == GuiControlState::FOCUSED)
+					app->audio->PlayFx(focused);
 			}
 		}
 		else {

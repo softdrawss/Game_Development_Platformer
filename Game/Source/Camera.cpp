@@ -41,6 +41,7 @@ bool Camera::Start()
 
 bool Camera::Update(float dt)
 {
+	camSpeed = 6 * app->win->GetScale() * dt;
     return true;
 }
 

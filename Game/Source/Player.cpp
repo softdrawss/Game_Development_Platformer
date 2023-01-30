@@ -82,7 +82,7 @@ bool Player::Update(float dt)
 {
 	OPTICK_EVENT();
 	b2Vec2 vel;
-	float speed = 2 * dt / 16.6666666f;
+	int speed = 2 * dt / 7;
 
 	//God Mode
 	if (app->debug->godMode)
@@ -93,7 +93,15 @@ bool Player::Update(float dt)
 	else
 	{
 		pbody->body->SetGravityScale(1);
-		vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
+
+		if (vel.y > -GRAVITY_Y)
+		{
+			vel = b2Vec2(0, -GRAVITY_Y * dt / 16);
+		}
+		else
+		{
+			vel += b2Vec2(0, -GRAVITY_Y * dt / 20);
+		}
 	}
 
 	//Death
@@ -148,7 +156,7 @@ bool Player::Update(float dt)
 		//Jump
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && isGrounded && remainingJumpSteps == 0) {
 			currentAnim = &jump;
-			remainingJumpSteps = 6;
+			remainingJumpSteps = 200;
 			isIdle = false;
 			isGrounded = false;			
 			app->audio->PlayFx(jumpaudio);
@@ -178,7 +186,7 @@ bool Player::Update(float dt)
 			{
 				currentAnim = &jump;
 				app->audio->PlayFx(jumpaudio);
-				remainingJumpSteps = 5;
+				remainingJumpSteps = 200;
 				isIdle = false;
 				isGrounded = false;
 			}
@@ -187,7 +195,7 @@ bool Player::Update(float dt)
 				currentAnim = &jump;
 				app->audio->PlayFx(jumpaudio);
 
-				remainingJumpSteps = 5;
+				remainingJumpSteps = 200;
 				isIdle = false;
 				isGrounded = false;
 			}		
@@ -219,11 +227,11 @@ bool Player::Update(float dt)
 	//Apply Jump Force
 	if (remainingJumpSteps > 0)
 	{
-		float force = pbody->body->GetMass() * 10 / 0.01666; //F = mv/t (t = 1/60fps)
-		force /= 7.0;
-		pbody->body->ApplyForce(b2Vec2(0, -force), pbody->body->GetWorldCenter(), true);
-		remainingJumpSteps--;	
+		vel.y = -0.000032 * remainingJumpSteps * remainingJumpSteps * dt;
+		remainingJumpSteps -= dt;
 	}
+	else
+		remainingJumpSteps = 0;
 
 	//Dash end
 	if (remainingDash > 0) {
@@ -241,7 +249,7 @@ bool Player::Update(float dt)
 	}
 
 	//Set the velocity of the pbody of the player
-	pbody->body->SetLinearVelocity(vel);
+	pbody->body->SetLinearVelocity(b2Vec2(vel.x, vel.y));
 
 	//Player position
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 9;

@@ -184,11 +184,11 @@ bool Title::PostUpdate()
 	else if (settings)
 		DrawSettings();
 	else {
-		B_play->state = GuiControlState::NORMAL;
-		B_continue->state = GuiControlState::NORMAL;
-		B_settings->state = GuiControlState::NORMAL;
-		B_credits->state = GuiControlState::NORMAL;
-		B_exit->state = GuiControlState::NORMAL;
+		//B_play->state = GuiControlState::NORMAL;
+		//B_continue->state = GuiControlState::NORMAL;
+		//B_settings->state = GuiControlState::NORMAL;
+		//B_credits->state = GuiControlState::NORMAL;
+		//B_exit->state = GuiControlState::NORMAL;
 		
 		B_back->active = false;
 		B_back->state = GuiControlState::DISABLED;

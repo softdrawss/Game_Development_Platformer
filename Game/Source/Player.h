@@ -43,8 +43,8 @@ private:
 	bool wallSlideRight, wallSlideLeft;
 	bool stairs;
 
-	int remainingJumpSteps;
-	int remainingDash;
+	float remainingJumpSteps;
+	float remainingDash;
 	int dashCD;
 	bool isAttacking;
 

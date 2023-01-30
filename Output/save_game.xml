@@ -9,11 +9,12 @@
 	<logo />
 	<title />
 	<scene>
-		<player x="474" y="226" />
-		<walk x="-1133" y="122707" alive="true" />
-		<fly x="40" y="79" alive="false" />
+		<player x="456" y="241" />
+		<walk x="-4" y="106" alive="true" />
+		<fly x="265" y="90" alive="false" />
 		<coin x="191" y="100" alive="true" />
-		<health x="7" y="110" alive="true" />
+		<health x="7" y="110" alive="false" />
+		<ui coinCount="0" healthCount="4" score="0" />
 	</scene>
 	<ending />
 	<guiManager />
@@ -25,6 +26,6 @@
 	<:anonymous />
 	<:anonymous />
 	<renderer>
-		<camera x="-161" y="-358" />
+		<camera x="-161" y="-340" />
 	</renderer>
 </save_state>

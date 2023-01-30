@@ -45,6 +45,9 @@ bool Scene::Start()
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
 
+	//Left map limit
+	PhysBody* c1 = app->physics->CreateRectangle(-2, 280, 4, 500, STATIC);
+	c1->ctype = ColliderType::CEILING;
 
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
@@ -221,26 +224,26 @@ bool Scene::Start()
 }
 
 void Scene::PauseMenu() {
-	B_resume->state = GuiControlState::NORMAL;
+	//B_resume->state = GuiControlState::NORMAL;
 	B_resume->active = true;
-	B_settings->state = GuiControlState::NORMAL;
+	//B_settings->state = GuiControlState::NORMAL;
 	B_settings->active = true;
-	B_back_to_title->state = GuiControlState::NORMAL;
+	//B_back_to_title->state = GuiControlState::NORMAL;
 	B_back_to_title->active = true;
-	B_exit->state = GuiControlState::NORMAL;
+	//B_exit->state = GuiControlState::NORMAL;
 	B_exit->active = true;
 	//DrawSettings();
 	//settings = true;
 }
 
 void Scene::DrawSettings() {
-	B_resume->state = GuiControlState::DISABLED;
-	B_settings->state = GuiControlState::DISABLED;
-	B_back_to_title->state = GuiControlState::DISABLED;
-	B_exit->state = GuiControlState::DISABLED;
+	//B_resume->state = GuiControlState::DISABLED;
+	//B_settings->state = GuiControlState::DISABLED;
+	//B_back_to_title->state = GuiControlState::DISABLED;
+	//B_exit->state = GuiControlState::DISABLED;
 
 	B_back->active = true;
-	B_back->state = GuiControlState::NORMAL;
+	//B_back->state = GuiControlState::NORMAL;
 	S_music->active = true;
 	S_music->state = GuiControlState::NORMAL;
 	S_fx->active = true;
@@ -354,14 +357,14 @@ bool Scene::PostUpdate()
 
 	if (pause && settings) {
 		DrawSettings();
-		B_resume->state = GuiControlState::DISABLED;
-		B_settings->state = GuiControlState::DISABLED;
-		B_back_to_title->state = GuiControlState::DISABLED;
-		B_exit->state = GuiControlState::DISABLED;
+		//B_resume->state = GuiControlState::DISABLED;
+		//B_settings->state = GuiControlState::DISABLED;
+		//B_back_to_title->state = GuiControlState::DISABLED;
+		//B_exit->state = GuiControlState::DISABLED;
 	}
 	if (pause && !settings) {
 		B_back->active = false;
-		B_back->state = GuiControlState::DISABLED;
+		//B_back->state = GuiControlState::DISABLED;
 		S_music->active = false;
 		S_music->state = GuiControlState::DISABLED;
 		S_fx->active = false;
@@ -370,10 +373,10 @@ bool Scene::PostUpdate()
 		C_screen->state = GuiControlState::DISABLED;
 		C_vysinc->active = false;
 		C_vysinc->state = GuiControlState::DISABLED;
-		B_resume->state = GuiControlState::NORMAL;
-		B_settings->state = GuiControlState::NORMAL;
-		B_back_to_title->state = GuiControlState::NORMAL;
-		B_exit->state = GuiControlState::NORMAL;
+		//B_resume->state = GuiControlState::NORMAL;
+		//B_settings->state = GuiControlState::NORMAL;
+		//B_back_to_title->state = GuiControlState::NORMAL;
+		//B_exit->state = GuiControlState::NORMAL;
 	}
 	if (pause && exit)
 		return false;
@@ -381,13 +384,13 @@ bool Scene::PostUpdate()
 	if (!pause) {
 		settings = false;
 		exit = false;
-		B_resume->state = GuiControlState::DISABLED;
+		//B_resume->state = GuiControlState::DISABLED;
 		B_resume->active = false;
-		B_settings->state = GuiControlState::DISABLED;
+		//B_settings->state = GuiControlState::DISABLED;
 		B_settings->active = false;
-		B_back_to_title->state = GuiControlState::DISABLED;
+		//B_back_to_title->state = GuiControlState::DISABLED;
 		B_back_to_title->active = false;
-		B_exit->state = GuiControlState::DISABLED;
+		//B_exit->state = GuiControlState::DISABLED;
 		B_exit->active = false;
 	}
 	/*else {
