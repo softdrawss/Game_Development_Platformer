@@ -107,11 +107,6 @@ private:
 	int camX, camY, speed;
 	int coins_value;
 
-	//Count
-	int coinCount;
-	int healthCount;
-	int coinPicked;
-
 	//Anim
 	Animation coinUI, healthUI;
 	Animation* coinUIanim;
@@ -129,6 +124,11 @@ public:
 	//sfx
 	char* audioPath;
 	int pickCoinAudio_sfx;
+
+	//Count
+	int coinCount;
+	int healthCount;
+	int coinPicked;
 };
 
 #endif // __SCENE_H__

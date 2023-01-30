@@ -38,6 +38,8 @@ bool Player::Start()
 {
 	alive = true;
 	stairs = false;
+	invulnerable = 2000;
+
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 
@@ -81,8 +83,10 @@ bool Player::Start()
 bool Player::Update(float dt)
 {
 	OPTICK_EVENT();
+
 	b2Vec2 vel;
 	int speed = 2 * dt / 7;
+	invulnerable -= dt;
 
 	//God Mode
 	if (app->debug->godMode)
@@ -295,9 +299,17 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 		break;
 	case ColliderType::ENEMY:
 		//need to tell it, depending on how we kill (or make disappear) enemies
-		//will we shoot to them? or more like mario, smashing them up to the ground with our weight?
-		
-		//app->scene->health -= 1;
+		//will we shoot to them? or more like mario, smashing them up to the ground with our weight?	
+		if(invulnerable <= 0)
+		{ 
+			app->scene->healthCount -= 1;
+			invulnerable = 2000;
+
+			if (app->scene->healthCount == 0)
+			{
+				alive = false;
+			}
+		}			
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");

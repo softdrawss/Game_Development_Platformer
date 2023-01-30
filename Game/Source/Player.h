@@ -40,13 +40,15 @@ private:
 	//Bools
 	bool isIdle;
 	bool isGrounded;
+	bool isAttacking;
+	float invulnerable;
+
 	bool wallSlideRight, wallSlideLeft;
 	bool stairs;
 
 	float remainingJumpSteps;
 	float remainingDash;
 	int dashCD;
-	bool isAttacking;
 
 	//Texture
 	SDL_Texture* texture;

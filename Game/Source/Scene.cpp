@@ -268,7 +268,7 @@ bool Scene::PreUpdate()
 	OPTICK_EVENT();
 
 	//disable PLATFORM
-	for (b2Body* body = app->physics->world->GetBodyList(); body; body = body->GetNext())
+	/*for (b2Body* body = app->physics->world->GetBodyList(); body; body = body->GetNext())
 	{
 		PhysBody* pBody = (PhysBody*)body->GetUserData();
 
@@ -284,7 +284,7 @@ bool Scene::PreUpdate()
 			else
 				pBody->body->SetActive(true);
 		}
-	}
+	}*/
 
 	return true;
 }

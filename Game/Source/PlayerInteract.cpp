@@ -35,7 +35,7 @@ bool PlayerInteract::Start()
 	pbody = app->physics->CreateRectangleSensor(position.x, position.y, 22, 16, bodyType::STATIC);
 	pbody->ctype = ColliderType::INTERACT;
 	pbody->listener = this;
-	pbody->body->SetActive(true);
+	pbody->body->SetActive(false);
 	active = 0;
 	return true;
 }
@@ -57,7 +57,7 @@ bool PlayerInteract::Update(float dt)
 		pbody->body->SetActive(true);
 		active--;
 
-		if (active == 0){}
+		if (active == 0)
 			pbody->body->SetActive(false);
 	}
 
@@ -69,7 +69,7 @@ bool PlayerInteract::Update(float dt)
 		position.y = METERS_TO_PIXELS(app->scene->player->pbody->body->GetTransform().p.y);
 	
 		if (!app->scene->player->LookingRight())
-			position.x -= 12;
+			position.x -= 18;
 		
 	
 		// L07 DONE 4: Add a physics to an item - update the position of the object from the physics. 
