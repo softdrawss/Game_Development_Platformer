@@ -40,6 +40,7 @@
 
 	<interact audioPath="Assets/Audio/Fx/attack.wav"/>
 	<ui coinCount="0" healthCount="3" coinPath="Assets/Textures/Characters/Coins/coin4_16x16.png" healthPath="Assets/Textures/Characters/Coins/health.png"/>
+	<lever x="468" y="265" texturepath="Assets/Maps/Industrial/industrial_v2_edit.png" audioPath="Assets/Audio/Fx/lever.wav"/>
 	<chickboy x="2186" y="385" texturepath="Assets/Textures/Characters/ChickBoy/AnimationList.png" score="0"/>
     <music audioPath="Assets/Audio/Music/platform.ogg"/>
 	<fonts fontPath="Assets/Textures/Fonts/sprite_font_white.png"/>

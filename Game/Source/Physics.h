@@ -49,7 +49,11 @@ enum class ColliderType
 	TRIG_2A,
 	TRIG_2R,
 
-	//
+	//CHECKPOINTS
+	CP_1,
+	CP_2,
+
+	//ITEMS
 	COIN,
 	HEALTH,
 

@@ -45,9 +45,11 @@ bool Scene::Start()
 	pugi::xml_node node = app->GetNode();
 	pugi::xml_node config = node.child(name.GetString());
 
-	//Left map limit
-	PhysBody* c1 = app->physics->CreateRectangle(-2, 280, 4, 500, STATIC);
-	c1->ctype = ColliderType::CEILING;
+	//Checkpoints
+	/*PhysBody* cp1 = app->physics->CreateRectangleSensor(468, 265, 20, 20, STATIC);
+	cp1->ctype = ColliderType::CP_1;
+	checkpointList.Add(cp1);*/
+
 
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
@@ -143,12 +145,14 @@ bool Scene::Start()
 	
 	app->win->SetTitle(title.GetString());
 
+	//ANIMATIONS
 	coinCount = config.child("ui").attribute("coinCount").as_int();
 	healthCount = config.child("ui").attribute("healthCount").as_int();
 	score = config.child("ui").attribute("score").as_int();
 
 	coinPath = (char*)config.child("ui").attribute("coinPath").as_string();
 	healthPath = (char*)config.child("ui").attribute("healthPath").as_string();
+	leverPath = (char*)config.child("lever").attribute("texturepath").as_string();
 	
 	coinText = app->tex->Load(coinPath);
 	healthText = app->tex->Load(healthPath);
@@ -296,6 +300,13 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 	
+	//Draw Items
+	/*if (isAttacking) { currentAnim = &attackNormal; }
+	SDL_Rect rect2 = currentAnim->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x + 4, position.y + 11, flip, &rect2);
+	currentAnim->Update(dt);*/
+
+
 	//UI
 	// Health
 	app->render->DrawRectangle({ 0,0, 1472, 75 }, 255, 255, 255, 64, true, false);
@@ -392,12 +403,7 @@ bool Scene::PostUpdate()
 		B_back_to_title->active = false;
 		//B_exit->state = GuiControlState::DISABLED;
 		B_exit->active = false;
-	}
-	/*else {
-		
-	}*/
-	
-	
+	}	
 
 	return true;
 }

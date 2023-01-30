@@ -38,6 +38,7 @@ public:
 private:
 	
 	//Bools
+	bool start;
 	bool isIdle;
 	bool isGrounded;
 	bool isAttacking;

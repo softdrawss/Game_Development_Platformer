@@ -80381,7 +80381,7 @@
     <property name="colliderType" value="WALL"/>
    </properties>
   </object>
-  <object id="78" x="165" y="368" width="6" height="32">
+  <object id="78" x="165" y="336" width="6" height="32">
    <properties>
     <property name="colliderType" value="TRIG_1R"/>
    </properties>

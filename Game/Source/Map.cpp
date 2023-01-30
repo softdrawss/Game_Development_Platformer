@@ -489,7 +489,6 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
                 else if ((SString)type.attribute("value").as_string() == "TRIG_1R") { c1->ctype = ColliderType::TRIG_1R; }
                 else if ((SString)type.attribute("value").as_string() == "TRIG_2A") { c1->ctype = ColliderType::TRIG_2A; }
                 else if ((SString)type.attribute("value").as_string() == "TRIG_2R") { c1->ctype = ColliderType::TRIG_2R; }
-
             }
         }
 
@@ -515,6 +514,11 @@ bool Map::CreateColliders(pugi::xml_node mapFile)
             }
         }
     }
+
+
+    //Left map limit
+    PhysBody* c1 = app->physics->CreateRectangle(-2, 280, 4, 500, STATIC);
+    c1->ctype = ColliderType::CEILING;
 
     return ret;
 }

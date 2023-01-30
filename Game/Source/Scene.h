@@ -114,9 +114,12 @@ private:
 
 	//Textures
 	const char* coinPath;
-	const char* healthPath;
 	SDL_Texture* coinText;
+	const char* healthPath;
 	SDL_Texture* healthText;
+	const char* leverPath;
+	SDL_Texture* leverText;
+
 
 
 public:
@@ -129,6 +132,9 @@ public:
 	int coinCount;
 	int healthCount;
 	int coinPicked;
+
+	//Checkpoint list
+	List<PhysBody*> checkpointList;
 };
 
 #endif // __SCENE_H__

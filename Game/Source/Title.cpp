@@ -151,16 +151,18 @@ bool Title::PreUpdate()
 bool Title::Update(float dt)
 {
 	OPTICK_EVENT();
+
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
-		currentAnim = &run;
-		
+		currentAnim = &run;		
 	}
-	if (currentAnim == &run) {
+	if (currentAnim == &run)
+	{
 		xA += 1;
 	}
-	if (xA >= 700) {
-			app->fade->FadeBlack(this, (Module*)app->scene, 90);
+	if (xA >= 700)
+	{
+		app->fade->FadeBlack(this, (Module*)app->scene, 90);
 	}
 
 	if (exit)

@@ -36,6 +36,7 @@ bool Player::Awake() {
 
 bool Player::Start()
 {
+	start = true;
 	alive = true;
 	stairs = false;
 	invulnerable = 2000;
@@ -65,6 +66,7 @@ bool Player::Start()
 	isIdle = true;
 	remainingDash = 0;
 	dashCD = 0;
+
 
 	// Pysics body
 	pbody = app->physics->CreateCircle(position.x, position.y, 7, bodyType::DYNAMIC);
@@ -148,7 +150,8 @@ bool Player::Update(float dt)
 			flip = SDL_FLIP_HORIZONTAL;
 		}
 		//Right
-		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || start) {
+			start = false;
 			currentAnim = &run;
 			vel.x = speed;
 			isIdle = false;
