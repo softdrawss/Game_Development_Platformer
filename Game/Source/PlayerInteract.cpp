@@ -58,10 +58,10 @@ bool PlayerInteract::Update(float dt)
 		active--;
 
 		if (active == 0){}
-			//pbody->body->SetActive(false);
+			pbody->body->SetActive(false);
 	}
 
-	if (true/*pbody->body->IsActive() == true*/) {
+	if (pbody->body->IsActive() == true) {
 		//Set position
 		b2Vec2 position;
 	

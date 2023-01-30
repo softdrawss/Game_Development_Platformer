@@ -45,10 +45,10 @@ bool Coin::Start()
 	initPosition.y = position.y;
 
 	texturePath = parameters.attribute("texturepath").as_string();
-	audioPath = parameters.attribute("audioPath").as_string();
+
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-	pickCoinAudio = app->audio->LoadFx(audioPath);
+	
 	//Set bools
 
 	// Pysics body
@@ -72,17 +72,6 @@ bool Coin::Update(float dt)
 	b2Vec2 vel;
 	int speed = 2;
 
-	//God Mode
-	if (app->debug->godMode)
-	{
-		pbody->body->SetGravityScale(0);
-	}
-	else
-	{
-		pbody->body->SetGravityScale(1);
-		vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
-	}
-
 	//Death
 	if (!alive)
 	{
@@ -101,9 +90,6 @@ bool Coin::Update(float dt)
 		currentAnim->Update(dt);
 	}
 
-
-	
-
 	return true;
 }
 
@@ -118,7 +104,7 @@ void Coin::OnCollision(PhysBody* physA, PhysBody* physB)
 	if (physB != nullptr) {
 		if (physB->ctype == ColliderType::PLAYER) {
 			if (!isPicked) {
-				app->audio->PlayFx(pickCoinAudio);
+				//app->audio->PlayFx(pickCoinAudio);
 			}
 			isPicked = true;
 

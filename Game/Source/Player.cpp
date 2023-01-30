@@ -289,7 +289,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 	case ColliderType::ENEMY:
 		//need to tell it, depending on how we kill (or make disappear) enemies
 		//will we shoot to them? or more like mario, smashing them up to the ground with our weight?
-		//alive = false;
+		
+		app->scene->health -= 1;
 		break;
 	case ColliderType::GROUND:
 		LOG("Collision GROUND");
@@ -312,7 +313,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB)
 			wallSlideRight = true;
 		break;
 	case ColliderType::COIN:
-		LOG("Collision UNKNOWN");
+		LOG("Collision COIN");
+		app->audio->PlayFx(app->scene->pickCoinAudio_sfx);
 		break;
 
 		//TRIGGER

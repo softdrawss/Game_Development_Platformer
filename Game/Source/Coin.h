@@ -42,15 +42,11 @@ private:
 	//Texture
 	SDL_Texture* texture;
 	const char* texturePath;
-	const char* audioPath;
 
 	//Animation
 	Animation* currentAnim = nullptr;
 	SDL_RendererFlip flip;
 	Animation rot;
-
-	//FX
-	int pickCoinAudio;
 
 };
 

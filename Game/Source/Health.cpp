@@ -72,17 +72,6 @@ bool Health::Update(float dt)
 	b2Vec2 vel;
 	int speed = 2;
 
-	//God Mode
-	if (app->debug->godMode)
-	{
-		pbody->body->SetGravityScale(0);
-	}
-	else
-	{
-		pbody->body->SetGravityScale(1);
-		vel = pbody->body->GetLinearVelocity() + b2Vec2(0, -GRAVITY_Y * 0.0166);
-	}
-
 	//Death
 	if (!alive)
 	{

@@ -67,7 +67,6 @@ public:
 	bool door_A;
 	bool trapDoor_A;
 
-private:
 	SDL_Texture* img;
 
 	//Music XML
@@ -80,11 +79,21 @@ private:
 	int camX, camY, speed;
 	int coins_value;
 
-	int coinCount = 0, healthCount = 0, coinPicked = 0;
+	//Count
+	int coinCount;
+	int healthCount;
+	int coinPicked;
 
+	//sfx
+	char* audioPath;
+	int pickCoinAudio_sfx;
+
+	//Amin
 	Animation coinUI, healthUI;
 	Animation* coinUIanim;
-	Animation* healthUIanim;
+	Animation* healthUIanim;	
+
+	//Textures
 	const char* coinPath;
 	const char* healthPath;
 	SDL_Texture* coinText;

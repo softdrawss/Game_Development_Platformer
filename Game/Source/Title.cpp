@@ -211,7 +211,8 @@ void Title::DrawCredits() {
 	B_back->active = true;
 	B_back->state = GuiControlState::NORMAL;
 	app->render->DrawRectangle({ 118, 58, 1236, 738 }, 255, 79, 120, 255, true, false);
-	app->render->DrawText("CREDITS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
+	//app->render->DrawText("CREDITS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
+	app->render->DrawTexture(credImg, 59, 29, SDL_FLIP_NONE);
 	SDL_Rect rect = { 0, 0, 1236, 738 };
 	//NO se ve nada
 	//app->render->DrawText("HÉCTOR BÁSCONES ZAMORA, @Hekbas", )

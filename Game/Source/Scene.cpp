@@ -106,7 +106,11 @@ bool Scene::Start()
 	//MUSIC
 	musicPath = (char*)config.child("music").attribute("audioPath").as_string();
 	app->audio->PlayMusic(musicPath, 1.0F);
-	
+	//SFX
+	audioPath = (char*)config.child("coin").attribute("audioPath").as_string();
+	pickCoinAudio_sfx = app->audio->LoadFx(audioPath);
+
+
 	//FONTS
 	fontPath = (char*)config.child("fonts").attribute("fontPath").as_string();
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz 0123456789.,;:$#'! /?%&()@ -+=      " };
