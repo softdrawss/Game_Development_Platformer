@@ -173,10 +173,6 @@ bool Title::PostUpdate()
 	currentAnim->Update(app->GetDeltaTime());
 	app->guimanager->Draw();
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-	{
-		return false;
-	}
 	if (credits)
 		DrawCredits();
 	else if (settings)
