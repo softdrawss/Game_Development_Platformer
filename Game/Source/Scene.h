@@ -102,7 +102,7 @@ private:
 	int camX, camY, speed;
 	int coins_value;
 
-	int coinCount = 0, healthCount = 0, coinPicked = 0;
+	int coinCount = 0, healthCount = 0, coinPicked = 0, score;
 
 	Animation coinUI, healthUI;
 	Animation* coinUIanim;

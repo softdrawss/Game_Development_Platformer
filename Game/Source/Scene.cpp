@@ -134,6 +134,8 @@ bool Scene::Start()
 
 	coinCount = config.child("ui").attribute("coinCount").as_int();
 	healthCount = config.child("ui").attribute("healthCount").as_int();
+	score = config.child("ui").attribute("score").as_int();
+
 	coinPath = (char*)config.child("ui").attribute("coinPath").as_string();
 	healthPath = (char*)config.child("ui").attribute("healthPath").as_string();
 	
@@ -272,6 +274,8 @@ bool Scene::Update(float dt)
 	}
 	
 	//Score
+	string = "Score: "+ std::to_string(score);
+	app->render->DrawText(string.c_str(), 1200, 10, 200, 50, { 0, 0, 0 });
 
 	//Coins picked
 	string = std::to_string(coinPicked);
@@ -292,10 +296,14 @@ bool Scene::Update(float dt)
 
 	if (coin->CheckPickingCoin()) {
 		coinPicked++;
+		score += 50;
 	}
 
 	if (health->CheckPickingHealth()) {
 		healthCount++;
+	}
+	if ((int)app->secondsSinceStartup <= 5000) {
+		player->alive = false;
 	}
 
 	return true;
@@ -394,6 +402,8 @@ bool Scene::LoadState(pugi::xml_node& data)
 	health->alive = data.child("healthItem").attribute("alive").as_bool();
 	coinCount = data.child("uiData").attribute("coinCount").as_int();
 	healthCount = data.child("uiData").attribute("healthCount").as_int();
+	score = data.child("uiData").attribute("score").as_int();
+
 	return true;
 }
 
@@ -427,8 +437,9 @@ bool Scene::SaveState(pugi::xml_node& data)
 	healthItem.append_attribute("alive") = health->alive;
 
 	pugi::xml_node uiData = data.append_child("ui");
-	healthItem.append_attribute("coinCount") = coinCount;
-	healthItem.append_attribute("healthCount") = healthCount;
+	uiData.append_attribute("coinCount") = coinCount;
+	uiData.append_attribute("healthCount") = healthCount;
+	uiData.append_attribute("score") = score;
 
 	return true;
 }
