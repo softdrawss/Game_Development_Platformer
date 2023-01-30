@@ -18,7 +18,7 @@ Link to the Gold release: [github.com/softdrawss/Game_Development_Platformer/rel
 - Added from Assigment 1: Load/Save game state using XML file
 
 ## Key Features
- 
+ - DELTATIME: Game runs at constant time for all framerates
  - COIN COUNTER: Collect the coins of the map to increase the counter and the score!
  - DASH: With cooldown
  - GOD MODE: Inmortal, move freely, turns off gravity
@@ -29,7 +29,7 @@ Link to the Gold release: [github.com/softdrawss/Game_Development_Platformer/rel
 
 ## GUI Manager
 
-With colour and audio feedback. 
+With color and audio feedback. 
 
 ### Buttons
  - PLAY
@@ -72,7 +72,7 @@ With colour and audio feedback.
  - F8: View GUI bounds rectangles and state in different colors
  - F9: View colliders / logic / paths
  - F10: God Mode (fly around, cannot be killed, etc)
- - F11: Enable/Disable FPS cap to 30
+ - F11: Enable/Disable FPS cap to xml set value
 
 ## Developers
 
