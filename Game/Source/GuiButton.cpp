@@ -22,6 +22,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	focused = app->audio->LoadFx("Assets/Audio/Fx/focused.wav");
 	pressed = app->audio->LoadFx("Assets/Audio/Fx/click.wav");
 	this->state = GuiControlState::NORMAL;
+	active = false;
 }
 
 GuiButton::~GuiButton()
@@ -69,22 +70,25 @@ bool GuiButton::Update(float dt)
 					break;
 				case GuiButtontype::SETTINGS:
 					app->titleScreen->settings = true;
+					app->scene->settings = true;
 					break;
 				case GuiButtontype::CREDITS:
 					app->titleScreen->credits = true;
 					break;
 				case GuiButtontype::RESUME:
+					app->scene->pause = false;
 					break;
 				case GuiButtontype::BACK_TO_TITLE:
 					app->fade->FadeBlack((Module*)app->scene, (Module*)app->titleScreen, 90);
 					break;
 				case GuiButtontype::EXIT:
 					app->titleScreen->exit = true;
+					app->scene->exit = true;
 					break;
 				case GuiButtontype::BACK:
 					app->titleScreen->credits = false;
 					app->titleScreen->settings = false;
-
+					app->scene->settings = false;
 					break;
 				default:
 					break;
