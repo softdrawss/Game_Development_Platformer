@@ -79,15 +79,20 @@ bool Title::Start()
 	//Buttons
 	B_play = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "PLAY", { 586,250+15,300,90 }, this);
 	B_play->button = GuiButtontype::PLAY;
+	B_play->active = true;
 	B_continue = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CONTINUE", { 586,350+25,300,90 }, this);
 	B_continue->button = GuiButtontype::CONTINUE;
 	B_continue->state = GuiControlState::DISABLED;
+	B_continue->active = true;
 	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 586,450+35,300,90 }, this);
 	B_settings->button = GuiButtontype::SETTINGS;
+	B_settings->active = true;
 	B_credits = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "CREDITS", { 586,550+45,300,90 }, this);
 	B_credits->button = GuiButtontype::CREDITS;
+	B_credits->active = true;
 	B_exit = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "EXIT", { 586,650+55,300,90 }, this);
 	B_exit->button = GuiButtontype::EXIT;
+	B_exit->active = true;
 
 	B_back = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "BACK", { 1254,8,100,50 }, this);
 	B_back->button = GuiButtontype::BACK;
@@ -204,10 +209,15 @@ bool Title::CleanUp()
 	app->tex->UnLoad(img);
 
 	B_play->state = GuiControlState::DISABLED;
+	B_play->active = false;
 	B_continue->state = GuiControlState::DISABLED;
+	B_continue->active = false;
 	B_settings->state = GuiControlState::DISABLED;
+	B_settings->active = false;
 	B_credits->state = GuiControlState::DISABLED;
+	B_credits->active = false;
 	B_exit->state = GuiControlState::DISABLED;
+	B_exit->active = false;
 
 	return true;
 }

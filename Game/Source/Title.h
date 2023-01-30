@@ -61,7 +61,7 @@ public:
 	//CheckBox
 	GuiCheckBox* C_screen;
 	GuiCheckBox* C_vysinc;
-	bool credits = false, settings = false, exit = false;;
+	bool credits = false, settings = false, exit = false;
 
 private:
 	SDL_Texture* img;
