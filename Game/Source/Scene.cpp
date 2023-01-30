@@ -16,6 +16,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "Title.h"
+#include "GuiManager.h"
 
 Scene::Scene(bool startEnabled) : Module(startEnabled)
 {
@@ -45,6 +46,7 @@ bool Scene::Start()
 
 	//FPS CAP
 	app->debug->desiredFPS = config.child("frcap").attribute("fps").as_int();
+	app->debug->controlFPS = config.child("vsync").attribute("value").as_int();
 
 	//ENEMIES
 	enemyWalk = (EnemyWalk*)app->entityManager->CreateEntity(EntityType::WALK);
@@ -137,6 +139,8 @@ bool Scene::Start()
 
 	coinCount = config.child("ui").attribute("coinCount").as_int();
 	healthCount = config.child("ui").attribute("healthCount").as_int();
+	score = config.child("ui").attribute("score").as_int();
+
 	coinPath = (char*)config.child("ui").attribute("coinPath").as_string();
 	healthPath = (char*)config.child("ui").attribute("healthPath").as_string();
 	
@@ -161,9 +165,95 @@ bool Scene::Start()
 	if (continue_pressed) {
 		app->LoadGameRequest();
 	}
+
+	B_resume = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "RESUME", { 586,350 + 25,300,90 }, this);
+	B_resume->button = GuiButtontype::RESUME;
+	B_resume->active = false;
+	B_resume->state = GuiControlState::DISABLED;
+	B_settings = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "SETTINGS", { 586,450 + 35,300,90 }, this);
+	B_settings->button = GuiButtontype::SETTINGS;
+	B_settings->active = false;
+	B_settings->state = GuiControlState::DISABLED;
+	B_back_to_title = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "BACK TO TITLE", { 586,550 + 45,300,90 }, this);
+	B_back_to_title->button = GuiButtontype::BACK_TO_TITLE;
+	B_back_to_title->active = false;
+	B_back_to_title->state = GuiControlState::DISABLED;
+	B_exit = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "EXIT", { 586,650 + 55,300,90 }, this);
+	B_exit->button = GuiButtontype::EXIT;
+	B_exit->active = false;
+	B_exit->state = GuiControlState::DISABLED;
+
+	B_back = (GuiButton*)app->guimanager->CreateGuiControl(GuiControlType::BUTTON, 2, "BACK", { 1254,8,100,50 }, this);
+	B_back->button = GuiButtontype::BACK;
+	B_back->active = false;
+	B_back->state = GuiControlState::DISABLED;
+
+	//Sliders
+	S_music = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "MUSIC", { 260,250,40,40 }, this, { 230, 257, 120, 10 });
+	S_music->slider = GuiSliderType::MUSIC;
+	S_music->active = false;
+	S_music->state = GuiControlState::DISABLED;
+	S_fx = (GuiSlider*)app->guimanager->CreateGuiControl(GuiControlType::SLIDER, 2, "FX", { 260,270 + 50,40,40 }, this, { 230, 327, 120, 10 });
+	S_fx->slider = GuiSliderType::FX;
+	S_fx->active = false;
+	S_fx->state = GuiControlState::DISABLED;
+
+	//CheckBox
+	C_screen = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "FULL SCREEN", { 260,390,50,50 }, this);
+	C_screen->button = GuiCheckBoxType::FULLSCREEN;
+	C_screen->active = false;
+	C_screen->state = GuiControlState::DISABLED;
+	C_vysinc = (GuiCheckBox*)app->guimanager->CreateGuiControl(GuiControlType::CHECKBOX, 2, "VSYNC", { 260,460,50,50 }, this);
+	C_vysinc->button = GuiCheckBoxType::VSYNC;
+	C_vysinc->active = false;
+	C_vysinc->state = GuiControlState::DISABLED;
+
+
+	pause = false;
+	settings = false;
+	exit = false;
 	return true;
 }
 
+void Scene::PauseMenu() {
+	B_resume->state = GuiControlState::NORMAL;
+	B_resume->active = true;
+	B_settings->state = GuiControlState::NORMAL;
+	B_settings->active = true;
+	B_back_to_title->state = GuiControlState::NORMAL;
+	B_back_to_title->active = true;
+	B_exit->state = GuiControlState::NORMAL;
+	B_exit->active = true;
+	//DrawSettings();
+	//settings = true;
+}
+
+void Scene::DrawSettings() {
+	B_resume->state = GuiControlState::DISABLED;
+	B_settings->state = GuiControlState::DISABLED;
+	B_back_to_title->state = GuiControlState::DISABLED;
+	B_exit->state = GuiControlState::DISABLED;
+
+	B_back->active = true;
+	B_back->state = GuiControlState::NORMAL;
+	S_music->active = true;
+	S_music->state = GuiControlState::NORMAL;
+	S_fx->active = true;
+	S_fx->state = GuiControlState::NORMAL;
+	C_screen->active = true;
+	C_screen->state = GuiControlState::NORMAL;
+	C_vysinc->active = true;
+	C_vysinc->state = GuiControlState::NORMAL;
+
+	app->render->DrawRectangle({ 400, 58, 1236 - (400 - 118), 738 }, 255, 79, 120, 255, true, false);
+	app->render->DrawText("SETTINGS", 423 + 118, 58 + 34, 389, 118, { 244,244,228 });
+
+	app->render->DrawText("MUSIC VOLUME", 343 + 70, 200 + 50, 250, 50, { 244,244,228 });
+	app->render->DrawText("FX VOLUME", 343 + 70, 270 + 50, 175, 50, { 244,244,228 });
+	app->render->DrawText("FULLSCREEN", 343 + 70, 340 + 50, 245, 50, { 244,244,228 });
+	app->render->DrawText("VSYNC", 343 + 70, 410 + 50, 150, 50, { 244,244,228 });
+
+}
 
 bool Scene::PreUpdate()
 {
@@ -189,6 +279,8 @@ bool Scene::Update(float dt)
 	}
 	
 	//Score
+	string = "Score: "+ std::to_string(score);
+	app->render->DrawText(string.c_str(), 1200, 10, 200, 50, { 0, 0, 0 });
 
 	//Coins picked
 	string = std::to_string(coinPicked);
@@ -209,11 +301,16 @@ bool Scene::Update(float dt)
 
 	if (coin->CheckPickingCoin()) {
 		coinPicked++;
+		score += 50;
 	}
 
 	if (health->CheckPickingHealth()) {
 		healthCount++;
 	}
+	if ((int)app->secondsSinceStartup <= 5000) {
+		player->alive = false;
+	}
+
 	return true;
 }
 
@@ -221,8 +318,58 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	OPTICK_EVENT();
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	app->guimanager->Draw();
+
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		app->map->Draw();
+
+		pause = true;
+		PauseMenu();
+	}
+
+	if (pause && settings) {
+		DrawSettings();
+		B_resume->state = GuiControlState::DISABLED;
+		B_settings->state = GuiControlState::DISABLED;
+		B_back_to_title->state = GuiControlState::DISABLED;
+		B_exit->state = GuiControlState::DISABLED;
+	}
+	if (pause && !settings) {
+		B_back->active = false;
+		B_back->state = GuiControlState::DISABLED;
+		S_music->active = false;
+		S_music->state = GuiControlState::DISABLED;
+		S_fx->active = false;
+		S_fx->state = GuiControlState::DISABLED;
+		C_screen->active = false;
+		C_screen->state = GuiControlState::DISABLED;
+		C_vysinc->active = false;
+		C_vysinc->state = GuiControlState::DISABLED;
+		B_resume->state = GuiControlState::NORMAL;
+		B_settings->state = GuiControlState::NORMAL;
+		B_back_to_title->state = GuiControlState::NORMAL;
+		B_exit->state = GuiControlState::NORMAL;
+	}
+	if (pause && exit)
 		return false;
+
+	if (!pause) {
+		settings = false;
+		exit = false;
+		B_resume->state = GuiControlState::DISABLED;
+		B_resume->active = false;
+		B_settings->state = GuiControlState::DISABLED;
+		B_settings->active = false;
+		B_back_to_title->state = GuiControlState::DISABLED;
+		B_back_to_title->active = false;
+		B_exit->state = GuiControlState::DISABLED;
+		B_exit->active = false;
+	}
+	/*else {
+		
+	}*/
+	
+	
 
 	return true;
 }
@@ -235,6 +382,14 @@ bool Scene::CleanUp()
 	app->entityManager->Disable();
 	app->physics->Disable();
 	continue_pressed = false;
+	B_resume->state = GuiControlState::DISABLED;
+	B_resume->active = false;
+	B_settings->state = GuiControlState::DISABLED;
+	B_settings->active = false;
+	B_back_to_title->state = GuiControlState::DISABLED;
+	B_back_to_title->active = false;
+	B_exit->state = GuiControlState::DISABLED;
+	B_exit->active = false;
 	return true;
 }
 
@@ -250,6 +405,9 @@ bool Scene::LoadState(pugi::xml_node& data)
 	coin->alive = data.child("coinItem").attribute("alive").as_bool();
 	health->SetPosition(data.child("healthItem").attribute("x").as_int(), data.child("healthItem").attribute("y").as_int());
 	health->alive = data.child("healthItem").attribute("alive").as_bool();
+	coinCount = data.child("uiData").attribute("coinCount").as_int();
+	healthCount = data.child("uiData").attribute("healthCount").as_int();
+	score = data.child("uiData").attribute("score").as_int();
 
 	return true;
 }
@@ -282,6 +440,11 @@ bool Scene::SaveState(pugi::xml_node& data)
 	healthItem.append_attribute("x") = health->position.x;
 	healthItem.append_attribute("y") = health->position.y;
 	healthItem.append_attribute("alive") = health->alive;
+
+	pugi::xml_node uiData = data.append_child("ui");
+	uiData.append_attribute("coinCount") = coinCount;
+	uiData.append_attribute("healthCount") = healthCount;
+	uiData.append_attribute("score") = score;
 
 	return true;
 }

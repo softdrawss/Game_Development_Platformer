@@ -10,28 +10,60 @@ Link to the Alpha release: [https://github.com/softdrawss/Game_Development_Platf
 
 Link to the Beta release: [https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Beta] (https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Beta)
 
+Link to the Gold release: [github.com/softdrawss/Game_Development_Platformer/releases/tag/Gold] (https://github.com/softdrawss/Game_Development_Platformer/releases/tag/Gold)
+
 ### NOTE ON THIS VERSION!
 
 - Added from Assigment 1: XML config file loading - read modules and entity parameters from XML
 - Added from Assigment 1: Load/Save game state using XML file
 
 ## Key Features
-
- - GOD MODE: Inmortal, move freely, turns off gravity
- - DASH: With cooldown
  
+ - COIN COUNTER: Collect the coins of the map to increase the counter and the score!
+ - DASH: With cooldown
+ - GOD MODE: Inmortal, move freely, turns off gravity
+ - HEALTH BAR: Collect extra lives to increase the health bar
+ - SCARE THE PLAYER: ENTER scares the player, who runs away and starts game automatically
+ - SCORE: Collecting coins increases the Score
+ - TIMER: Timer starts when entering the level. If player does not end the level before the timeline, the game will end automatically kill the player and show the endScreen
+
+## GUI Manager
+
+With colour and audio feedback. 
+
+### Buttons
+ - PLAY
+ - CONTINUE
+ - SETTINGS
+ - CREDITS
+ - BACK
+ - RESUME
+ - BACK TO TITLE
+ - EXIT
+
+### Sliders
+ -  MUSIC VOLUME
+ -  FX VOLUME
+
+### Checkboxes
+ - FULLSCREEN MODE
+ - VSYNC
+
 ## Controls
 
  - WASD: Movement
  - Q: Attack
  - SPACE: Jump
  - SHIFT: Dash
- - ENTER: Start game
- - ESC: Quit
+ - ENTER: Scare the player and enter the game
+ - ESC: Pause Menu
  
  ### Debug
- - TAB + C: Camera
- - TAB + V: Variables
+ Press TAB to enter Debug Mode.
+ 
+ - C: Show Camera Limits
+ - F: Free Camera (to move, use arrows)
+ - V: Show Variables
  - F1: Start from the first level
  - F2: Start from the second level
  - F3: Start from the beginning of the current level

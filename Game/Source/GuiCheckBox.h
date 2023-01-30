@@ -6,6 +6,11 @@
 #include "Point.h"
 #include "SString.h"
 
+enum class GuiCheckBoxType {
+	FULLSCREEN,
+	VSYNC
+};
+
 class GuiCheckBox : public GuiControl
 {
 public:
@@ -23,6 +28,10 @@ public:
 	bool drawBasic = false;
 
 	uint audioFxId;
+
+	uint pressed, focused;
+	GuiCheckBoxType button;
+	bool checked;
 
 public:
 };

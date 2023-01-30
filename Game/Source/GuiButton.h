@@ -36,9 +36,9 @@ public:
 	bool drawBasic = false;
 
 	uint pressed, focused;
-
-public:
 	GuiButtontype button;
+public:
+	
 };
 
 #endif // __GUIBUTTON_H__

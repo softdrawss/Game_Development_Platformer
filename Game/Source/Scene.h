@@ -10,6 +10,9 @@
 #include "NPCChickBoy.h"
 #include "Coin.h"
 #include "Health.h"
+#include "GuiButton.h"
+#include "GuiCheckBox.h"
+#include "GuiSlider.h"
 
 #define MAX_COINS 4
 #define MAX_HEATH 4
@@ -44,6 +47,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void PauseMenu();
+
+	void DrawSettings();
+
 public:
 
 	//L02: DONE 3: Declare a Player attribute 
@@ -66,7 +73,23 @@ public:
 	//Triggers
 	bool door_A;
 	bool trapDoor_A;
+	
+	bool pause = false;
+	GuiButton* B_resume;
+	GuiButton* B_settings;
+	GuiButton* B_back_to_title;
+	GuiButton* B_exit;
+	GuiButton* B_back;
+	
+	//Sliders
+	GuiSlider* S_music;
+	GuiSlider* S_fx;
 
+	//CheckBox
+	GuiCheckBox* C_screen;
+	GuiCheckBox* C_vysinc;
+	bool credits = false, settings = false, exit = false;
+private:
 	SDL_Texture* img;
 
 	//Music XML
@@ -88,7 +111,7 @@ public:
 	char* audioPath;
 	int pickCoinAudio_sfx;
 
-	//Amin
+	//Anim
 	Animation coinUI, healthUI;
 	Animation* coinUIanim;
 	Animation* healthUIanim;	

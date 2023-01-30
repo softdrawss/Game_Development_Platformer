@@ -258,7 +258,7 @@ void App::FinishUpdate()
 
 	static char title[256];
 	sprintf_s(title, 256, " FPS: %d  |  Av.FPS: %.1f  |  dt(ms): %.1f  |  Vsync: %s",
-		 framesPerSecond, averageFps, dt, vsync ? "on" : "off");
+		 framesPerSecond, averageFps, dt, app->debug->controlFPS ? "on" : "off");
 
 	//: FPS / Avg. FPS / Last-frame MS / Vsync: on/of
 	app->win->SetTitle(title);
